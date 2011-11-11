@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "../../../utils/doc/wink_doc.dtd" >
+<?xml-stylesheet type="text/xsl" href="../../../utils/doc/wink_doc.xsl"?>
+<module>
+  <title>Topics (Publish/Subscribe)</title>
+  <name>wink.topics</name>
+  <is_graphical>0</is_graphical>
+  <description>Handles all the event management system of WINK. It acts as a publish/subscribe mechansim. Applications or objects can publish events. Applications or objects can also subscribe to those events and be noticed when the event is fired.</description>
+  <test_pages>
+    <page>
+      <description>When you click on the 'test' button, a '/test/events/alert1' event is fired. The application, which subsribed to this event, will then call a dummy method. The dummy method is in the global scope</description>
+      <url>test_publish_without_scope.html</url>
+    </page>
+    <page>
+      <description>When you click on the 'test' button, a '/test/events/alert1' event is fired. The application, which subsribed to this event, will then call a dummy method. The dummy method is in the scope of a 'Test' object</description>
+      <url>test_publish_with_scope.html</url>
+    </page>
+  </test_pages>
+  <compatibility>Iphone OS2, Iphone OS3, Iphone OS4, Android 1.1, Android 1.5, Android 2.1, Android 2.2, Android 2.3, BlackBerry 6, Bada 1.0</compatibility>
+  <instanciation>
+    <description>Th topics object is a Literal, so it does not need to be instantiated. On the one hand, you can use the 'publish' method to fire events (you can use either 'wink.publish()' or 'wink.topics.publish()'). On the other hand, you can use the 'subscribe' method to listen to the events (you can use either 'wink.subscribe()' or 'wink.topics.subscribe()'). Note that the topics object is case insensitive.</description>
+    <code_sample>
+wink.subscribe('/test/events/alert1', {method: 'dummyMethod1'});
+
+wink.publish('/test/events/alert1', 'value1');
+    </code_sample>
+  </instanciation>
+  <components>
+    <component>
+      <name>wink.topics</name>
+      <description>Handles the event management system</description>
+      <public_methods>
+        <method>
+          <name>publish</name>
+          <description>publish an event to all the subscribers, pass the given parameters to the subscribers</description>
+          <parameters>
+            <parameter>
+              <name>topic</name>
+              <description>the name of the event to fire</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>value</name>
+              <description>the parameters to 'attach' to the fired event. It can be anything, but you SHOULD pass objects</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>subscribe</name>
+          <description>Listen to the given topic, pass a context and a callback method. If the context is null, it is considered as global</description>
+          <parameters>
+            <parameter>
+              <name>topic</name>
+              <description>the name of the event to listen to</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>callback</name>
+              <description>The callback method called when the event related to the topic is triggered. It should contain a 'method' and a 'context'</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>unsubscribe</name>
+          <description>detach from the given topic. The parameters MUST be the same as those used during the 'subscribe' call.</description>
+          <parameters>
+            <parameter>
+              <name>topic</name>
+              <description>the name of the event to listen to</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>callback</name>
+              <description>This parameter should be the same as the one passed through the subscribe method</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+      </public_methods>
+    </component>
+  </components>
+</module>

@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "../../../utils/doc/wink_doc.dtd" >
+<?xml-stylesheet type="text/xsl" href="../../../utils/doc/wink_doc.xsl"?>
+<module>
+  <title>animation</title>
+  <name>wink.fx._animation</name>
+  <is_graphical>0</is_graphical>
+  <description>
+    The animation object is an extension of wink.fx (2d fx) that allows to animate the content.
+    A transition is the change of a property's value over time. An animation is a sequence of steps, each step corresponds to one or several transitions.
+    In addition, there are also the AnimationGroup, which allows multiple animations to start together and then be notified when the group ends.
+    For each animation, it is possible to specify a callback. It is also possible to chain animations.
+  </description>
+  <test_pages>
+    <page>
+      <description>basics : 2 animated nodes in 4 steps.</description>
+      <url>test_animation_simple.html</url>
+    </page>
+    <page>
+      <description>A more advanced example with more nodes and more animations.</description>
+      <url>test_animation_advanced.html</url>
+    </page>
+    <page>
+      <description>Open the yin-yang door with your fingers.</description>
+      <url>test_animation_door.html</url>
+    </page>
+    <page>
+      <description>An animated page transition : flip.</description>
+      <url>test_animation_page_flip.html</url>
+    </page>
+    <page>
+      <description>An animated page transition : fly.</description>
+      <url>test_animation_page_fly.html</url>
+    </page>
+    <page>
+      <description>An animated page transition : tip.</description>
+      <url>test_animation_page_tip.html</url>
+    </page>
+    <page>
+      <description>An animated page transition : wave.</description>
+      <url>test_animation_page_wave.html</url>
+    </page>
+    <page>
+      <description>Let us guide you through the history of StarWink.</description>
+      <url>test_animation_starwink.html</url>
+    </page>
+  </test_pages>
+  <compatibility>Iphone OS2, Iphone OS3, Iphone OS4, Android 1.5, Android 2.1, Android 2.2, Android 2.3, Bada 1.0</compatibility>
+  <instanciation>
+    <description>The animation object is a Literal, so it did not need to be instantiated. However it is necessary to instantiate the two components Animation and AnimationGroup</description>
+    <code_sample>
+var node1 = $('nodeId1'), node2 = $('nodeId2'), node3 = $('nodeId3'), node4 = $('nodeId4'), node5 = $('nodeId5'), node6 = $('nodeId6');
+
+wink.fx.fadeOut(node1);
+wink.fx.animate(node2, { property: 'background-color', value: '#000', duration: 500 });
+
+var anim = new wink.fx.animation.Animation();
+anim.addStep({ property: 'opacity', value: 0.9, duration: 500, delay: 1000, func: 'linear' });
+anim.start(node3);
+anim.start(node4);
+
+var anim2 = new wink.fx.animation.Animation();
+var anim3 = new wink.fx.animation.Animation();
+anim2.addStep({ property: 'color', value: 'green', duration: 2000, delay: 3000, func: 'default' });
+anim3.addStep({ property: 'color', value: 'blue', duration: 2000, delay: 3000, func: 'default' });
+
+var animGroup = new wink.fx.animation.AnimationGroup();
+animGroup.addAnimation(node5, anim2);
+animGroup.addAnimation(node6, anim3);
+animGroup.start();
+    </code_sample>
+  </instanciation>
+  <components>
+    <component>
+      <name>wink.fx._animation</name>
+      <description>The animation component</description>
+      <public_methods>
+      	<method>
+          <name>animate</name>
+          <description>Generic method to animate a node via one or several transitions</description>
+          <parameters>
+            <parameter>
+              <name>node</name>
+              <description>the node to animate</description>
+              <type>DOM node</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>transitions</name>
+              <description>an object (or an array of objects) that constructs a transition : { property, value, duration, delay, func }. Note: the value may be a callback</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>options</name>
+              <description>{ start: false to prevent the animation to start (useful when chaining animations: the sequence of animation should be started when the definition of the sequence is performed), onEnd: callback that will be invoked at the end of the transition }</description>
+              <type>object</type>
+              <is_optional>1</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>fadeIn</name>
+          <description>This is a use case of 'wink.fx.animate' on opacity property that passes to 1</description>
+          <parameters>
+            <parameter>
+              <name>node</name>
+              <description>the node to animate</description>
+              <type>DOM node</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>options</name>
+              <description>{ start: false to prevent the animation to start, onEnd: callback that will be invoked at the end of the transition, duration: the duration of the animation, delay: the delay before starting animation, func: the transition function to apply }</description>
+              <type>object</type>
+              <is_optional>1</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>fadeOut</name>
+          <description>This is a use case of 'wink.fx.animate' on opacity property that passes to 0</description>
+          <parameters>
+            <parameter>
+              <name>node</name>
+              <description>the node to animate</description>
+              <type>DOM node</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>options</name>
+              <description>{ start: false to prevent the animation to start, onEnd: callback that will be invoked at the end of the transition, duration: the duration of the animation, delay: the delay before starting animation, func: the transition function to apply }</description>
+              <type>object</type>
+              <is_optional>1</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>collapse</name>
+          <description>Lets have a gravitational collapse on a node. This method splits the node into multiple rectangles that are directed toward the specified point. The source node is not changed, only its opacity goes to 0.</description>
+          <parameters>
+            <parameter>
+              <name>node</name>
+              <description>the node to collapse</description>
+              <type>DOM node</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>options</name>
+              <description>{ rows: the number of rows, cols: the number of columns, duration: [optional] the duration of the effect (default is 2000), x: the x coordinate of the starting point of the effect, y: the y coordinate of the starting point of the effect, dx: the x coordinate of the destination point of the effect, dy: the y coordinate of the destination point of the effect, onEnd: [optional] the callback of the end of the effect }</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>split</name>
+          <description>Returns a clone structure that identifies the copy splited into subparts. cloneStructure: { rows, cols, source, copy: { subH: null, subW: null, container: { node: null }, subparts: [] } }</description>
+          <parameters>
+            <parameter>
+              <name>node</name>
+              <description>the node to split</description>
+              <type>DOM node</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>rows</name>
+              <description>the number of rows</description>
+              <type>integer</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>cols</name>
+              <description>the number of colums</description>
+              <type>integer</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+      </public_methods>
+    </component>
+    <component>
+      <name>wink.fx.animation.Animation</name>
+      <description>The Animation component: a sequence of steps, each step corresponds to one or several transitions.</description>
+      <public_methods>
+        <method>
+          <name>addStep</name>
+          <description>Adds a step to the animation with one or several transitions</description>
+          <parameters>
+            <parameter>
+              <name>propList</name>
+              <description>an object (or an array of objects) that constructs a transition : { property, value, duration, delay, func }. Note: the value may be a callback</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>start</name>
+          <description>Starts the animation on the given node. An animation may be started on multiple nodes.</description>
+          <parameters>
+            <parameter>
+              <name>node</name>
+              <description>the node on which the animation must be applied, may be optional if one was specified at instanciation</description>
+              <type>DOM Node</type>
+              <is_optional>1</is_optional>
+            </parameter>
+            <parameter>
+              <name>options</name>
+              <description>{ onEnd: the callback of the animation which will be invoked at the end of the animation }</description>
+              <type>object</type>
+              <is_optional>1</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>getSteps</name>
+          <description>Returns the animation steps</description>
+        </method>
+        <method>
+          <name>chain</name>
+          <description>This method allows to continue an animation with another one. It returns the current animation. It is recommended to use addStep() to string together steps on the same node. However, this method is useful to chain several animations on different nodes. The sequence of animations involves prevent the start on each one. The animation should be started when the definition of the sequence is performed.</description>
+          <parameters>
+            <parameter>
+              <name>animation</name>
+              <description>the animation to chain</description>
+              <type>wink.fx.animation.Animation</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>uId</name>
+          <description>The unique identifier of the component.</description>
+          <type>integer</type>
+        </property>
+      </public_properties>
+    </component>
+    <component>
+      <name>wink.fx.animation.AnimationGroup</name>
+      <description>The AnimationGroup component: a set of animations</description>
+      <public_methods>
+        <method>
+          <name>addAnimation</name>
+          <description>Adds the given animation to the group</description>
+          <parameters>
+            <parameter>
+              <name>node</name>
+              <description>the node associated to the animation</description>
+              <type>DOM Node</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>animation</name>
+              <description>the animation that will comprise the group</description>
+              <type>wink.fx.animation.Animation</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>start</name>
+          <description>Starts the animation group</description>
+          <parameters>
+            <parameter>
+              <name>options</name>
+              <description>{ onEnd: the callback of the animation group which will be invoked at the end of the animation group }</description>
+              <type>object</type>
+              <is_optional>1</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>clear</name>
+          <description>Allows to clear the group</description>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>uId</name>
+          <description>The unique identifier of the component.</description>
+          <type>integer</type>
+        </property>
+      </public_properties>
+    </component>
+  </components>
+</module>

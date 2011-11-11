@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "../../../utils/doc/wink_doc.dtd" >
+<?xml-stylesheet type="text/xsl" href="../../../utils/doc/wink_doc.xsl"?>
+<module>
+  <title>HTTP requests (Xhr)</title>
+  <name>wink.net.Xhr</name>
+  <is_graphical>0</is_graphical>
+  <description>The Xhr component can be used to build XmlHttpRequests and send HTTP requests. It supports both GET and POST methods.</description>
+  <test_pages>
+    <page>
+      <description>This test page sends a GET request at the page load. If the request succeeds, it will issue a 'content loaded' alert. Otherwise, you will receive an 'Unable to load the page' message.</description>
+      <url>test_xhr.html</url>
+    </page>
+  </test_pages>
+  <compatibility>Iphone OS2, Iphone OS3, Iphone OS4,Android 1.1, Android 1.5, Android 2.1, Android 2.2, Android 2.3, BlackBerry 6, Bada 1.0</compatibility>
+  <instanciation>
+    <description>The Xhr constructor can optionaly take properties that will be stored (to be used within the callback methods for instance). To send a request, use the 'sendData' method</description>
+    <code_sample>
+var parameters = 
+[
+	{name: 'parameter1', value: 'test1'},
+	{name: 'parameter2', value: 'test2'}
+]
+
+xhr = new wink.Xhr();  	
+xhr.sendData('test_xhr.html', parameters, 'GET', {method: 'onsuccess'}, {method: 'onfailure'}, null);
+
+onsuccess = function(result)
+{
+	...
+}
+
+onfailure = function(result)
+{
+	...
+}
+    </code_sample>
+  </instanciation>
+  <components>
+    <component>
+      <name>wink.net.Xhr</name>
+      <description>The object that handles the creation of the XMLHttpRequest object and is responsible for sending the data over the network</description>
+      <public_methods>
+        <method>
+          <name>sendData</name>
+          <description>send the HTTP request</description>
+          <parameters>
+            <parameter>
+              <name>url</name>
+              <description>The target address of the HTTP request</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>parameters</name>
+              <description>An array containing the list of parameters to be sent within the HTTP request. Each parameter must be an object containing a 'name' and a 'value'. If no parameter is needed, 'parameters' should be null</description>
+              <type>array</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>method</name>
+              <description>Specifies the HTTP method to use. It can be either 'GET' or 'POST'</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>successCallback</name>
+              <description>the method to call in case of success. The 'callback' is an object that must contain a 'method' and a 'scope'. If the callback is not needed, it should be set to null.</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>failureCallback</name>
+              <description>the method to call in case of failure. The 'callback' is an object that must contain a 'method' and a 'scope'. If the callback is not needed, it should be set to null.</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>headers</name>
+              <description>An array containing the list of HTTP headers to be sent within the HTTP request. Each parameter must be an object containing a 'name' and a 'value'. If no parameter is needed, 'parameters' should be null</description>
+              <type>array</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>uId</name>
+          <description>The unique identifier of the component</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>request</name>
+          <description>An object containing the actual XMLHttpRequest and optionally parameters</description>
+          <type>object</type>
+        </property>
+      </public_properties>
+    </component>
+  </components>
+</module>

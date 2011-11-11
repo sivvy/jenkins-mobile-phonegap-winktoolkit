@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "../../../../utils/doc/wink_doc.dtd" >
+<?xml-stylesheet type="text/xsl" href="../../../../utils/doc/wink_doc.xsl"?>
+<module>
+  <title>Scroller</title>
+  <name>wink.ui.layout.Scroller</name>
+  <is_graphical>0</is_graphical>
+  <description>
+    The Scroller allows to scroll vertically or horizontally a content ; it prevents the native scroll.
+    It is associated with an element of the Web page as a target.
+    Its operation relies on the Inertia component which provides the information necessary for the production of a movement 
+    taking into account the speed of user movement.
+    The user should be warned about the fact that the size of the viewable area (Viewport) and the size of the scrollable area may be carefully parameterized (see "updateTargetSize" and "updateViewportSize" methods).
+    Indeed, the size of these areas is useful for determining the edges of the component and whether scrolling is possible.
+    For this, it is possible to use the public method "autorefresh" to let the component handle changes of the content, which impacts the size of the scrollable area.
+    Moreover, in order to manage the viewport size changes, this module can be eventually associated with the Window component.
+    Secondly, it is possible to configure the display of scrollbars, and especially it is possible to specify callbacks during the various stages of scrolling.
+  </description>
+  <test_pages>
+    <page>
+      <description>This test page shows a vertical Scroller with a fixed horizontal bar at the top. The content is a list of items that can be activated by touch.</description>
+      <url>test_scroller.html</url>
+    </page>
+    <page>
+      <description>This test page shows an horizontal Scroller with a fixed horizontal bar at the bottom. The content is a list of cards with text and images. At the end of a transition, it centers on the nearest card.</description>
+      <url>test_scroller2.html</url>
+    </page>
+    <page>
+      <description>This test shows two frames of content, which are scrollable in both directions.</description>
+      <url>test_scroller3.html</url>
+    </page>
+    <page>
+      <description>This test shows a Scroller with a rich content, a fixed bar at the top, an other at the bottom.</description>
+      <url>test_scroller4.html</url>
+    </page>
+    <page>
+      <description>This test shows an IPad example with 2 scrollers.</description>
+      <url>test_scroller_ipad.html</url>
+    </page>
+  </test_pages>
+  <compatibility>Iphone OS2 (slow), Iphone OS3, Iphone OS4, Android 1.5, Android 2.1, Android 2.2, Android 2.3, BlackBerry 6, Bada 1.0</compatibility>
+  <dependencies>
+    <dependency>
+      <module_name>wink.ux.MovementTracker</module_name>
+    </dependency>
+    <dependency>
+      <module_name>wink.ux.Inertia</module_name>
+    </dependency>
+  </dependencies>
+  <instanciation>
+    <description></description>
+    <properties>
+      <property>
+        <name>target</name>
+        <description>The target node identifier</description>
+        <type>string</type>
+        <is_optional>0</is_optional>
+      </property>
+      <property>
+        <name>direction</name>
+        <description>The direction of the scrollable area - possible values are "x", "y", or "xy"</description>
+        <type>string</type>
+        <is_optional>0</is_optional>
+      </property>
+      <property>
+        <name>friction</name>
+        <description>Value that determines the friction forces and influences the deceleration of the movement (value between 1 and 100)</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>captureFlow</name>
+        <description>indicates whether the capture event flow is used (default: true)</description>
+        <type>boolean</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>callbacks</name>
+        <description>This identifies the callback functions invoked at different stages of the scroll. Callbacks names are : scrollerTouched, startScrolling, scrolling, endScrolling, startSliding, stopSliding</description>
+        <type>object</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>scrollbars</name>
+        <description>
+          {
+            active: Indicates whether the scrollbars are activated (false is recommended when the performance of the device are low),
+            width: width of the scrollbar,
+            backgroundColor: the background color of the scrollbar,
+            borderColor: the border color of the scrollbar,
+            opacityTransition: a boolean that indicates whether an opacity transition must be set
+          }
+        </description>
+        <type>object</type>
+        <is_optional>1</is_optional>
+      </property>
+    </properties>
+    <code_sample>
+var properties = {
+	target: "targetElementId",
+	direction: "y",
+	viewportSizeX: 320,
+	viewportSizeY: 306
+};
+scroller = new wink.ui.layout.Scroller(properties);
+    </code_sample>
+  </instanciation>
+  <components>
+    <component>
+      <name>wink.ui.layout.Scroller</name>
+      <description>The Scroller component</description>
+      <public_methods>
+        <method>
+          <name>updateTargetSize</name>
+          <description>Updates target sizes; To Call when target size change. Without parameters, it takes the offsets of the target DOM Node</description>
+          <parameters>
+            <parameter>
+              <name>sizeX</name>
+              <description>The target size on x</description>
+              <type>integer</type>
+              <is_optional>1</is_optional>
+            </parameter>
+            <parameter>
+              <name>sizeY</name>
+              <description>The target size on y</description>
+              <type>integer</type>
+              <is_optional>1</is_optional>
+            </parameter>
+            <parameter>
+              <name>recheck</name>
+              <description>indicates whether there should be an audit delayed to ensure that the size of the content has not changed (useful in cases where the content is not completely loaded)</description>
+              <type>boolean</type>
+              <is_optional>1</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>updateViewportSize</name>
+          <description>Updates viewport sizes ; To call when the viewport change. Without parameters, it takes the client sizes of the target parent</description>
+          <parameters>
+            <parameter>
+              <name>viewportSizeX</name>
+              <description>size of the viewport on x</description>
+              <type>integer</type>
+              <is_optional>1</is_optional>
+            </parameter>
+            <parameter>
+              <name>viewportSizeY</name>
+              <description>size of the viewport on y</description>
+              <type>integer</type>
+              <is_optional>1</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>updateShiftBounds</name>
+          <description>Updates the shift at bounds of the scrollable area</description>
+          <parameters>
+            <parameter>
+              <name>originY</name>
+              <description>the shift at origin</description>
+              <type>integer</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>limitY</name>
+              <description>the shift at limit</description>
+              <type>integer</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>autoRefresh</name>
+          <description>Allows to let the component handle changes of the content, which impacts the size of the scrollable area.</description>
+          <parameters>
+            <parameter>
+              <name>options</name>
+              <description>{ active: true to activate the auto-management, false otherwise ; checkDelay: the number of milliseconds before rechecking the size of the content, 0 to indicate that no further verification is necessary }</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>scrollTo</name>
+          <description>Scroll explicitly to the given position</description>
+          <parameters>
+            <parameter>
+              <name>x</name>
+              <description>The x targeted coordinate</description>
+              <type>number</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>y</name>
+              <description>The y targeted coordinate</description>
+              <type>number</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>duration</name>
+              <description>The duration of the scroll</description>
+              <type>integer</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>backToBounds</name>
+          <description>Force explicitly the scroller to go back to bounds if necessary</description>
+        </method>
+        <method>
+          <name>getPosition</name>
+          <description>Returns the scroll position as { x, y }</description>
+        </method>
+        <method>
+          <name>getViewProperties</name>
+          <description>Returns the view properties</description>
+        </method>
+        <method>
+          <name>enable</name>
+          <description>Allows to enable scrolling (enabled by default).</description>
+        </method>
+        <method>
+          <name>disable</name>
+          <description>Allows to disable scrolling. This can be useful if another component must take control, or if you want to reactivate the default behavior when the touch occurs on certain elements (after the scrollerTouched callback).</description>
+        </method>
+        <method>
+          <name>destroy</name>
+          <description>Destroys the component</description>
+        </method>
+        <method>
+          <name>changeContext</name>
+          <description>Changes the context of the component ; a single Scroller can thus be used for multiple content (eg in order to optimize performance)</description>
+          <parameters>
+            <parameter>
+              <name>properties</name>
+              <description>the same object as to initialize the component</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>uId</name>
+          <description>The unique identifier of the component.</description>
+          <type>integer</type>
+        </property>
+      </public_properties>
+    </component>
+    <component>
+      <name>wink.ui.layout.Scroller.Scrollbar</name>
+      <description>Implements a Scrollbar for the Scroller</description>
+      <public_methods>
+        <method>
+          <name>getDomNode</name>
+          <description>Returns the DOM node of the component</description>
+        </method>
+        <method>
+          <name>updateSize</name>
+          <description>Updates the size of the scrollbar</description>
+          <parameters>
+            <parameter>
+              <name>viewportSize</name>
+              <description>the viewport size</description>
+              <type>number</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>contentSize</name>
+              <description>the content size</description>
+              <type>number</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>updatePosition</name>
+          <description>Updates the position of the scrollbar</description>
+          <parameters>
+            <parameter>
+              <name>viewX</name>
+              <description>the position of the viewport on x-axis</description>
+              <type>number</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>viewY</name>
+              <description>the position of the viewport on y-axis</description>
+              <type>number</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>show</name>
+          <description>Shows the scrollbar</description>
+        </method>
+        <method>
+          <name>hide</name>
+          <description>Hides the scrollbar</description>
+          <parameters>
+            <parameter>
+              <name>delay</name>
+              <description>the delay before hiding (only when opacity transition is active)</description>
+              <type>integer</type>
+              <is_optional>1</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>applyTransition</name>
+          <description>Applies a transition on the scrollbar</description>
+          <parameters>
+            <parameter>
+              <name>duration</name>
+              <description>the duration of the transition</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>delay</name>
+              <description>the delay of the transition</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>func</name>
+              <description>the function of the transition</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>uId</name>
+          <description>The unique identifier of the component.</description>
+          <type>integer</type>
+        </property>
+      </public_properties>
+    </component>
+  </components>
+</module>

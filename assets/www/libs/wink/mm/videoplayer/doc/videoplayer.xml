@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "../../../utils/doc/wink_doc.dtd" >
+<?xml-stylesheet type="text/xsl" href="../../../utils/doc/wink_doc.xsl"?>
+<module>
+  <title>Video player</title>
+  <name>wink.mm.VideoPlayer</name>
+  <is_graphical>1</is_graphical>
+  <description>An video player based on the HTML5 video tag</description>
+  <test_pages>
+    <page>
+      <description>This test page creates a video player. The video file can be changed by clicking on the "switch to video" buttons.</description>
+      <url>test_videoplayer.html</url>
+    </page>
+  </test_pages>
+  <compatibility>Ipad</compatibility>
+  <instanciation>
+    <description>The video player can take several parameters. It takes at least a video file url but it can also take various parameters to change the player look and behaviour. Use the getDomNode method to add the player to the page</description>
+    <properties>
+      <property>
+        <name>source.type</name>
+        <description>either 'stream' or 'file'</description>
+        <type>string</type>
+        <is_optional>0</is_optional>
+      </property>
+      <property>
+        <name>source.url</name>
+        <description>the url of the video file to load</description>
+        <type>string</type>
+        <is_optional>0</is_optional>
+      </property>
+      <property>
+        <name>source.height</name>
+        <description>the height in pixels of the video to dispaly</description>
+        <type>integer</type>
+        <is_optional>0</is_optional>
+      </property>
+      <property>
+        <name>source.width</name>
+        <description>the width in pixels of the video to dispaly</description>
+        <type>integer</type>
+        <is_optional>0</is_optional>
+      </property>
+      <property>
+        <name>source.poster</name>
+        <description>the url of the image to dispaly before playing the video</description>
+        <type>string</type>
+        <is_optional>0</is_optional>
+      </property>
+      <property>
+        <name>customControls</name>
+        <description>specify if the player should display the native controls or the custom controls. The default value is 1</description>
+        <type>string</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>displayControls</name>
+        <description>specify if the play/pause buttons should be displayed. The default value is 1</description>
+        <type>string</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>displayDuration</name>
+        <description>dispaly the time left and the duration of the file. The default value is 1</description>
+        <type>string</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>displayCursor</name>
+        <description>specify if the cursor (to manually navigate through the video file) should be displayed. The default value is 1</description>
+        <type>string</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>silentSeeking</name>
+        <description>the video is stopped while the cursor is moved. The default value is 1</description>
+        <type>string</type>
+        <is_optional>1</is_optional>
+      </property>
+    </properties>
+    <code_sample>
+var properties =
+{
+	source:
+	{
+		type: 'file',
+		url: './files/sintel.mp4',
+		height: 270,
+		width: 480,
+		poster: './img/poster1.jpg'
+	},
+
+	customControls: 1,
+	displayControls: 1,
+	displayDuration: 1,
+	displayCursor: 1,
+	silentSeeking: 1
+};
+
+videoPlayer = new wink.mm.VideoPlayer(properties);
+
+$('video').appendChild(videoPlayer.getDomNode());
+    </code_sample>
+  </instanciation>
+  <components>
+    <component>
+      <name>wink.mm.VideoPlayer</name>
+      <description>the Video player</description>
+      <public_methods>
+        <method>
+          <name>play</name>
+          <description>start playing the current video file</description>
+        </method>
+        <method>
+          <name>pause</name>
+          <description>stop the current video file play</description>
+        </method>
+        <method>
+          <name>forward</name>
+          <description>change the current video time</description>
+          <parameters>
+            <parameter>
+              <name>seconds</name>
+              <description>the number of seconds to change (+: forward ; -: rewind)</description>
+              <type>real</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>changeSource</name>
+          <description>change the current video file</description>
+          <parameters>
+            <parameter>
+              <name>type</name>
+              <description>either 'file' or 'stream'</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>url</name>
+              <description>the file to be played</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>height</name>
+              <description>the height of the video</description>
+              <type>integer</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>width</name>
+              <description>the width of the video</description>
+              <type>integer</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>poster</name>
+              <description>the image to dispaly before playing the video</description>
+              <type>string</type>
+              <is_optional>1</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>getDomNode</name>
+          <description>return the dom node containing the video player</description>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>uId</name>
+          <description>unique identifier of the component</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>state</name>
+          <description>the current state of the player (either 'play' or 'pause')</description>
+          <type>string</type>
+        </property>
+        <property>
+          <name>source</name>
+          <description>the current video source</description>
+          <type>object</type>
+        </property>
+        <property>
+          <name>customControls</name>
+          <description>whether the player displays the native controls or the custom controls</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>displayControls</name>
+          <description>whether the play/pause button is displayed</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>displayDuration</name>
+          <description>whether the time left and the duration of the file are displayed</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>displayCursor</name>
+          <description>whether the cursor is displayed</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>silentSeeking</name>
+          <description>whether the audio is stopped while the cursor is moved</description>
+          <type>integer</type>
+        </property>
+      </public_properties>
+      <events>
+        <event>
+          <name>/videoplayer/events/play</name>
+          <description>The user clicked on the play button</description>
+        </event>
+        <event>
+          <name>/videoplayer/events/pause</name>
+          <description>The user clicked on the pause button</description>
+        </event>
+      </events>
+    </component>
+  </components>
+  <styles>
+    <classes>
+      <class>
+        <name>vp_container</name>
+        <description>the main DOM node of the video player</description>
+      </class>
+      <class>
+        <name>vp_video_container</name>
+        <description>the container of the video tag</description>
+      </class>
+      <class>
+        <name>vp_video</name>
+        <description>the video tag</description>
+      </class>
+      <class>
+        <name>vp_player</name>
+        <description>the controls and bars container</description>
+      </class>
+      <class>
+        <name>vp_progress_container</name>
+        <description>the progress bar and buffering bar container</description>
+      </class>
+      <class>
+        <name>vp_progress</name>
+        <description>the progress bar</description>
+      </class>
+      <class>
+        <name>vp_buffering_bar</name>
+        <description>the buffering bar</description>
+      </class>
+      <class>
+        <name>vp_cursor</name>
+        <description>the cursor</description>
+      </class>
+      <class>
+        <name>vp_duration</name>
+        <description>the file duration and current time display</description>
+      </class>
+    </classes>
+  </styles>
+</module>

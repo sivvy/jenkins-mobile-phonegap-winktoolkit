@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "../../../../utils/doc/wink_doc.dtd" >
+<?xml-stylesheet type="text/xsl" href="../../../../utils/doc/wink_doc.xsl"?>
+<module>
+  <title>Spinner</title>
+  <name>wink.ui.xy.Spinner</name>
+  <is_graphical>1</is_graphical>
+  <description>Implement and display a Spinner</description>
+  <test_pages>
+    <page>
+      <description>diplsays the 2 types of spinners on the screen (dark and light backgrounds)</description>
+      <url>test_spinner.html</url>
+    </page>
+  </test_pages>
+  <compatibility>Iphone OS2, Iphone OS3, Iphone OS4, Android 1.5, Android 2.1, Android 2.2, Android 2.3, BlackBerry 6, Bada 1.0</compatibility>
+  <instanciation>
+    <description>
+    	To instantiate the spinner, you should specify the image you want to see. 
+    	It can be "light","dark" or "personal".
+    	If you choose "personal", you must specify the image yourself in the properties (adding a "backgroundImage" to the properties). In this case, the background image should be of that form: "data:image/[gif/png/jpeg];base64,[base64 image content]"
+    	Use the 'getDomNode' method to add it to your page.
+    </description>
+    <properties>
+      <property>
+        <name>background</name>
+        <description>type of background</description>
+        <type>string</type>
+        <is_optional>0</is_optional>
+      </property>
+      <property>
+        <name>backgroundImage</name>
+        <description>personal image for the background</description>
+        <type>string</type>
+        <is_optional>1</is_optional>
+      </property>
+    </properties>
+    <code_sample>
+var spinnerProperties = 
+{
+	background: "light"
+}
+ 		
+var spinner = new wink.ui.xy.Spinner(spinnerProperties);
+ 		
+$('white').appendChild(spinner.getDomNode());
+    </code_sample>
+  </instanciation>
+  <components>
+    <component>
+      <name>wink.ui.xy.Spinner</name>
+      <description>creates the Spinner</description>
+      <public_methods>
+        <method>
+          <name>getDomNode</name>
+          <description>Returns the main DOM node of the Spinner</description>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>uId</name>
+          <description>unique identifier of the component</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>size</name>
+          <description>the size of the spinner</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>background</name>
+          <description>type of background (either "dark", "light" or "personal")</description>
+          <type>string</type>
+        </property>
+        <property>
+          <name>backgroundImage</name>
+          <description>the spinner image (in case the background was declared as "personal")</description>
+          <type>string</type>
+        </property>
+      </public_properties>
+    </component>
+  </components>
+  <styles>
+    <classes>
+      <class>
+        <name>sp_spinner</name>
+        <description>the main class of the spinner (linked to 'spinner-keyframes')</description>
+      </class>
+    </classes>
+  </styles>
+</module>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "../../../../utils/doc/wink_doc.dtd" >
+<?xml-stylesheet type="text/xsl" href="../../../../utils/doc/wink_doc.xsl"?>
+<module>
+  <title>Date picker</title>
+  <name>wink.ui.xy.DatePicker</name>
+  <is_graphical>1</is_graphical>
+  <description>Displays a calendar. The user can select a date by clicking on a day.</description>
+  <test_pages>
+    <page>
+      <description>Click on the 'show calendar' button to display the date picker. When the user selects a day, it will be displayed in the input field next to the button.</description>
+      <url>test_datepicker.html</url>
+    </page>
+  </test_pages>
+  <compatibility>Iphone OS2, Iphone OS3, Iphone OS4, Android 1.1, Android 1.5, Android 2.1, Android 2.2, Android 2.3, BlackBerry 6, Bada 1.0</compatibility>
+  <instanciation>
+    <description>The DatePicker is a singleton, it needs to be instantiated only once. No parameter is needed. To display the date picker, call the 'show' method. To be informed of a date pick, the application must listen to the '/datepicker/events/pickdate' event.</description>
+    <code_sample>
+datepicker = new wink.ui.xy.DatePicker();
+ 	
+datepicker.show();
+    </code_sample>
+  </instanciation>
+  <components>
+    <component>
+      <name>wink.ui.xy.DatePicker</name>
+      <description>Create the date picker DOM node and fires events when a date is selected</description>
+      <public_methods>
+        <method>
+          <name>show</name>
+          <description>display the date picker</description>
+        </method>
+        <method>
+          <name>hide</name>
+          <description>hide the date picker</description>
+        </method>
+        <method>
+          <name>updatePosition</name>
+          <description>update the position of the date picker and places it at the center of the page</description>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>uId</name>
+          <description>The unique identifier of the component</description>
+          <type>integer</type>
+        </property>
+      </public_properties>
+      <events>
+        <event>
+          <name>/datepicker/events/pickdate</name>
+          <description>The user clicked on a date</description>
+          <return>
+            <property>
+              <name>date</name>
+              <description>the JavaScript Date object representing the day on which the user clicked</description>
+              <type>object</type>
+            </property>
+          </return>
+        </event>
+      </events>
+    </component>
+  </components>
+  <styles>
+    <classes>
+      <class>
+        <name>dp_datepicker</name>
+        <description>The class of the date picker</description>
+      </class>
+      <class>
+        <name>dp_navigation</name>
+        <description>The class of the navigation system (to navigate through months)</description>
+      </class>
+      <class>
+        <name>dp_previous</name>
+        <description>The class of the 'previous' arrow</description>
+      </class>
+      <class>
+        <name>dp_next</name>
+        <description>The class of the 'next' arrow</description>
+      </class>
+      <class>
+        <name>dp_month</name>
+        <description>The class of the month display</description>
+      </class>
+      <class>
+        <name>dp_days_container</name>
+        <description>The class for the section containing the days of the week</description>
+      </class>
+      <class>
+        <name>dp_days</name>
+        <description>The class for a day of the week</description>
+      </class>
+      <class>
+        <name>dp_dates_container</name>
+        <description>The class for the section containing the days numbers</description>
+      </class>
+      <class>
+        <name>dp_date</name>
+        <description>The class for a date</description>
+      </class>
+      <class>
+        <name>dp_today</name>
+        <description>The class for the current day</description>
+      </class>
+      <class>
+        <name>dp_finished</name>
+        <description>The class for the days which are over</description>
+      </class>
+    </classes>
+  </styles>
+</module>

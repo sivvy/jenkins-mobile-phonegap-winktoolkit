@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "../../../utils/doc/wink_doc.dtd" >
+<?xml-stylesheet type="text/xsl" href="../../../utils/doc/wink_doc.xsl"?>
+<module>
+  <title>3d fx</title>
+  <name>wink.fx._xyz</name>
+  <is_graphical>0</is_graphical>
+  <description>
+  	The 3d fx object is an extension of wink.fx (2d fx) that allows more advanced transformations (e.g.: simple or composed 3d transformations).
+	Because a change of scale followed by a translation does not give the same result if you reverse the two transformations, 
+	the main role is to simplify the implementation of composed transformations, it is made by using a user-defined order.
+	
+	A 3d fx transformation is defined as : 
+  	    xyz-transformation: {
+			type: value in { "translate", "scale", "rotate" }
+			x: x transformation component
+			y: y transformation component
+			z: z transformation component
+			[angle: rotation angle ]
+		}
+  </description>
+  <test_pages>
+    <page>
+      <description>A 2d basic use : a movable box. Adapted from the 2d fx test page, this example implements the use case with a composed transformation (scale and translate).</description>
+      <url>test_xyz.html</url>
+    </page>
+  </test_pages>
+  <compatibility>Iphone OS2, Iphone OS3, Iphone OS4</compatibility>
+  <dependencies>
+  	<dependency>
+      <module_name>wink.math._matrix</module_name>
+    </dependency>
+  </dependencies>
+  <instanciation>
+    <description>the 3d fx object is a Literal, so it did not need to be instantiated.</description>
+    <code_sample>
+var node = $("nodeId");
+wink.fx.initComposedTransform(node);
+wink.fx.setTransformPart(node, 1, { type: "scale", x: 1.2, y: 1.2, z: 1 });
+wink.fx.setTransformPart(node, 2, { type: "translate", x: 50, y: 50, z: 0 });
+wink.fx.applyComposedTransform(node);
+    </code_sample>
+  </instanciation>
+  <components>
+    <component>
+      <name>wink.fx._xyz</name>
+      <description>The 3d fx component</description>
+      <public_methods>
+      	<method>
+          <name>set3dTransform</name>
+          <description>Independent function that applies a transformation to the given node</description>
+          <parameters>
+            <parameter>
+              <name>node</name>
+              <description>the node to transform</description>
+              <type>DOM node</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>transformation</name>
+              <description>The 3d fx transformation</description>
+              <type>xyz-transformation</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>keepCurrent</name>
+              <description>Indicates whether the previous node transformation must be kept</description>
+              <type>boolean</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>initComposedTransform</name>
+          <description>Initialize a composed transformation to the given node (Do nothing alone).</description>
+          <parameters>
+            <parameter>
+              <name>node</name>
+              <description>the node to transform</description>
+              <type>DOM node</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>keepCurrent</name>
+              <description>Indicates whether the previous node transformation must be kept</description>
+              <type>boolean</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>setTransformPart</name>
+          <description>Set a composed transformation part at the given index (order of transformations is important).</description>
+          <parameters>
+            <parameter>
+              <name>node</name>
+              <description>the node to transform</description>
+              <type>DOM node</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>index</name>
+              <description>the index of the given transformation part</description>
+              <type>integer</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>transformation</name>
+              <description>The xyz transformation</description>
+              <type>xyz-transformation</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>applyComposedTransform</name>
+          <description>Apply a composed transformation to the node</description>
+          <parameters>
+            <parameter>
+              <name>node</name>
+              <description>the node to transform</description>
+              <type>DOM node</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>store</name>
+              <description>Indicates whether transformation parts must be stored in only one (to enhance performance).</description>
+              <type>boolean</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>storeComposedTransform</name>
+          <description>Store all the composed transformation parts in one to enhance performance.</description>
+          <parameters>
+            <parameter>
+              <name>node</name>
+              <description>the node to transform</description>
+              <type>DOM node</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>removeComposedTransform</name>
+          <description>Close the composed transformation associated to the given node in order to free memory (the node remains in the same state)</description>
+          <parameters>
+            <parameter>
+              <name>node</name>
+              <description>the node that has undergone a transformation</description>
+              <type>DOM node</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+      </public_methods>
+    </component>
+  </components>
+</module>

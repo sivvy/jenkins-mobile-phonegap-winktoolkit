@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "../../../utils/doc/wink_doc.dtd" >
+<?xml-stylesheet type="text/xsl" href="../../../utils/doc/wink_doc.xsl"?>
+<module>
+  <title>JavaScript loader</title>
+  <name>wink.net.JsLoader</name>
+  <is_graphical>0</is_graphical>
+  <description>Load JS files and warn the user when the task is complete</description>
+  <test_pages>
+    <page>
+      <description>Loads 3 scripts at startup. An alert is fired once the scripts have been loaded</description>
+      <url>test_jsloader.html</url>
+    </page>
+  </test_pages>
+  <compatibility>Iphone OS2, Iphone OS3, Iphone OS4, Android 1.1, Android 1.5, Android 2.1, Android 2.2, Android 2.3, BlackBerry 6, Bada 1.0</compatibility>
+  <instanciation>
+    <description>The JsLoader object doesn't take any entry parameter. Use the 'load' method to start loading datas. The JsLoader is a singleton and only need to be instantiated once.</description>
+    <code_sample>
+datas = new Array('../../../_base/_dom/js/dom.js', '../../../_base/json/js/json.js', './false.js');
+  	
+jsLoader = new wink.net.JsLoader();
+
+jsLoader.load(datas);
+    </code_sample>
+  </instanciation>
+  <components>
+    <component>
+      <name>wink.net.JsLoader</name>
+      <description>load the scripts</description>
+      <public_methods>
+        <method>
+          <name>load</name>
+          <description>Start processing the datas. It can be a single script source or an array of script sources</description>
+          <parameters>
+            <parameter>
+              <name>data</name>
+              <description>the script(s) you want to preload. It must be a string or an array of strings</description>
+              <type>array/string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>uId</name>
+          <description>unique identifier of the component</description>
+          <type>integer</type>
+        </property>
+      </public_properties>
+      <events>
+        <event>
+          <name>/jsloader/events/loadstart</name>
+          <description>starts loading scripts</description>
+          <return>
+            <property>
+              <name>items</name>
+              <description>The list of data currently being processed</description>
+              <type>array</type>
+            </property>
+          </return>
+        </event>
+        <event>
+          <name>/jsloader/events/load</name>
+          <description>loading scripts</description>
+          <return>
+            <property>
+              <name>items</name>
+              <description>The list of data currently being processed</description>
+              <type>array</type>
+            </property>
+            <property>
+              <name>currentItem</name>
+              <description>The index of the currently processed item in the list</description>
+              <type>integer</type>
+            </property>
+            <property>
+              <name>progress</name>
+              <description>The percentage of progress (0: no scripts loaded; 100: all scripts loaded)</description>
+              <type>integer</type>
+            </property>
+            <property>
+              <name>success</name>
+              <description>Did the load went well (1: OK; -1: KO)</description>
+              <type>integer</type>
+            </property>
+          </return>
+        </event>
+        <event>
+          <name>/jsloader/events/loadend</name>
+          <description>all the scripts have been loaded</description>
+          <return>
+            <property>
+              <name>items</name>
+              <description>The list of data currently being processed</description>
+              <type>array</type>
+            </property>
+          </return>
+        </event>
+      </events>
+    </component>
+  </components>
+</module>

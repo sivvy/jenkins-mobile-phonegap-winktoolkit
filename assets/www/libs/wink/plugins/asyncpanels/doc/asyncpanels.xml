@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "../../../utils/doc/wink_doc.dtd" >
+<?xml-stylesheet type="text/xsl" href="../../../utils/doc/wink_doc.xsl"?>
+<module>
+  <title>Async panels</title>
+  <name>wink.plugins.AsyncPanels</name>
+  <is_graphical>1</is_graphical>
+  <description>Create a sliding panels container container with which you can navigate through pages (which can be loaded synchroneously or asynchroneously) with an Iphone like UX.</description>
+  <test_pages>
+    <page>
+      <description>The sliding panels container contains 5 pages. Pages 2, 3 and 4 are asynchroneously loaded whil the content of the 1st and 5th page is already present at startup</description>
+      <url>test_asyncpanels.html</url>
+    </page>
+  </test_pages>
+  <compatibility>Iphone OS2, Iphone OS3, Iphone OS4, Android 1.5, Android 2.1, Android 2.2, Android 2.3, BlackBerry 6, Bada 1.0</compatibility>
+  <instanciation>
+    <description>To instantiate an async panels container, the pages (dom nodes) MUST already be present in the page and each one MUST be defined by a unique id. Use the 'getDomNode' method to add the sliding panels container into the page.</description>
+    <properties>
+      <property>
+        <name>duration</name>
+        <description>The slide duration in milliseconds. The default value is 800</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>transitionType</name>
+        <description>the type of the transition between pages ('default', 'cover' or 'reveal'). If you use the 'cover' or 'reveal' option, all your pages should have the same height</description>
+        <type>string</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>pages</name>
+        <description>An array containing either the ids of the pages to add into the sliding panels container or objects containing an id, an url (the one of the page to load) and optionally a method (GET or POST) and parameters. The pages dom nodes MUST be present in the page at instantiation time.</description>
+        <type>array</type>
+        <is_optional>0</is_optional>
+      </property>
+    </properties>
+    <code_sample>
+var properties = 
+{
+	'duration': 500,
+	'transitionType': 'default',
+	'pages': 
+	[
+		'page1', 
+		{id: 'page2', url: './data.php'},
+		{id: 'page3', url: './data.php', method: 'GET', parameters: [{name: 'parameter1', value: 'test1'}], method: 'GET'},
+		{id: 'page4', url: './data.php', method: 'POST',parameters: [{name: 'parameter1', value: 'test1'}], method: 'POST'},
+		'page5' 
+	]
+}
+
+asyncPanels = new wink.plugins.AsyncPanels(properties);
+
+document.body.appendChild(asyncPanels.getDomNode());
+    </code_sample>
+  </instanciation>
+  <components>
+    <component>
+      <name>wink.plugins.AsyncPanels</name>
+      <description>Create the async panels container, handle the loading of pages</description>
+      <public_methods>
+        <method>
+          <name>slideTo</name>
+          <description>Move to the selected page</description>
+          <parameters>
+            <parameter>
+              <name>id</name>
+              <description>the id of the page to display</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>slideBack</name>
+          <description>Come back to the previous page</description>
+        </method>
+        <method>
+          <name>getDomNode</name>
+          <description>returns the DOM node containing the sliding panels</description>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>uId</name>
+          <description>unique identifier of the component</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>duration</name>
+          <description>the slide duration</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>transitionType</name>
+          <description>the type of the transition between pages</description>
+          <type>string</type>
+        </property>
+        <property>
+          <name>pages</name>
+          <description>the list of pages of the asyncpanels</description>
+          <type>array</type>
+        </property>
+      </public_properties>
+    </component>
+  </components>
+  <styles>
+    <classes>
+      <class>
+        <name>asp_loader</name>
+        <description>the loading spinner icon</description>
+      </class>
+      <class>
+        <name>asp_text</name>
+        <description>the loading spinner text</description>
+      </class>
+    </classes>
+  </styles>
+</module>

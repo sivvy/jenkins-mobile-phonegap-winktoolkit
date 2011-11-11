@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "../../../../utils/doc/wink_doc.dtd" >
+<?xml-stylesheet type="text/xsl" href="../../../../utils/doc/wink_doc.xsl"?>
+<module>
+  <title>CSpinner</title>
+  <name>wink.ui.xy.CSpinner</name>
+  <is_graphical>1</is_graphical>
+  <description>Implements a configurable spinner based on a canvas</description>
+    <test_pages>
+    <page>
+      <description>This test shows various examples of cspinner.</description>
+      <url>test_cspinner.html</url>
+    </page>
+    <page>
+      <description>This test allows to customize a cspinner with a form.</description>
+      <url>test_cspinner2.html</url>
+    </page>
+  </test_pages>
+  <compatibility>Iphone OS2, Iphone OS3, Iphone OS4, Android 1.5, Android 2.1, Android 2.2, Android 2.3, BlackBerry 6, Bada 1.0</compatibility>
+  <dependencies>
+    <dependency>
+      <module_name>wink.math._geometric</module_name>
+    </dependency>
+  </dependencies>
+  <instanciation>
+    <description>CSpinner is fully configurable, all parameters are optional</description>
+    <properties>
+      <property>
+        <name>size</name>
+        <description>the size of the container</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>radius</name>
+        <description>the inner radius of the spinner</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>thickness</name>
+        <description>the thickness of the spinner</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>count</name>
+        <description>the number of parts</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>space</name>
+        <description>the space between parts</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>fromcolor</name>
+        <description>the begin color of the gradient</description>
+        <type>string</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>tocolor</name>
+        <description>the end color of the gradient</description>
+        <type>string</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>stopcolor</name>
+        <description>the stop position of the gradient</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>linecolor</name>
+        <description>the border color</description>
+        <type>string</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>linewidth</name>
+        <description>the border width</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>refreshRate</name>
+        <description>the refresh rate</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+    </properties>
+    <code_sample>
+var cspinner = new wink.ui.xy.CSpinner({
+  size: 50,
+  radius: 2,
+  thickness: 10,
+  count: 12,
+  space: 20
+});
+$('container').appendChild(cspinner.getDomNode());	
+    </code_sample>
+  </instanciation>
+  <components>
+    <component>
+      <name>wink.ui.xy.CSpinner</name>
+      <description>the CSpinner</description>
+      <public_methods>
+        <method>
+          <name>getDomNode</name>
+          <description>Returns the main DOM node of the component</description>
+        </method>
+        <method>
+          <name>toggle</name>
+          <description>Starts / Stops rendering</description>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>uId</name>
+          <description>unique identifier of the component</description>
+          <type>integer</type>
+        </property>
+      </public_properties>
+    </component>
+  </components>
+</module>

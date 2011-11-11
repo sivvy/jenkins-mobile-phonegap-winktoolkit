@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "../../../../utils/doc/wink_doc.dtd" >
+<?xml-stylesheet type="text/xsl" href="../../../../utils/doc/wink_doc.xsl"?>
+<module>
+  <title>3D wall</title>
+  <name>wink.ui.xyz.Wall</name>
+  <is_graphical>1</is_graphical>
+  <description>Displays a 3D wall on the screen. The wall is composed of 3 rows of images. The wall is being moved with its right and left directional arrows.</description>
+  <test_pages>
+    <page>
+      <description>Displays a Wall with 35 images in each row. Press the left and right arrows to make the Wall move.</description>
+      <url>test_wall.html</url>
+    </page>
+  </test_pages>
+  <compatibility>Iphone OS2 (slow), Iphone OS3, Iphone OS4</compatibility>
+  <dependencies>
+    <dependency>
+      <module_name>wink.fx._xyz</module_name>
+    </dependency>
+  </dependencies>
+  <instanciation>
+    <description>
+    	When you instantiate the wall, you must specify the images you want to see in it.
+    	Each row must be described and must contain the smae number of images.
+    	You can also specify the images height, width and rightMargin.
+    	Use the 'getDomNodes' method to add the wall, and the left and right directional arrows to the page. The should be added directly to the body of the page.
+    </description>
+    <properties>
+      <property>
+        <name>thumbHeight</name>
+        <description>the height in pixels of the thumbnails to be displayed. The default value is 75</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>thumbWidth</name>
+        <description>the width in pixels of the thumbnails to be displayed. The default value is 125</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>thumbMargins</name>
+        <description>the right margin in pixels of each thumb. The default value is 0</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>speed</name>
+        <description>the srcolling speed of the 3D wall. The default value is 1.2</description>
+        <type>float</type>
+        <is_optional>1</is_optional>
+      </property>
+    </properties>
+    <code_sample>
+var wallProperties =
+{
+	thumbMargins: 20,
+	wallDatas: 
+	{
+		row1: [
+			{ img: "../img/1.gif" },
+			{ img: "../img/2.gif" },
+			{ img: "../img/3.gif" },
+			{ img: "../img/4.gif" },
+			{ img: "../img/5.gif" }
+		],
+		row2: [
+			{ img: "../img/1.gif" },
+			{ img: "../img/2.gif" },
+			{ img: "../img/3.gif" },
+			{ img: "../img/4.gif" },
+			{ img: "../img/5.gif" }
+		],
+		row3: [
+			{ img: "../img/1.gif" },
+			{ img: "../img/2.gif" },
+			{ img: "../img/3.gif" },
+			{ img: "../img/4.gif" },
+			{ img: "../img/5.gif" }
+		],	
+	}
+};
+
+wall = new wink.ui.xyz.Wall(wallProperties);
+
+document.body.appendChild(wall.getDomNodes().wall);
+document.body.appendChild(wall.getDomNodes().leftPad);
+document.body.appendChild(wall.getDomNodes().rightPad);
+    </code_sample>
+  </instanciation>
+  <components>
+    <component>
+      <name>wink.ui.xyz.Wall</name>
+      <description>create and animate the Wall</description>
+      <public_methods>
+        <method>
+          <name>getDomNodes</name>
+          <description>returns the 'wall' main dom node but also the 'leftPad' and 'rightPad' (see the test page for more details)</description>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>uId</name>
+          <description>unique identifier of the component</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>thumbHeight</name>
+          <description>the height in pixels of the images</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>thumbWidth</name>
+          <description>the width in pixels of the images</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>thumbMargins</name>
+          <description>the right margin in pixels of each thumb</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>speed</name>
+          <description>the srcolling speed of the 3D wall</description>
+          <type>float</type>
+        </property>
+        <property>
+          <name>wallDatas</name>
+          <description>the bricks of the wall</description>
+          <type>object</type>
+        </property>
+      </public_properties>
+      <events>
+        <event>
+          <name>/wall/events/click</name>
+          <description>The event is fired when the user clicks on one of the images of the wall</description>
+          <return>
+            <property>
+              <name>item</name>
+              <description>the image on which the user just clicked</description>
+              <type>DOM node</type>
+            </property>
+          </return>
+        </event>
+      </events>
+    </component>
+  </components>
+  <styles>
+    <classes>
+      <class>
+        <name>wa_container</name>
+        <description>The class of the main container of the wall</description>
+      </class>
+      <class>
+        <name>wa_padLeft</name>
+        <description>The class of the left directional arrow</description>
+      </class>
+      <class>
+        <name>wa_padRight</name>
+        <description>The class of the right directional arrow</description>
+      </class>
+      <class>
+        <name>wa_roller</name>
+        <description>The class of the rows container</description>
+      </class>
+      <class>
+        <name>wa_row</name>
+        <description>The class of a row</description>
+      </class>
+    </classes>
+  </styles>
+</module>

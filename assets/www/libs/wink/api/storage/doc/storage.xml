@@ -1,0 +1,870 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "../../../utils/doc/wink_doc.dtd" >
+<?xml-stylesheet type="text/xsl" href="../../../utils/doc/wink_doc.xsl"?>
+<module>
+  <title>Local Storage</title>
+  <name>wink.api.Storage</name>
+  <is_graphical>0</is_graphical>
+  <description>Implements an abstraction layer above Safari and Android browser. Provides user a simple interface to perform basic storage tasks</description>
+  <test_pages>
+    <page>
+      <description>Creates a database called 'dummy_db' at startup. You can add, modify, remove, display... contacts by clicking on the different buttons.</description>
+      <url>test_storage.html</url>
+    </page>
+  </test_pages>
+  <compatibility>Iphone OS2, Iphone OS3, Iphone OS4, Android 1.1, Android 1.5, Android 2.1, Android 2.2, Android 2.3, BlackBerry 6, Bada 1.0</compatibility>
+  <instanciation>
+    <description>The storage object doesn't take any property at instantiation. The storage object is a singleton, so it only neeed to be instantiated once. Use the 'connect' method to connect or create (if it doesn't exist yet) the database</description>
+    <code_sample>
+descriptor =
+{
+	name : 'dummy_db',
+	tables :
+	{
+		contacts :
+		{
+			lastname : wink.api.storage.fieldtypes.TEXT,
+			firstname : wink.api.storage.fieldtypes.TEXT,
+			age : wink.api.storage.fieldtypes.INTEGER, 
+			phone : wink.api.storage.fieldtypes.TEXT,
+			email : wink.api.storage.fieldtypes.TEXT,
+		}
+	}
+}
+
+storage = new wink.api.Storage();	
+storage.connect(descriptor);
+    </code_sample>
+  </instanciation>
+  <components>
+    <component>
+      <name>wink.api.Storage</name>
+      <description>Instantiate a safaridb or a gearsdb, whether you are on an Iphone or on Android. Handles all the storage operations.</description>
+      <public_methods>
+        <method>
+          <name>connect</name>
+          <description>connection/creation to/of the specified database</description>
+          <parameters>
+            <parameter>
+              <name>descriptor</name>
+              <description>
+              	A description of the database (name, tables, tables rows and table rows types)
+              	The descriptor is an object that MUST contain the 'name' of the database, and its 'tables'. In the 'table' object, we find the names of the rows and their type (defined in the wink.api.storage.fieldtypes object described in this document)
+              	See the test page for more details.
+              </description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>insert</name>
+          <description>insert a new entry into a database table</description>
+          <parameters>
+            <parameter>
+              <name>tableName</name>
+              <description>The name of the table where to add datas</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>entry</name>
+              <description>an object representing an element of the table</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>callback</name>
+              <description>an object representing a callback (containing a 'method' and a 'context') that will be called after the data insertion</description>
+              <type>object</type>
+              <is_optional>1</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>update</name>
+          <description>update a particular entry</description>
+          <parameters>
+            <parameter>
+              <name>tableName</name>
+              <description>The name of the table where to update datas</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>entry</name>
+              <description>an object representing an element of the table and containing the id of the element to update</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>callback</name>
+              <description>an object representing a callback (containing a 'method' and a 'context') that will be called after the data update</description>
+              <type>object</type>
+              <is_optional>1</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>remove</name>
+          <description>remove a particular entry</description>
+          <parameters>
+            <parameter>
+              <name>tableName</name>
+              <description>The name of the table where to remove datas</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>entryId</name>
+              <description>the database id of the element to remove</description>
+              <type>integer</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>callback</name>
+              <description>an object representing a callback (containing a 'method' and a 'context') that will be called after the data removal</description>
+              <type>object</type>
+              <is_optional>1</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>getList</name>
+          <description>get all the entries of a table</description>
+          <parameters>
+            <parameter>
+              <name>tableName</name>
+              <description>The name of the table to list</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>callback</name>
+              <description>an object representing a callback (containing a 'method' and a 'context') where the list of datas will be returned</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>getListByField</name>
+          <description>get all the entries with the specified value in the specified field (performs a SELECT with a WHERE clause)</description>
+          <parameters>
+            <parameter>
+              <name>tableName</name>
+              <description>The name of the table to list</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>fieldName</name>
+              <description>search field criteria</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>fieldValue</name>
+              <description>search field value</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>callback</name>
+              <description>an object representing a callback (containing a 'method' and a 'context') where the list of datas will be returned</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>getById</name>
+          <description>get the entry with the specified id</description>
+          <parameters>
+            <parameter>
+              <name>tableName</name>
+              <description>The name of the table to list</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>entryId</name>
+              <description>the id of the element to get</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>callback</name>
+              <description>an object representing a callback (containing a 'method' and a 'context') where the data will be returned</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>getTableList</name>
+          <description>get the list of all the tables in the database</description>
+          <parameters>
+            <parameter>
+              <name>callback</name>
+              <description>an object representing a callback (containing a 'method' and a 'context') where the datas will be returned</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>createTables</name>
+          <description>create the tables described in the descriptor (erase all the previously stored datas)</description>
+        </method>
+        <method>
+          <name>emptyDatabase</name>
+          <description>remove all the datas and the tables from the database</description>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>uId</name>
+          <description>unique identifier of the component</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>dbAvailable</name>
+          <description>true if a local storage is available, false otherwise</description>
+          <type>boolean</type>
+        </property>
+      </public_properties>
+    </component>
+    <component>
+      <name>wink.api.storage.fieldtypes</name>
+      <description>Contains the data field types available for the local storage</description>
+      <public_properties>
+        <property>
+          <name>INTEGER</name>
+          <description>a field of type INTEGER</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>TEXT</name>
+          <description>a field of type TEXT</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>BLOB</name>
+          <description>a field of type BLOB</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>BLOB_B64</name>
+          <description>a field of type BLOB_B64 (BLOB encoded in base64)</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>REAL</name>
+          <description>a field of type REAL</description>
+          <type>integer</type>
+        </property>
+      </public_properties>
+    </component>
+    <component>
+      <name>wink.api.storage.SafariDb</name>
+      <description>Performs the local storage operations on Safari. It should only be instantiated by the storage object</description>
+      <public_methods>
+        <method>
+          <name>connect</name>
+          <description>connection/creation to/of the specified database</description>
+          <parameters>
+            <parameter>
+              <name>descriptor</name>
+              <description>
+              	A description of the database (name, tables, tables rows and table rows types)
+              	The descriptor is an object that MUST contain the 'name' of the database, and its 'tables'. In the 'table' object, we find the names of the rows and their type (defined in the storage.fieldtypes object described in this document)
+              	See the test page for more details.
+              </description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>insert</name>
+          <description>insert a new entry into a database table</description>
+          <parameters>
+            <parameter>
+              <name>tableName</name>
+              <description>The name of the table where to add datas</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>entry</name>
+              <description>an object representing an element of the table</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>callback</name>
+              <description>an object representing a callback (containing a 'method' and a 'context') that will be called after the data insertion</description>
+              <type>object</type>
+              <is_optional>1</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>update</name>
+          <description>update a particular entry</description>
+          <parameters>
+            <parameter>
+              <name>tableName</name>
+              <description>The name of the table where to update datas</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>entry</name>
+              <description>an object representing an element of the table and containing the id of the element to update</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>callback</name>
+              <description>an object representing a callback (containing a 'method' and a 'context') that will be called after the data update</description>
+              <type>object</type>
+              <is_optional>1</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>remove</name>
+          <description>remove a particular entry</description>
+          <parameters>
+            <parameter>
+              <name>tableName</name>
+              <description>The name of the table where to remove datas</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>entryId</name>
+              <description>the database id of the element to remove</description>
+              <type>integer</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>callback</name>
+              <description>an object representing a callback (containing a 'method' and a 'context') that will be called after the data removal</description>
+              <type>object</type>
+              <is_optional>1</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>getList</name>
+          <description>get all the entries of a table</description>
+          <parameters>
+            <parameter>
+              <name>tableName</name>
+              <description>The name of the table to list</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>callback</name>
+              <description>an object representing a callback (containing a 'method' and a 'context') where the list of datas will be returned</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>getListByField</name>
+          <description>get all the entries with the specified value in the specified field (performs a SELECT with a WHERE clause)</description>
+          <parameters>
+            <parameter>
+              <name>tableName</name>
+              <description>The name of the table to list</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>fieldName</name>
+              <description>search field criteria</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>fieldValue</name>
+              <description>search field value</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>callback</name>
+              <description>an object representing a callback (containing a 'method' and a 'context') where the list of datas will be returned</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>getById</name>
+          <description>get the entry with the specified id</description>
+          <parameters>
+            <parameter>
+              <name>tableName</name>
+              <description>The name of the table to list</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>entryId</name>
+              <description>the id of the element to get</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>callback</name>
+              <description>an object representing a callback (containing a 'method' and a 'context') where the data will be returned</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>getTableList</name>
+          <description>get the list of all the tables in the database</description>
+          <parameters>
+            <parameter>
+              <name>callback</name>
+              <description>an object representing a callback (containing a 'method' and a 'context') where the datas will be returned</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>createTables</name>
+          <description>create the tables described in the descriptor (erase all the previously stored datas)</description>
+        </method>
+        <method>
+          <name>emptyDatabase</name>
+          <description>remove all the datas and the tables from the database</description>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>uId</name>
+          <description>unique identifier of the component</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>database</name>
+          <description>the safari local storage component</description>
+          <type>object</type>
+        </property>
+        <property>
+          <name>MAX_SIZE</name>
+          <description>the size of the database (5Mb)</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>VERSION</name>
+          <description>the version of the database (1.0)</description>
+          <type>string</type>
+        </property>
+      </public_properties>
+    </component>
+    <component>
+      <name>wink.api.storage.GearsDb</name>
+      <description>Performs the local storage operations on Android. It should only be instantiated by the storage object</description>
+      <public_methods>
+        <method>
+          <name>connect</name>
+          <description>connection/creation to/of the specified database</description>
+          <parameters>
+            <parameter>
+              <name>descriptor</name>
+              <description>
+              	A description of the database (name, tables, tables rows and table rows types)
+              	The descriptor is an object that MUST contain the 'name' of the database, and its 'tables'. In the 'table' object, we find the names of the rows and their type (defined in the storage.fieldtypes object described in this document)
+              	See the test page for more details.
+              </description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>insert</name>
+          <description>insert a new entry into a database table</description>
+          <parameters>
+            <parameter>
+              <name>tableName</name>
+              <description>The name of the table where to add datas</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>entry</name>
+              <description>an object representing an element of the table</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>callback</name>
+              <description>an object representing a callback (containing a 'method' and a 'context') that will be called after the data insertion</description>
+              <type>object</type>
+              <is_optional>1</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>update</name>
+          <description>update a particular entry</description>
+          <parameters>
+            <parameter>
+              <name>tableName</name>
+              <description>The name of the table where to update datas</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>entry</name>
+              <description>an object representing an element of the table and containing the id of the element to update</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>callback</name>
+              <description>an object representing a callback (containing a 'method' and a 'context') that will be called after the data update</description>
+              <type>object</type>
+              <is_optional>1</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>remove</name>
+          <description>remove a particular entry</description>
+          <parameters>
+            <parameter>
+              <name>tableName</name>
+              <description>The name of the table where to remove datas</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>entryId</name>
+              <description>the database id of the element to remove</description>
+              <type>integer</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>callback</name>
+              <description>an object representing a callback (containing a 'method' and a 'context') that will be called after the data removal</description>
+              <type>object</type>
+              <is_optional>1</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>getList</name>
+          <description>get all the entries of a table</description>
+          <parameters>
+            <parameter>
+              <name>tableName</name>
+              <description>The name of the table to list</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>callback</name>
+              <description>an object representing a callback (containing a 'method' and a 'context') where the list of datas will be returned</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>getListByField</name>
+          <description>get all the entries with the specified value in the specified field (performs a SELECT with a WHERE clause)</description>
+          <parameters>
+            <parameter>
+              <name>tableName</name>
+              <description>The name of the table to list</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>fieldName</name>
+              <description>search field criteria</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>fieldValue</name>
+              <description>search field value</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>callback</name>
+              <description>an object representing a callback (containing a 'method' and a 'context') where the list of datas will be returned</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>getById</name>
+          <description>get the entry with the specified id</description>
+          <parameters>
+            <parameter>
+              <name>tableName</name>
+              <description>The name of the table to list</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>entryId</name>
+              <description>the id of the element to get</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>callback</name>
+              <description>an object representing a callback (containing a 'method' and a 'context') where the data will be returned</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>getTableList</name>
+          <description>get the list of all the tables in the database</description>
+          <parameters>
+            <parameter>
+              <name>callback</name>
+              <description>an object representing a callback (containing a 'method' and a 'context') where the datas will be returned</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>createTables</name>
+          <description>create the tables described in the descriptor (erase all the previously stored datas)</description>
+        </method>
+        <method>
+          <name>emptyDatabase</name>
+          <description>remove all the datas and the tables from the database</description>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>uId</name>
+          <description>unique identifier of the component</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>database</name>
+          <description>the gears local storage component</description>
+          <type>object</type>
+        </property>
+      </public_properties>
+    </component>
+    <component>
+      <name>wink.api.storage.utils</name>
+      <description>Base64 utility used by the storage objects to encode/decode contents</description>
+      <public_methods>
+      	<method>
+          <name>encode</name>
+          <description>Encode a resource in base64</description>
+          <parameters>
+            <parameter>
+              <name>input</name>
+              <description>the resource to encode</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>decode</name>
+          <description>Decode a base64 resource</description>
+          <parameters>
+            <parameter>
+              <name>input</name>
+              <description>the resource to decode</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+      </public_methods>
+    </component>
+    <component>
+      <name>wink.api.storage.sqlite</name>
+      <description>Create various SQLite requests. This literal is only used by the storage object</description>
+      <public_methods>
+        <method>
+          <name>getCreateTablesRequests</name>
+          <description>returns a create table statement.</description>
+          <parameters>
+            <parameter>
+              <name>descriptor</name>
+              <description>
+              	A description of the database (name, tables, tables rows and table rows types)
+              	The descriptor is an object that MUST contain the 'name' of the database, and its 'tables'. In the 'table' object, we find the names of the rows and their type (defined in the storage.fieldtypes object described in this document)
+              	See the test page for more details.
+              </description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>getInsertRequest</name>
+          <description>returns an insert statement</description>
+          <parameters>
+            <parameter>
+              <name>descriptor</name>
+              <description>The description of the database</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>tableName</name>
+              <description>The name of the table</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>entry</name>
+              <description>an object representing an element of the table</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>getUpdateRequest</name>
+          <description>returns an update statement</description>
+          <parameters>
+            <parameter>
+              <name>descriptor</name>
+              <description>The description of the database</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>tableName</name>
+              <description>The name of the table</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>entry</name>
+              <description>the object repesenting the data plus the id of the data to be modified</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>getRemoveRequest</name>
+          <description>returns a delete statement</description>
+          <parameters>
+            <parameter>
+              <name>descriptor</name>
+              <description>The description of the database</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>tableName</name>
+              <description>The name of the table</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>entryId</name>
+              <description>the id of the data to be removed</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>getSelectRequest</name>
+          <description>returns a select statement</description>
+          <parameters>
+            <parameter>
+              <name>descriptor</name>
+              <description>The description of the database</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>tableName</name>
+              <description>The name of the table</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>criteriaField</name>
+              <description>the field to apply the 'WHERE' clause</description>
+              <type>string</type>
+              <is_optional>1</is_optional>
+            </parameter>
+            <parameter>
+              <name>criteriaValue</name>
+              <description>the value of the field we want to look for</description>
+              <type>string</type>
+              <is_optional>1</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>getTableListRequest</name>
+          <description>returns a 'show tables' statement</description>
+        </method>
+        <method>
+          <name>getDropTableRequest</name>
+          <description>returns an 'drop table' statement</description>
+          <parameters>
+            <parameter>
+              <name>descriptor</name>
+              <description>The description of the database</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>tableName</name>
+              <description>The name of the table</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>getLastInsertRowIdRequest</name>
+          <description>returns the id of the last inserted row</description>
+          <parameters>
+            <parameter>
+              <name>descriptor</name>
+              <description>The description of the database</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>tableName</name>
+              <description>The name of the table</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+      </public_methods>
+    </component>
+  </components>
+</module>

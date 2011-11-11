@@ -1,0 +1,108 @@
+html, body {
+    padding: 0;
+    margin: 0;
+    font-family: Helvetica, Arial, sans-serif;
+}
+#header {
+    -webkit-box-shadow: -5px 3px 5px rgba(0, 0, 0, 0.7);
+    -moz-box-shadow: -5px 3px 5px rgba(0, 0, 0, 0.7);
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    margin-bottom: 10px;
+    height: 45px;
+    line-height: 45px;
+    padding: 0 10px;
+    font-size: 24px;
+    text-align: center;
+}
+.w_button {
+position: absolute;
+height: 33px;
+top: 6px;
+left: auto;
+right: 10px;
+border-width: 1px;
+border-style: solid;
+overflow: hidden;
+padding: 0 15px;
+font-size: 14px;
+font-weight: bold;
+white-space: nowrap;
+text-overflow: ellipsis;
+text-align: center;
+line-height: 40px;
+border-radius: 5px;
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+-webkit-rtl-ordering: logical;
+-webkit-user-select: text;
+font: -webkit-small-control;
+-webkit-box-align: center;
+-webkit-appearance: push-button;
+}
+
+.w_bg_light {
+background-color: #F8F8F8;
+background-image: -webkit-gradient(linear, left top, left bottom, from(#f8f8f8), to(#a1a1a1));
+background-image: -moz-linear-gradient(top, #f8f8f8, #a1a1a1);
+color: #2F2F2F;
+}
+
+.w_bg_dark {
+background-color: black;
+background-image: -webkit-gradient(linear, left top, left bottom, from(#4d525a), to(#17191f), color-stop(50%, #151515));
+background-image: -moz-linear-gradient(top, #4d525a, #17191f, #151515 50%);
+color: #DEDEDE;
+}
+
+#main .row {
+    height: 70px;
+}
+#main .row-image {
+    float: left;
+    padding: 10px 0px 10px 10px;
+    height: 44px;
+    width: 49px;
+}
+#main .row-name {
+    padding: 20px;
+    font-size: 20px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+#details .row {
+    height: 70px;
+}
+#details .row-image {
+    float: left;
+    padding: 10px 0px 10px 10px;
+    height: 44px;
+    width: 49px;
+}
+#details .row-name {
+    padding: 8px 0 0 20px;
+    font-size: 18px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+#details .row-number {
+    padding: 0 0 0 20px;
+    overflow: hidden;
+    font-size: 11px;
+}
+#details .row-datetime {
+    font-size: 12px;
+    overflow: hidden;
+    padding: 0 0 0 20px;
+}
+#details .row-datetime span {
+    padding: 0 0 0 5px;
+}
+
+.wrapper {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    overflow: hidden;
+}

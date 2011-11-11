@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "../../../../utils/doc/wink_doc.dtd" >
+<?xml-stylesheet type="text/xsl" href="../../../../utils/doc/wink_doc.xsl"?>
+<module>
+  <title>Flip Disc</title>
+  <name>wink.ui.xyz.FlipDisc</name>
+  <is_graphical>1</is_graphical>
+  <description>
+  	The Flip Disc allows the user to browse a list of images.
+  	The user can rotate the first image to display the next or previous image, following the angle of rotation.
+  </description>
+  <test_pages>
+    <page>
+      <description>A simple flip disc that handles the click with an alert</description>
+      <url>test_flipdisc.html</url>
+    </page>
+  </test_pages>
+  <compatibility>Iphone OS2, Iphone OS3, Iphone OS4</compatibility>
+  <dependencies>
+    <dependency>
+      <module_name>wink.fx._xyz</module_name>
+    </dependency>
+    <dependency>
+      <module_name>wink.fx._animation</module_name>
+    </dependency>
+    <dependency>
+      <module_name>wink.ux.gesture</module_name>
+    </dependency>
+  </dependencies>
+  <instanciation>
+    <description></description>
+    <properties>
+      <property>
+        <name>Array of images</name>
+        <description>The images which compose the flip disc</description>
+        <type>array</type>
+        <is_optional>0</is_optional>
+      </property>
+      <property>
+        <name>offsetY</name>
+        <description>the offset position on y (in pixel)</description>
+        <type>integer</type>
+        <is_optional>0</is_optional>
+      </property>
+      <property>
+        <name>shiftY</name>
+        <description>the shift between images (in pixel)</description>
+        <type>integer</type>
+        <is_optional>0</is_optional>
+      </property>
+    </properties>
+    <code_sample>
+var properties = {
+	images: [ "./image1.png", "./image2.png" ],
+	offsetY: 30,
+	shiftY: 50
+};
+var flipdisc = new wink.ui.xyz.FlipDisc(properties);
+container.appendChild(flipdisc.getDomNode());
+    </code_sample>
+  </instanciation>
+  <components>
+    <component>
+      <name>wink.ui.xyz.FlipDisc</name>
+      <description>The Flip Disc component</description>
+      <public_methods>
+        <method>
+          <name>getDomNode</name>
+          <description>Returns the component main dom node</description>
+        </method>
+        <method>
+          <name>next</name>
+          <description>Displays the next image</description>
+        </method>
+        <method>
+          <name>previous</name>
+          <description>Displays the previous image</description>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>uId</name>
+          <description>The unique identifier of the component.</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>images</name>
+          <description>the list of images of the flipdisc</description>
+          <type>array</type>
+        </property>
+        <property>
+          <name>offsetY</name>
+          <description>the offset position on the y-axis</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>shiftY</name>
+          <description>the shift between images</description>
+          <type>integer</type>
+        </property>
+      </public_properties>
+      <events>
+        <event>
+          <name>/flipdisc/events/click</name>
+          <description>click on the first visible image.</description>
+          <return>
+            <property>
+              <name>image</name>
+              <description>The selected image name</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </property>
+            <property>
+              <name>index</name>
+              <description>The index of the selected image</description>
+              <type>integer</type>
+              <is_optional>0</is_optional>
+            </property>
+          </return>
+        </event>
+      </events>
+    </component>
+  </components>
+</module>

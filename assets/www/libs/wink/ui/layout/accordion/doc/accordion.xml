@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "../../../../utils/doc/wink_doc.dtd" >
+<?xml-stylesheet type="text/xsl" href="../../../../utils/doc/wink_doc.xsl"?>
+<module>
+  <title>Accordion</title>
+  <name>wink.ui.layout.Accordion</name>
+  <is_graphical>1</is_graphical>
+  <description>Creates an accordion container with sliding sections</description>
+  <test_pages>
+    <page>
+      <description>The test page shows an accordion with 3 sections</description>
+      <url>test_accordion.html</url>
+    </page>
+    <page>
+      <description>The test page shows how to integrate an accordion with 3 sections into a list of items</description>
+      <url>test_accordion_2.html</url>
+    </page>
+  </test_pages>
+  <compatibility>Iphone OS2, Iphone OS3, Iphone OS4, Android 1.1, Android 1.5, Android 2.1, Android 2.2, Android 2.3, BlackBerry 6, Bada 1.0</compatibility>
+  <instanciation>
+    <description>The Accordion is instantiated without parameters. Use the 'getDomNode' method to add it to the page. Use the 'addSection' method to add a new section to the Accordion</description>
+    <code_sample>
+accordion = new wink.ui.layout.Accordion();
+				
+section1 = accordion.addSection('id1', '&lt;b&gt;section1&lt;/b&gt;');
+section2 = accordion.addSection('id2', '&lt;b&gt;section2&lt;/b&gt;');
+section3 = accordion.addSection('id3', '&lt;b&gt;section3&lt;/b&gt;');
+
+$('output').appendChild(accordion.getDomNode());
+    </code_sample>
+  </instanciation>
+  <components>
+    <component>
+      <name>wink.ui.layout.Accordion</name>
+      <description>Create the accordion container and manage the different sections</description>
+      <public_methods>
+        <method>
+          <name>addSection</name>
+          <description>add a new section to the accordion and return the uId of the created section</description>
+          <parameters>
+            <parameter>
+              <name>title</name>
+              <description>the title of the section</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>content</name>
+              <description>the content of the section. It can be either a string or a DOM node</description>
+              <type>string/domNode</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>deleteSection</name>
+          <description>removes an existing section of the accordion</description>
+          <parameters>
+            <parameter>
+              <name>sectionId</name>
+              <description>the uId of the section object to remove</description>
+              <type>integer</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>selectSection</name>
+          <description>display the selected section</description>
+          <parameters>
+            <parameter>
+              <name>sectionId</name>
+              <description>the uId of the section to select</description>
+              <type>integer</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>refreshContentHeight</name>
+          <description>Refreshes the section content height</description>
+        </method>
+        <method>
+          <name>getDomNode</name>
+          <description>returns the DOM node containing the accordion</description>
+        </method>
+        <method>
+          <name>getSections</name>
+          <description>returns the sections</description>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>uId</name>
+          <description>unique identifier of the component</description>
+          <type>integer</type>
+        </property>
+      </public_properties>
+    </component>
+    <component>
+      <name>wink.ui.layout.Accordion.Section</name>
+      <description>Represents a section of the accordion. Handle the clicks on its title node. Should only be instantiated by the Accordion itself</description>
+      <public_methods>
+        <method>
+          <name>show</name>
+          <description>display the section</description>
+        </method>
+        <method>
+          <name>hide</name>
+          <description>hide the section</description>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>uId</name>
+          <description>unique identifier of the component</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>title</name>
+          <description>the title of the section</description>
+          <type>string</type>
+        </property>
+        <property>
+          <name>content</name>
+          <description>the content of the section</description>
+          <type>string/domNode</type>
+        </property>
+        <property>
+          <name>position</name>
+          <description>the position of the section in the list of sections</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>opened</name>
+          <description>indicates whether the section is opened or closed</description>
+          <type>boolean</type>
+        </property>
+        <property>
+          <name>titleNode</name>
+          <description>the DOM node where the title is set</description>
+          <type>domNode</type>
+        </property>
+        <property>
+          <name>chevronNode</name>
+          <description>the DOM node where the chevron is set</description>
+          <type>domNode</type>
+        </property>
+        <property>
+          <name>contentNode</name>
+          <description>the DOM node where the content is set</description>
+          <type>domNode</type>
+        </property>
+        <property>
+          <name>containerNode</name>
+          <description>the main DOM node of the section</description>
+          <type>domNode</type>
+        </property>
+      </public_properties>
+      <events>
+        <event>
+          <name>/section/events/selectsection</name>
+          <description>the event is fired when we click on a section title node</description>
+          <return>
+            <property>
+              <name>sectionId</name>
+              <description>uId of the selected section</description>
+              <type>integer</type>
+            </property>
+          </return>
+        </event>
+      </events>
+    </component>
+  </components>
+  <styles>
+    <classes>
+      <class>
+        <name>ac_accordion</name>
+        <description>The class of the container</description>
+      </class>
+      <class>
+        <name>ac_section</name>
+        <description>The class of a section</description>
+      </class>
+      <class>
+        <name>ac_content</name>
+        <description>The class of a section content</description>
+      </class>
+      <class>
+        <name>ac_title</name>
+        <description>The class of a section title</description>
+      </class>
+    </classes>
+  </styles>
+</module>

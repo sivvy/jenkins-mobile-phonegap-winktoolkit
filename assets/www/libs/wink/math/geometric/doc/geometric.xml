@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "../../../utils/doc/wink_doc.dtd" >
+<?xml-stylesheet type="text/xsl" href="../../../utils/doc/wink_doc.xsl"?>
+<module>
+  <title>Math Geometric</title>
+  <name>wink.math._geometric</name>
+  <is_graphical>0</is_graphical>
+  <description>
+  	The Math Geometric is an extension of wink.math which provides various functions to manipulate vectors and angles.
+  </description>
+  <compatibility>Iphone OS2, Iphone OS3, Iphone OS4, Android 1.1, Android 1.5, Android 2.1, Android 2.2, Android 2.3, BlackBerry 6, Bada 1.0</compatibility>
+  <instanciation>
+    <description>wink.math is a Literal, so it did not need to be instantiated.</description>
+    <code_sample>
+var angle = wink.math.getAngle(radius, dx);
+var angleDeg = wink.math.radToDeg(angle);
+    </code_sample>
+  </instanciation>
+  <components>
+    <component>
+      <name>wink.math._geometric</name>
+      <description>The math component</description>
+      <public_methods>
+        <method>
+          <name>radToDeg</name>
+          <description>Converts the given radian angle in degree</description>
+          <parameters>
+            <parameter>
+              <name>angleRad</name>
+              <description>the angle in radian</description>
+              <type>number</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>degToRad</name>
+          <description>Converts the given degree angle in radian</description>
+          <parameters>
+            <parameter>
+              <name>angleDeg</name>
+              <description>the angle in degree</description>
+              <type>number</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>getAngle</name>
+          <description>Returns the angle corresponding to the distance between two points on a plane cutting a virtual sphere</description>
+          <parameters>
+            <parameter>
+              <name>radius</name>
+              <description>the radius of the virtual sphere</description>
+              <type>number</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>distance</name>
+              <description>the distance between the two points</description>
+              <type>number</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>getAngleBetweenVectors</name>
+          <description>Returns the angle between two vectors</description>
+          <parameters>
+            <parameter>
+              <name>u</name>
+              <description>first vector</description>
+              <type>array</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>v</name>
+              <description>second vector</description>
+              <type>array</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>normalizeVector</name>
+          <description>Returns the normalized vector from the given</description>
+          <parameters>
+            <parameter>
+              <name>u</name>
+              <description>the vector to normalize</description>
+              <type>array</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>getNormVector</name>
+          <description>Returns the norm of the given vector</description>
+          <parameters>
+            <parameter>
+              <name>u</name>
+              <description>the vector</description>
+              <type>array</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>getNormalVector</name>
+          <description>Returns the normal vector formed by these two vectors</description>
+          <parameters>
+            <parameter>
+              <name>u</name>
+              <description>first vector</description>
+              <type>array</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>v</name>
+              <description>second vector</description>
+              <type>array</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>getScalarVector</name>
+          <description>Returns the scalar value of these two vectors</description>
+          <parameters>
+            <parameter>
+              <name>u</name>
+              <description>first vector</description>
+              <type>array</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>v</name>
+              <description>second vector</description>
+              <type>array</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>getVector</name>
+          <description>Returns a vector with the given two points</description>
+          <parameters>
+            <parameter>
+              <name>p1</name>
+              <description>first point</description>
+              <type>array</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>p2</name>
+              <description>second point</description>
+              <type>array</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>multiplyMatrixVector</name>
+          <description>Returns the vector result of the multiplication between a matrix and a vector</description>
+          <parameters>
+            <parameter>
+              <name>matrix</name>
+              <description>the matrix</description>
+              <type>array</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>vector</name>
+              <description>the vector</description>
+              <type>array</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+      </public_methods>
+    </component>
+  </components>
+</module>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "../../../utils/doc/wink_doc.dtd" >
+<?xml-stylesheet type="text/xsl" href="../../../utils/doc/wink_doc.xsl"?>
+<module>
+  <title>GeoLocation</title>
+  <name>wink.api.GeoLocation</name>
+  <is_graphical>0</is_graphical>
+  <description>
+  	GeoLocation is a geographical locator. It starts watching for position changes when a listener is 
+  	adding and stops if there is no more listener. To optimize the data processing, it gets the stringent 
+  	constraints (depends on listeners properties) which requires it to refresh datas more often and more 
+  	precisely. Then it notifies listeners when it is deemed necessary 
+  	(depends on listeners properties : "notification interval", "only If Position Changed").
+  </description>
+  <test_pages>
+    <page>
+      <description>
+      	This test page implements a GeoLocation and 3 listeners :
+      	 - the first is notified every 5 seconds of the current position
+      	 - the second is notified every 10 seconds of the current position
+      	 - the third is notified every 1 second only if the position has changed
+      	The information are displays in panels associated to listeners.
+      	A checkbox allows the user to enable or disable the "high accuracy" of results.
+      	Obviously, this test is significant when the device moves.
+      </description>
+      <url>test_geolocation.html</url>
+    </page>
+  </test_pages>
+  <compatibility>Iphone OS2, Iphone OS3, Iphone OS4, Android 1.1, Android 1.5, Android 2.1, Android 2.2, Android 2.3</compatibility>
+  <instanciation>
+    <description>The GeoLocation is a singleton, it needs to be instantiated only once. It does not need parameters, its behavior is dependent on active listeners.</description>
+    <code_sample>
+var winkgeoloc = new wink.api.GeoLocation();
+winkgeoloc.addListener({ context: window, method: "accuratePositionChanged" }, 60000, true, true);
+winkgeoloc.addListener({ context: window, method: "positionChanged" }, 10000, true, false);
+    </code_sample>
+  </instanciation>
+  <components>
+    <component>
+      <name>wink.api.GeoLocation</name>
+      <description>The GeoLocation component</description>
+      <public_methods>
+        <method>
+          <name>addListener</name>
+          <description>Adds a Geo Location listener</description>
+          <parameters>
+            <parameter>
+              <name>callback</name>
+              <description>The callback to invoke : { context, method, arguments }</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>notificationInterval</name>
+              <description>The interval between callback calls (in millisecond)</description>
+              <type>integer</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>onlyIfPositionChanged</name>
+              <description>Indicates whether the callback must be invoked only if location changed</description>
+              <type>boolean</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>highAccuracy</name>
+              <description>Indicates whether the high result accuracy is enabled</description>
+              <type>boolean</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>removeListener</name>
+          <description>Removes the given Geo Location listener</description>
+          <parameters>
+            <parameter>
+              <name>callback</name>
+              <description>The callback that was previously added (identified by { context, method })</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>getPosition</name>
+          <description>Returns the current geolocation informations or null if the component is not initialized. At least one listener must be added to initialize the component.</description>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>uId</name>
+          <description>The unique identifier of the component.</description>
+          <type>integer</type>
+        </property>
+      </public_properties>
+    </component>
+  </components>
+</module>

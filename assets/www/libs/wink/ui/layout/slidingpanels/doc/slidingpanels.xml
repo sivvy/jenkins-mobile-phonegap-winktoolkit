@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "../../../../utils/doc/wink_doc.dtd" >
+<?xml-stylesheet type="text/xsl" href="../../../../utils/doc/wink_doc.xsl"?>
+<module>
+  <title>Sliding panels</title>
+  <name>wink.ui.layout.SlidingPanels</name>
+  <is_graphical>1</is_graphical>
+  <description>Create a sliding panels container container with which you can navigate through pages with an Iphone like UX</description>
+  <test_pages>
+    <page>
+      <description>The sliding panels container contains 8 pages. Click on the texts in the pages to go to the next page or go to another page or go back to the previous page.</description>
+      <url>test_slidingpanels.html</url>
+    </page>
+    <page>
+      <description>The same test page as test_slidingpanels.html but with a 'cover' transition</description>
+      <url>test_slidingpanels_cover.html</url>
+    </page>
+    <page>
+      <description>The same test page as test_slidingpanels.html but with a 'reveal' transition</description>
+      <url>test_slidingpanels_reveal.html</url>
+    </page>
+    <page>
+      <description>The same test page as test_slidingpanels.html but it also integrates the History component. You can navigate using the 'back' and 'forward' buttons of your browser</description>
+      <url>test_slidingpanels_with_history.html</url>
+    </page>
+  </test_pages>
+  <compatibility>Iphone OS2, Iphone OS3, Iphone OS4, Android 1.5, Android 2.1, Android 2.2, Android 2.3, BlackBerry 6, Bada 1.0</compatibility>
+  <instanciation>
+    <description>To instantiate a sliding panels container, the pages (dom nodes) MUST already be present in the page and each one MUST be defined by a unique id. Use the 'getDomNode' method to add the sliding panels container into the page.</description>
+    <properties>
+      <property>
+        <name>duration</name>
+        <description>The slide duration in milliseconds. The default value is 800</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>transitionType</name>
+        <description>the type of the transition between pages ('default', 'cover' or 'reveal'). If you use the 'cover' or 'reveal' option, all your pages should have the same height</description>
+        <type>string</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>pages</name>
+        <description>An array containing the ids of the pages to add into the sliding panels container. The pages dom nodes MUST be present in the page at instantiation time.</description>
+        <type>array</type>
+        <is_optional>0</is_optional>
+      </property>
+    </properties>
+    <code_sample>
+var properties = 
+{
+	'duration': 500,
+	'transitionType': 'default',
+	'pages': ['page1', 'page2', 'page3', 'page4', 'page5', 'page6', 'page7', 'page8']
+}
+
+slidingPanels = new wink.ui.layout.SlidingPanels(properties);
+
+document.body.appendChild(slidingPanels.getDomNode());
+    </code_sample>
+  </instanciation>
+  <components>
+    <component>
+      <name>wink.ui.layout.SlidingPanels</name>
+      <description>Create the sliding panels container, creates pages and handle the animation of the pages</description>
+      <public_methods>
+        <method>
+          <name>slideTo</name>
+          <description>Move to the selected page</description>
+          <parameters>
+            <parameter>
+              <name>id</name>
+              <description>the id of the page to display</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>slideBack</name>
+          <description>Come back to the previous page</description>
+        </method>
+        <method>
+          <name>getDomNode</name>
+          <description>returns the DOM node containing the slidingpanels</description>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>uId</name>
+          <description>unique identifier of the component</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>duration</name>
+          <description>the slide duration</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>transitionType</name>
+          <description>the type of the transition between pages</description>
+          <type>string</type>
+        </property>
+        <property>
+          <name>pages</name>
+          <description>the list of pages ids of the slidingpanels</description>
+          <type>array</type>
+        </property>
+      </public_properties>
+      <events>
+        <event>
+          <name>/slidingpanels/events/slidestart</name>
+          <description>fired when a slide starts</description>
+          <return>
+            <property>
+              <name>id</name>
+              <description>the id of the current page</description>
+              <type>string</type>
+            </property>
+          </return>
+        </event>
+        <event>
+          <name>/slidingpanels/events/slideend</name>
+          <description>fired when a slide ends</description>
+          <return>
+            <property>
+              <name>id</name>
+              <description>the id of the current page</description>
+              <type>string</type>
+            </property>
+          </return>
+        </event>
+      </events>
+    </component>
+    <component>
+      <name>wink.ui.layout.SlidingPanels.Page</name>
+      <description>Create a page. Pages should only be instantiated by the slidingpanels object</description>
+      <public_methods>
+        <method>
+          <name>setPosition</name>
+          <description>set the current position of the page</description>
+          <parameters>
+            <parameter>
+              <name>position</name>
+              <description>-1: page is on the left ; 0: page is displayed ; 1: page is on the right</description>
+              <type>integer</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>getDomNode</name>
+          <description>returns the DOM node containing the page</description>
+        </method>
+        <method>
+          <name>display</name>
+          <description>Display the page</description>
+        </method>
+        <method>
+          <name>translate</name>
+          <description>translate the page</description>
+          <parameters>
+            <parameter>
+              <name>x</name>
+              <description>the translate distance</description>
+              <type>string/integer</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>setZIndex</name>
+          <description>Set the z-index of the page</description>
+          <parameters>
+            <parameter>
+              <name>z</name>
+              <description>the index to set</description>
+              <type>integer</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>setTranslateDuration</name>
+          <description>Set the translation duration of the page</description>
+          <parameters>
+            <parameter>
+              <name>d</name>
+              <description>the duration</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>uId</name>
+          <description>unique identifier of the component</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>id</name>
+          <description>the dom node id of the page</description>
+          <type>string</type>
+        </property>
+        <property>
+          <name>position</name>
+          <description>the position of the page (-1: page is on the left ; 0: page is displayed ; 1: page is on the right)</description>
+          <type>integer</type>
+        </property>
+      </public_properties>
+    </component>
+  </components>
+  <styles>
+    <classes>
+      <class>
+        <name>sl_container</name>
+        <description>The main container of the SlidingPanels object</description>
+      </class>
+      <class>
+        <name>sl_page</name>
+        <description>The class added to the pages of the SlidingPanels object</description>
+      </class>
+    </classes>
+  </styles>
+</module>

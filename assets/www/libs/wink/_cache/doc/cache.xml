@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "../../utils/doc/wink_doc.dtd" >
+<?xml-stylesheet type="text/xsl" href="../../utils/doc/wink_doc.xsl"?>
+<module>
+  <title>cache</title>
+  <name>wink.cache</name>
+  <is_graphical>0</is_graphical>
+  <description>
+  	This is the 'easy caching' mechanism of wink. It gives you the possibility to load and store your CSS and JS resources into the device's local database. It can be used at the page startup or afterwards
+  </description>
+  <test_pages>
+    <page>
+      <description>Use the 'easy caching' mechanism with the coverflow test page</description>
+      <url>test_cache.html</url>
+    </page>
+    <page>
+      <description>Use the 'easy caching' mechanism with the tag cloud test page</description>
+      <url>test_cache_2.html</url>
+    </page>
+  </test_pages>
+  <compatibility>Iphone OS2, Iphone OS3, Iphone OS4, Android 2.1, Android 2.2, Android 2.3, BlackBerry 6</compatibility>
+  <instanciation>
+    <description>
+    	You will have to pass an array containing all the resources you want to add (see load method for details).
+    </description>
+    <code_sample>
+var resources =
+[
+	{ url: '../../_base/_base/js/base.js', type: 'js', group: 0 },
+	{ url: '../../_base/_dom/js/dom.js', type: 'js', group: 1 },
+	{ url: '../../_base/error/js/error.js', type: 'js', group: 1 },
+	{ url: '../../_base/json/js/json.js', type: 'js', group: 1 },
+	{ url: '../../_base/topics/js/topics.js', type: 'js', group: 1 },
+	{ url: '../../_base/ua/js/ua.js', type: 'js', group: 1 },
+
+	{ url: './test.js', type: 'js', group: 2, expires: 60, version: 1.0 }, // Valid for 1 minute
+	{ url: './test.css', type: 'css', group: 2, expires: 60, version: 1.0 } // Valid for 1 minute
+];
+
+var resourcesLoaded = function(result)
+{
+	console.log("loadTime: " + result.loadTime + ", with " + (result.errors.length + result.loadErrors.length) + " errors");
+};
+
+wink.load(resources, resourcesLoaded);
+    </code_sample>
+  </instanciation>
+  <components>
+    <component>
+      <name>wink.cache</name>
+      <description>The 'easy caching' component</description>
+      <public_methods>
+        <method>
+          <name>load</name>
+          <description>Loads the resources</description>
+          <parameters>
+            <parameter>
+              <name>resources</name>
+              <description>
+                the resources to load
+                the ressource structure is:
+                {
+                  url: the url of the resource,
+                  type: 'js' / 'css',
+                  group: [optional] allows to specify an order of loading: a resource in a group will be loaded before groups with higher indexes (default: 0),
+                  expires: [optional] the expiration duration in seconds: if not specified, takes the global value (see options), if -1 specified, the existing resource will be deleted,
+                  version: [optional] the version of the resource: very useful for versioning of code, an outdated resource is seen as an expired resource (default: 1.0)
+                }
+              </description>
+              <type>array</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>onload</name>
+              <description>
+                a function called once all the resources have been loaded. a result parameter is passed to this function:
+                {
+                  loadTime: the loading duration in ms,
+                  useOfLocalDatabase: specify whether the local database is used (false when an error occurs),
+                  errors: an array of cache system errors,
+                  loadErrors: an array of network loading errors
+                  resourcesCleaned: an array of resources cleaned
+                  resourcesOldVersion: an array of outdated resources deleted
+                }
+              </description>
+              <type>function</type>
+              <is_optional>1</is_optional>
+            </parameter>
+            <parameter>
+              <name>options</name>
+              <description>
+                options:
+                {
+                  dbName: the name of the database (default: wink),
+                  dbTable: the name of the resource table (default: resources),
+                  dbSize: the size of the database in bytes (default: 5242880 o = 5 Mo),
+                  expires: the global value for expiration duration (default: 1814400 s = 3 weeks),
+                  useLocalDatabase: specify to use the local database or not (default: true)
+                }
+              </description>
+              <type>object</type>
+              <is_optional>1</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+      	<method>
+          <name>resetDatabase</name>
+          <description>Deletes the database content</description>
+          <parameters>
+            <parameter>
+              <name>onreset</name>
+              <description>
+                a function called once the database is reseted. a result parameter is passed to this function:
+                {
+                  errors: an array of cache system errors
+                }
+              </description>
+              <type>function</type>
+              <is_optional>1</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+      </public_methods>
+    </component>
+  </components>
+</module>

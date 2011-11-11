@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "../../../utils/doc/wink_doc.dtd" >
+<?xml-stylesheet type="text/xsl" href="../../../utils/doc/wink_doc.xsl"?>
+<module>
+  <title>Search</title>
+  <name>wink.ux.Search</name>
+  <is_graphical>0</is_graphical>
+  <description>The search object allows you to process searches in an HTML document and browse search results. </description>
+  <test_pages>
+    <page>
+      <description>Displays the Obama wikipedia page. Type your search into the top input and click on the 'OK' button of the Iphone virtual keyboard to see the results of your search. Click the 'previous' and 'next' buttons to navigate through the results</description>
+      <url>test_search_scroller.html</url>
+    </page>
+  </test_pages>
+  <compatibility>Iphone OS2, Iphone OS3, Iphone OS4, Android 1.1, Android 1.5, Android 2.1, Android 2.2, Android 2.3, BlackBerry 6, Bada 1.0</compatibility>
+  <instanciation>
+    <description>To instantiate the search component, you need to provide the DOM node where the search should be performed, the results classname and a classname for the selected results</description>
+    <properties>
+      <property>
+        <name>textNode</name>
+        <description>DOM node containing the text to search in</description>
+        <type>DOM node</type>
+        <is_optional>0</is_optional>
+      </property>
+      <property>
+        <name>resultClassName</name>
+        <description>CSS class to apply to search results. This class has to be defined by the developer</description>
+        <type>string</type>
+        <is_optional>0</is_optional>
+      </property>
+      <property>
+        <name>resultSelectClassName</name>
+        <description>CSS class to apply to the currently selected search result. This class has to be defined by the developer</description>
+        <type>string</type>
+        <is_optional>0</is_optional>
+      </property>
+    </properties>
+    <code_sample>
+var searchProperties = 
+{
+	textNode: $("moveable"),
+	resultClassName: "surligne",
+	resultSelectClassName: "surligneSelect"
+}
+
+search = new wink.ux.Search(searchProperties);
+    </code_sample>
+  </instanciation>
+  <components>
+    <component>
+      <name>wink.ux.Search</name>
+      <description>Process the document and search for strings</description>
+      <public_methods>
+        <method>
+          <name>search</name>
+          <description>processes a search in the considered HTML node. Applies the adequate CSS class to results and selects first result</description>
+          <parameters>
+            <parameter>
+              <name>s</name>
+              <description>the text to search in textNode</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>reset</name>
+          <description>resets the considered HTML node (replaces its content by the original content)</description>
+        </method>
+        <method>
+          <name>next</name>
+          <description>selects next result</description>
+        </method>
+        <method>
+          <name>previous</name>
+          <description>selects previous result</description>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>uId</name>
+          <description>unique identifier of the component</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>totalResults</name>
+          <description>number of search results</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>currentResult</name>
+          <description>index of the currently selected result (from 1 to totalResults)</description>
+          <type>integer</type>
+        </property>
+      </public_properties>
+    </component>
+  </components>
+</module>

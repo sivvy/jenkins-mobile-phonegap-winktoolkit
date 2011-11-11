@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "../../../utils/doc/wink_doc.dtd" >
+<?xml-stylesheet type="text/xsl" href="../../../utils/doc/wink_doc.xsl"?>
+<module>
+  <title>Gesture Recognizer</title>
+  <name>wink.ux.GestureRecognizer</name>
+  <is_graphical>0</is_graphical>
+  <description>Gesture recognition engine based on the $1 gesture recognition algorithm (Wobbrock, J.O., Wilson, A.D. and Li, Y. (2007). Gestures without libraries, toolkits or training: A $1 recognizer for user interface prototypes. Proceedings of the ACM Symposium on User Interface Software and Technology (UIST '07). Newport, Rhode Island (October 7-10, 2007). New York: ACM Press, pp. 159-168.). The user can define its own recognition templates (a template generator has been included in the test directory that will  allow ou to generate the templates from a mobile device).</description>
+  <test_pages>
+    <page>
+      <description>Try drawing shapes from 0 to 3 on your screen. While you draw on the screen, the shape is rendered in the page. Once you drew the shape, you will be alerted of the result of the recognition.</description>
+      <url>test_gesturerecognizer.html</url>
+    </page>
+  </test_pages>
+  <compatibility>Iphone OS2, Iphone OS3, Iphone OS4, Android 1.5, Android 2.1, Android 2.2, Android 2.3, BlackBerry 6, Bada 1.0</compatibility>
+  <instanciation>
+    <description>To instantiate the GestureRecognizer, you need to provide the templates that will be used for the recognition, the node on which you want to listen for the recognition and callbacks if you want to draw the shape while you touch the screen for instance</description>
+    <properties>
+      <property>
+        <name>node</name>
+        <description>The dom node on which you want to listen for the recognition</description>
+        <type>DOM node</type>
+        <is_optional>0</is_optional>
+      </property>
+      <property>
+        <name>templates</name>
+        <description>An array of objects. Each object contains the 'name' of the template and an array of 'points' describing the template</description>
+        <type>array</type>
+        <is_optional>0</is_optional>
+      </property>
+      <property>
+        <name>gestureStartCallback</name>
+        <description>A callback object containing a 'method' name and the 'context' of this method. This callback will be called when the user start touching the 'node' specified earlier</description>
+        <type>object</type>
+        <is_optional>0</is_optional>
+      </property>
+      <property>
+        <name>gestureCallback</name>
+        <description>A callback object containing a 'method' name and the 'context' of this method. This callback will be called when the user touches the 'node' specified earlier</description>
+        <type>object</type>
+        <is_optional>0</is_optional>
+      </property>
+      <property>
+        <name>gestureEndCallback</name>
+        <description>A callback object containing a 'method' name and the 'context' of this method. This callback will be called when the user stop touching the 'node' specified earlier</description>
+        <type>object</type>
+        <is_optional>0</is_optional>
+      </property>
+    </properties>
+    <code_sample>
+var t0 = {'name': '0', 'points': new Array({x: 127, y: 141}, ...)};
+var t1 = {'name': '1', 'points': new Array({x: -125.03325130002096, y: 4.547473508864641e-12}, ...)};
+var t2 = {'name': '1', 'points': new Array({x: -125.48142255953155, y: 5.4569682106375694e-12}, ...)};
+var t3 = {'name': '2', 'points': new Array({x: -40.80771885140598, y: -2.842170943040401e-14}, ...)};
+var t4 = {'name': '2', 'points': new Array({x: -61.758600043770485, y: 0}, ...)};
+var t5 = {'name': '2', 'points': new Array({x: -130.42334210005822, y: 0}, ...)};
+var t6 = {'name': '3', 'points': new Array({x: -137.37766990687157, y: -5.684341886080802e-14}, ...)};
+var t7 = {'name': '3', 'points': new Array({x: -136.45115105405623, y: 0}, ...)};
+
+var properties = 
+{
+	'node': document,
+	'templates': [t0, t1, t2, t3, t4, t5, t6, t7],
+	'gestureStartCallback': 
+	{
+		'method': 'start',
+		'context': null
+	},
+	'gestureCallback': 
+	{
+		'method': 'move',
+		'context': null
+	},
+	'gestureEndCallback': 
+	{
+		'method': 'end',
+		'context': null
+	}
+}
+
+recognizer = new wink.ux.GestureRecognizer(properties);
+    </code_sample>
+  </instanciation>
+  <components>
+    <component>
+      <name>wink.ux.GestureRecognizer</name>
+      <description>The recognition engine</description>
+      <public_methods>
+        <method>
+          <name>getDomNode</name>
+          <description>Returns the dom node on which the recognizer is listening</description>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>uId</name>
+          <description>The unique identifier of the component</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>utils</name>
+          <description>Set of mathematic functions used by the Gesture recognition algorithm</description>
+          <type>object</type>
+        </property>
+      </public_properties>
+      <events>
+        <event>
+          <name>/gesturerecognizer/events/result</name>
+          <description>This event is fired when the recognition is done</description>
+          <return>
+            <property>
+              <name>result</name>
+              <description>the name of the template which has been recognized</description>
+              <type>string</type>
+            </property>
+            <property>
+              <name>score</name>
+              <description>The recognition score rate (from 0 to 1)</description>
+              <type>float</type>
+            </property>
+          </return>
+        </event>
+      </events>
+    </component>
+  </components>
+</module>

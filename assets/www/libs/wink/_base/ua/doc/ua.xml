@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "../../../utils/doc/wink_doc.dtd" >
+<?xml-stylesheet type="text/xsl" href="../../../utils/doc/wink_doc.xsl"?>
+<module>
+  <title>User Agent</title>
+  <name>wink.ua</name>
+  <is_graphical>0</is_graphical>
+  <description>
+  	The ua object provides a layer of abstraction with all specifics related to the platform hosting the code.
+  	It allows the user to make different implementations consistent with the platform and / or the target browser.
+  </description>
+  <test_pages>
+    <page>
+      <description>This page lists all system properties related to the client platform and browser.</description>
+      <url>test_ua.html</url>
+    </page>
+  </test_pages>
+  <compatibility>Iphone OS2, Iphone OS3, Iphone OS4, Android 1.1, Android 1.5, Android 2.1, Android 2.2, Android 2.3, BlackBerry 6, Bada 1.0</compatibility>
+  <instanciation>
+    <description>ua is a Literal, so it did not need to be instantiated.</description>
+    <code_sample>
+if (wink.ua.isIPhone)
+{
+	// Performs a specific IPhone process
+}
+    </code_sample>
+  </instanciation>
+  <components>
+    <component>
+      <name>wink.ua</name>
+      <description>The ua component</description>
+      <public_properties>
+        <property>
+          <name>isWebkit</name>
+          <description>Indicates whether webkit is available</description>
+          <type>boolean</type>
+        </property>
+        <property>
+          <name>isMobile</name>
+          <description>Indicates whether the platform is a mobile</description>
+          <type>boolean</type>
+        </property>
+        <property>
+          <name>isIPhone</name>
+          <description>Indicates whether the platform is a IPhone</description>
+          <type>boolean</type>
+        </property>
+        <property>
+          <name>isIPod</name>
+          <description>Indicates whether the platform is a IPod</description>
+          <type>boolean</type>
+        </property>
+        <property>
+          <name>isIPad</name>
+          <description>Indicates whether the platform is a IPad</description>
+          <type>boolean</type>
+        </property>
+        <property>
+          <name>isIOS</name>
+          <description>Indicates whether the platform is a IOS</description>
+          <type>boolean</type>
+        </property>
+        <property>
+          <name>isAndroid</name>
+          <description>Indicates whether the platform is a Android</description>
+          <type>boolean</type>
+        </property>
+        <property>
+          <name>isBlackBerry</name>
+          <description>Indicates whether the platform is a BlackBerry</description>
+          <type>boolean</type>
+        </property>
+        <property>
+          <name>isBada</name>
+          <description>Indicates whether the platform is a Bada</description>
+          <type>boolean</type>
+        </property>
+        <property>
+          <name>isSafari</name>
+          <description>Indicates whether the browser is Safari</description>
+          <type>boolean</type>
+        </property>
+        <property>
+          <name>isMozilla</name>
+          <description>Indicates whether the browser is Mozilla</description>
+          <type>boolean</type>
+        </property>
+        <property>
+          <name>isOpera</name>
+          <description>Indicates whether the browser is Opera</description>
+          <type>boolean</type>
+        </property>
+        <property>
+          <name>webkitVersion</name>
+          <description>The webkit major version</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>webkitMinorVersion</name>
+          <description>The webkit minor version</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>webkitUpdateVersion</name>
+          <description>The webkit update version</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>browserVersion</name>
+          <description>The browser major version</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>browserMinorVersion</name>
+          <description>The browser minor version</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>browserUpdateVersion</name>
+          <description>The browser update version</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>osVersion</name>
+          <description>The OS major version</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>osMinorVersion</name>
+          <description>The OS minor version</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>osUpdateVersion</name>
+          <description>The OS update version</description>
+          <type>integer</type>
+        </property>
+      </public_properties>
+    </component>
+  </components>
+</module>

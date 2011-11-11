@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "../../../utils/doc/wink_doc.dtd" >
+<?xml-stylesheet type="text/xsl" href="../../../utils/doc/wink_doc.xsl"?>
+<module>
+  <title>JSON</title>
+  <name>wink.json</name>
+  <is_graphical>0</is_graphical>
+  <description>Parse, validate and evaluate JSON structures</description>
+  <test_pages>
+    <page>
+      <description>Parse a JSON structure at page startup. The structure contains the definition of a person with its name and age. When the button in the page is being clicked, the page displays the age of the person described in the JSON structure.</description>
+      <url>test_json.html</url>
+    </page>
+    <page>
+      <description>Uses the extension of the json object (not in the core). Stringifies an object at page startup. The structure contains various data types. The result is displayed in the page</description>
+      <url>test_json_extended.html</url>
+    </page>
+  </test_pages>
+  <compatibility>Iphone OS2, Iphone OS3, Iphone OS4, Android 1.1, Android 1.5, Android 2.1, Android 2.2, Android 2.3, BlackBerry 6, Bada 1.0</compatibility>
+  <instanciation>
+    <description>wink.json is a literal and doesn't need to be instantiated. To parse a JSON structure, you can use either 'wink.json.parse()' or 'wink.parseJSON()'</description>
+    <code_sample>
+wink.parseJSON('{"result" : {"state" : "done"}}');
+    </code_sample>
+  </instanciation>
+  <components>
+    <component>
+      <name>wink.json</name>
+      <description>Parse, validate and evaluate JSON structures</description>
+      <public_methods>
+        <method>
+          <name>parse</name>
+          <description>Parse, validate and evaluate a JSON structure</description>
+          <parameters>
+            <parameter>
+              <name>str</name>
+              <description>The structure to evaluate</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>concat</name>
+          <description>Concatenate the given JSON structures</description>
+          <parameters>
+            <parameter>
+              <name>obj1</name>
+              <description>the object that will be updated with the second</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>obj2</name>
+              <description>the object that will be concatenated to the first</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+      </public_methods>
+    </component>
+    <component>
+      <name>wink.json._extended</name>
+      <description>Stringify objects into JSON structures. JSON extended is not part of the core</description>
+      <public_methods>
+        <method>
+          <name>stringify</name>
+          <description>Return the JSON representation of a given value</description>
+          <parameters>
+            <parameter>
+              <name>value</name>
+              <description>the object or array to transform</description>
+              <type>object/array</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+      </public_methods>
+    </component>
+  </components>
+</module>

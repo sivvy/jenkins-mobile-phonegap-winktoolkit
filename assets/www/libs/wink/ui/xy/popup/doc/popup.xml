@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "../../../../utils/doc/wink_doc.dtd" >
+<?xml-stylesheet type="text/xsl" href="../../../../utils/doc/wink_doc.xsl"?>
+<module>
+  <title>Popup</title>
+  <name>wink.ui.xy.Popup</name>
+  <is_graphical>1</is_graphical>
+  <description>
+  	Popup is a singleton that allows to open a popup window with one (alert) or two buttons (confirm) or with a fully customizable content
+  	Options are available for each type of popup style
+  </description>
+  <test_pages>
+    <page>
+      <description>A simple test that implements different use cases of the popup</description>
+      <url>test_popup.html</url>
+    </page>
+  </test_pages>
+  <compatibility>Iphone OS2, Iphone OS3, Iphone OS4, Android 1.1, Android 1.5, Android 2.1, Android 2.2, Android 2.3, BlackBerry 6, Bada 1.0</compatibility>
+  <instanciation>
+    <description>The popup is a singleton, it needs to be instantiated only once. No parameter is needed.</description>
+    <code_sample>
+var popup = new wink.ui.xy.Popup();
+document.body.appendChild(popup.getDomNode());
+popup.confirm({
+	msg: "Do you confirm ?",
+	callbackOk: { context: window, method: 'confirmOk' },
+	callbackCancel: { context: window, method: 'confirmCancel' }
+});
+    </code_sample>
+  </instanciation>
+  <components>
+    <component>
+      <name>wink.ui.xy.Popup</name>
+      <description>The Popup component</description>
+      <public_methods>
+        <method>
+          <name>getDomNode</name>
+          <description>Returns the component main dom node</description>
+        </method>
+        <method>
+          <name>hide</name>
+          <description>Hides the Popup</description>
+        </method>
+        <method>
+          <name>alert</name>
+          <description>Opens a 1-button popup with a message. calls a callback function if asked when the button is clicked</description>
+          <parameters>
+            <parameter>
+              <name>options</name>
+              <description>
+                {
+                  msg: the message to display,
+                  btn: the text to display in the button. If nothing specified, "ok" is used,
+                  callback: the callback to invoke when the user clicks on the button { context, method },
+                  borderRadius: indicates whether the popup must be displayed with border-radius style,
+                  duration: the duration of the display transition,
+                  followScrollY: allows to follow the scroll on y-axis
+                }
+              </description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>confirm</name>
+          <description>Opens a 2-buttons popup with a message. calls a callback function if asked, depending on the clicked button</description>
+          <parameters>
+            <parameter>
+              <name>options</name>
+              <description>
+                {
+                  msg: the message to display,
+                  btnCancel: the text to display in the "cancel" button. If nothing specified, "cancel" is used,
+                  callbackCancel: the callback to invoke when the user clicks on the 'cancel' button { context, method },
+                  btnOk: the text to display in the "ok" button. If nothing specified, "ok" is used,
+                  callbackOk: the callback to invoke when the user clicks on the 'ok' button { context, method },
+                  borderRadius: indicates whether the popup must be displayed with border-radius style,
+                  duration: the duration of the display transition,
+                  followScrollY: allows to follow the scroll on y-axis
+                }
+              </description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>popup</name>
+          <description>Opens a fully customizable popup</description>
+          <parameters>
+            <parameter>
+              <name>options</name>
+              <description>
+                {
+                  content: HTML code of the content,
+                  arrow: position of the arrow, if needed, values: "top", "bottom", "none" (default value),
+                  top: top position of the window,
+                  targetNode: node pointed by the arrow (top is then ignored),
+                  arrowLeftPos: left-position of the arrow,
+                  borderRadius: indicates whether the popup must be displayed with border-radius style,
+                  duration: the duration of the display transition,
+                  followScrollY: allows to follow the scroll on y-axis,
+                  layerCallback: the callback invoked when the user click on the layer, if not specified the default action is the popup hiding
+                }
+              </description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>preloadContent</name>
+          <description>deprecated : this method is no longer needed</description>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>uId</name>
+          <description>The unique identifier of the component</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>displayed</name>
+          <description>Indicates whether the popup is displayed</description>
+          <type>boolean</type>
+        </property>
+      </public_properties>
+    </component>
+  </components>
+  <styles>
+    <classes>
+      <class>
+        <name>pp_popup</name>
+        <description>The class of the main DOM node</description>
+      </class>
+      <class>
+        <name>pp_type_alert</name>
+        <description>Associated to pp_popup class, it describes the alert popup</description>
+      </class>
+      <class>
+        <name>pp_type_confirm</name>
+        <description>Associated to pp_popup class, it describes the confirm popup</description>
+      </class>
+      <class>
+        <name>pp_type_popup</name>
+        <description>Associated to pp_popup class, it describes the HTML custimzable popup</description>
+      </class>
+      <class>
+        <name>pp_hidden</name>
+        <description>Associated to pp_popup class, it is used for the display status of the popup</description>
+      </class>
+      <class>
+        <name>pp_popup_arrow</name>
+        <description>The popup arrow class</description>
+      </class>
+      <class>
+        <name>pp_bottom</name>
+        <description>The popup bottom arrow specificity</description>
+      </class>
+      <class>
+        <name>pp_top</name>
+        <description>The popup top arrow specificity</description>
+      </class>
+      <class>
+        <name>pp_none</name>
+        <description>it is used for the display status of the arrow</description>
+      </class>
+    </classes>
+  </styles>
+</module>

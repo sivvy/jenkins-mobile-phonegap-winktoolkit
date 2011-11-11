@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "../../../utils/doc/wink_doc.dtd" >
+<?xml-stylesheet type="text/xsl" href="../../../utils/doc/wink_doc.xsl"?>
+<module>
+  <title>Inertia</title>
+  <name>wink.ux.Inertia</name>
+  <is_graphical>0</is_graphical>
+  <description>
+  	The Inertia component provides, through collaboration with a Movement Tracker, 
+  	datas calculated from the inertia of a movement.
+  </description>
+  <test_pages>
+    <page>
+      <description>A simple example that displays inertia informations about the user movement.</description>
+      <url>test_inertia.html</url>
+    </page>
+  </test_pages>
+  <compatibility>Iphone OS2, Iphone OS3, Iphone OS4, Android 1.5, Android 2.1, Android 2.2, Android 2.3, BlackBerry 6, Bada 1.0</compatibility>
+  <instanciation>
+    <description>The user needs to create and pass a movement tracker object to the Inertia, and to listen the end of calculations.</description>
+    <properties>
+      <property>
+        <name>movementtracker</name>
+        <description>The movement tracker that provides datas to interpret</description>
+        <type>wink.ux.MovementTracker</type>
+        <is_optional>0</is_optional>
+      </property>
+    </properties>
+    <code_sample>
+var node = $("nodeId");
+var movementtracker = new wink.ux.MovementTracker({ target: node });
+var inertia = new wink.ux.Inertia({ movementtracker: movementtracker });
+wink.subscribe('/inertia/events/inertiacomputed', { context: window, method: 'displaySpeed' });
+    </code_sample>
+  </instanciation>
+  <components>
+    <component>
+      <name>wink.ux.Inertia</name>
+      <description>The Inertia component</description>
+      <public_methods>
+        <method>
+          <name>destroy</name>
+          <description>Destroys the component</description>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>uId</name>
+          <description>The unique identifier of the component.</description>
+          <type>integer</type>
+        </property>
+      </public_properties>
+      <events>
+        <event>
+          <name>/inertia/events/inertiacomputed</name>
+          <description>Inertia is computed</description>
+          <return>
+            <property>
+              <name>publisher</name>
+              <description>Identifies the Inertia component itself in order, for the caller, to check whether the event relates to it.</description>
+              <type>wink.ux.Inertia</type>
+              <is_optional>0</is_optional>
+            </property>
+            <property>
+              <name>movement</name>
+              <description>The original movement supplemented by inertia datas</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </property>
+            <property>
+              <name>uxEvent</name>
+              <description>The original end event of the movement</description>
+              <type>wink.ux.Event</type>
+              <is_optional>0</is_optional>
+            </property>
+            <property>
+              <name>target</name>
+              <description>The target of the movement</description>
+              <type>DOM node</type>
+              <is_optional>0</is_optional>
+            </property>
+          </return>
+        </event>
+      </events>
+    </component>
+  </components>
+</module>

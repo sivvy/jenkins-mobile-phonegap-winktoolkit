@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "../../../utils/doc/wink_doc.dtd" >
+<?xml-stylesheet type="text/xsl" href="../../../utils/doc/wink_doc.xsl"?>
+<module>
+  <title>Scroll To Load</title>
+  <name>wink.plugins.ScrollToLoad</name>
+  <is_graphical>0</is_graphical>
+  <description>A plugin that allows to manage the expansion of the content during the scroll.</description>
+    <test_pages>
+    <page>
+      <description>This test page allows to retrieve new messages by scrolling, natively, to the bottom.</description>
+      <url>test_scrolltoload.html</url>
+    </page>
+    <page>
+      <description>This test page allows to retrieve new messages by scrolling, with a scroller, to the bottom.</description>
+      <url>test_scrolltoload2.html</url>
+    </page>
+  </test_pages>
+  <compatibility>Iphone OS3, Iphone OS4, Android 1.5, Android 2.1, Android 2.2, Android 2.3, BlackBerry 6, Bada 1.0</compatibility>
+  <instanciation>
+    <description>The user may calibrate the wanted behavior by adjusting the pageSize property. The scroller is optional.</description>
+    <properties>
+      <property>
+        <name>scroller</name>
+        <description>the scroller</description>
+        <type>wink.ui.layout.Scroller</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>content</name>
+        <description>the content node</description>
+        <type>node</type>
+        <is_optional>0</is_optional>
+      </property>
+      <property>
+        <name>waitText</name>
+        <description>the wait text</description>
+        <type>string</type>
+        <is_optional>0</is_optional>
+      </property>
+      <property>
+        <name>loadingText</name>
+        <description>the loading text</description>
+        <type>string</type>
+        <is_optional>0</is_optional>
+      </property>
+      <property>
+        <name>spinner</name>
+        <description>the spinner</description>
+        <type>object</type>
+        <is_optional>0</is_optional>
+      </property>
+      <property>
+        <name>pageSize</name>
+        <description>the page size used to compute paging : default value is the viewport height</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>onPageChanged</name>
+        <description>the callback called when the current page changed</description>
+        <type>function</type>
+        <is_optional>0</is_optional>
+      </property>
+      <property>
+        <name>onLoadMore</name>
+        <description>the callback called when the action to load more is raised</description>
+        <type>function</type>
+        <is_optional>0</is_optional>
+      </property>
+    </properties>
+    <code_sample>
+var ctx = {};
+var scrollToLoad = new wink.plugins.ScrollToLoad({
+  scroller: new wink.ui.layout.Scroller({
+    target: 'scrollContent',
+    direction: 'y',
+    callbacks: {
+      stopSliding:	{ context: ctx, method: 'onScroll' },
+      endScrolling:	{ context: ctx, method: 'onScroll' }
+    }
+  }),
+  content: $('scrollContent'),
+  waitText: 'Click here to load more',
+  loadingText: 'Loading...',
+  spinner: new wink.ui.xy.Spinner({ background: "light", size: 20 }),
+  pageSize: 600,
+  onPageChanged: function(pageindex, pagecount, onLoading, onEnd) {
+    onLoading();
+    // load more or not depending on pageindex
+    onEnd();
+  },
+  onLoadMore: function(onLoading, onEnd) {
+    onLoading();
+    // load more when it's explicitly required
+    onEnd();
+  }
+});
+
+// Bind scroller callbacks to notify the ScrollToLoad of a scroll
+ctx.onScroll = wink.bind(scrollToLoad.onScroll, scrollToLoad);
+    </code_sample>
+  </instanciation>
+  <components>
+    <component>
+      <name>wink.plugins.ScrollToLoad</name>
+      <description>the ScrollToLoad component</description>
+      <public_methods>
+        <method>
+          <name>onScroll</name>
+          <description>method called when a scroll occurs</description>
+        </method>
+        <method>
+          <name>onClick</name>
+          <description>method called when a click occurs</description>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>uId</name>
+          <description>unique identifier of the component</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>onPageChanged</name>
+          <description>see instanciation</description>
+          <type>function</type>
+        </property>
+        <property>
+          <name>onLoadMore</name>
+          <description>see instanciation</description>
+          <type>function</type>
+        </property>
+      </public_properties>
+    </component>
+  </components>
+  <styles>
+    <classes>
+      <class>
+        <name>stl_section</name>
+        <description>the section class</description>
+      </class>
+      <class>
+        <name>stl_text</name>
+        <description>the content of the section</description>
+      </class>
+      <class>
+        <name>stl_label</name>
+        <description>the section label</description>
+      </class>
+      <class>
+        <name>stl_sp_box</name>
+        <description>the spinner box</description>
+      </class>
+    </classes>
+  </styles>
+</module>

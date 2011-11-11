@@ -1,0 +1,10 @@
+<!ELEMENT wink ( title, description, modules* ) >
+
+<!ELEMENT modules ( module+ ) >
+<!ELEMENT module ( title, name, family, directory ) >
+
+<!ELEMENT description ( #PCDATA ) >
+<!ELEMENT directory ( #PCDATA ) >
+<!ELEMENT family ( #PCDATA ) >
+<!ELEMENT name ( #PCDATA ) >
+<!ELEMENT title ( #PCDATA ) >

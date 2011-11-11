@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "../../../../utils/doc/wink_doc.dtd" >
+<?xml-stylesheet type="text/xsl" href="../../../../utils/doc/wink_doc.xsl"?>
+<module>
+  <title>Progress Bar</title>
+  <name>wink.ui.xy.ProgressBar</name>
+  <is_graphical>1</is_graphical>
+  <description>Creates an animated progress bar</description>
+  <test_pages>
+    <page>
+      <description>2 progress bars are displayed and the progress is updated by a timer every 800ms.</description>
+      <url>test_progressbar</url>
+    </page>
+  </test_pages>
+  <compatibility>Iphone OS2, Iphone OS3, Iphone OS4, Android 1.1, Android 1.5, Android 2.1, Android 2.2, Android 2.3, BlackBerry 6, Bada 1.0</compatibility>
+  <instanciation>
+    <description>When you instantiate a new progressbar, you can pass different parameters in order to configure the look and feel of the bar. Use the 'getDomNode' method to add the progress bar to the page.</description>
+    <properties>
+      <property>
+        <name>value</name>
+        <description>The initial value of the progress bar</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>height</name>
+        <description>The height in pixels of the bar. The default value is 5px</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>width</name>
+        <description>The width in pixels of the bar. The default value is 200px</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>borderColor</name>
+        <description>The border color of the progress bar. It can be either 'transparent' or the hexa code of the color. The default value is #ff0000</description>
+        <type>string</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>progressBarColor</name>
+        <description>The color of the progress bar background. It can be either 'transparent' or the hexa code of the color. The default value is #ff5500</description>
+        <type>string</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>progressBarImage</name>
+        <description>Add a background image instead of a background color to the bar. The 'progressBarImage' is an object the contains the 'image' (the image encoded in base64) and the 'type' of the image (e.g.: gif, png). See the test page for more details.</description>
+        <type>object</type>
+        <is_optional>1</is_optional>
+      </property>
+    </properties>
+    <code_sample>
+var properties =
+{
+	'height': 5,
+	'width' : 200,
+	'borderColor': '#000',
+	'progressBarColor': '#ff0000',
+}
+
+progressBar = new wink.ui.xy.ProgressBar(properties);
+		
+$('output').appendChild(progressBar.getDomNode());
+	</code_sample>
+  </instanciation>
+  <components>
+    <component>
+      <name>wink.ui.xy.ProgressBar</name>
+      <description>Creates the progress bar and handle the progress</description>
+      <public_methods>
+        <method>
+          <name>setValue</name>
+          <description>Set the current value of the progress bar (between 0 and 100) and update the progress display</description>
+          <parameters>
+            <parameter>
+              <name>value</name>
+              <description>The value in percentage (between 0 and 100) of the progress bar</description>
+              <type>integer</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>setBorderColor</name>
+          <description>Change the border color of the progress bar</description>
+          <parameters>
+            <parameter>
+              <name>color</name>
+              <description>The border color of the progress bar. It can be either 'transparent' or the hexa code of the color.</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>setProgressBarColor</name>
+          <description>Change the color of the progress bar background</description>
+          <parameters>
+            <parameter>
+              <name>color</name>
+              <description>The background color of the progress bar. It can be either 'transparent' or the hexa code of the color.</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>setProgressBarImage</name>
+          <description>Change the background image of the progress bar</description>
+          <parameters>
+            <parameter>
+              <name>image</name>
+              <description>An object that contains the 'image' (the image encoded in base64) and the 'type' of the image (e.g.: gif, png)</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>getDomNode</name>
+          <description>returns the DOM node containing the progress bar</description>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>uId</name>
+          <description>unique identifier of the component</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>value</name>
+          <description>the current value of the progress bar</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>height</name>
+          <description>the height in pixels of the progress bar</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>width</name>
+          <description>the width in pixels of the progress bar</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>borderColor</name>
+          <description>the border color of the progress bar</description>
+          <type>string</type>
+        </property>
+        <property>
+          <name>progressBarColor</name>
+          <description>the color of the progress bar background</description>
+          <type>string</type>
+        </property>
+        <property>
+          <name>progressBarImage</name>
+          <description>the progress bar background image</description>
+          <type>object</type>
+        </property>
+      </public_properties>
+      <events>
+        <event>
+          <name>/progressbar/events/end</name>
+          <description>This event is fired when the progress bar reaches 100%</description>
+        </event>
+      </events>
+    </component>
+  </components>
+</module>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "../../../utils/doc/wink_doc.dtd" >
+<?xml-stylesheet type="text/xsl" href="../../../utils/doc/wink_doc.xsl"?>
+<module>
+  <title>Smart loader</title>
+  <name>wink.net.SmartLoader</name>
+  <is_graphical>1</is_graphical>
+  <description>Load images, css and js resources. It warns the user when the task is complete. It can also display a progress bar while loading</description>
+  <test_pages>
+    <page>
+      <description>Loads 9 images, 8 stylesheets and 3 scripts at startup. While the resources are loading, a progressbar is displayed. The SmartLoader is a singleton and only need to be instantiated once.</description>
+      <url>test_smartloader.html</url>
+    </page>
+  </test_pages>
+  <compatibility>Iphone OS2, Iphone OS3, Iphone OS4, Android 1.1, Android 1.5, Android 2.1, Android 2.2, Android 2.3, BlackBerry 6, Bada 1.0</compatibility>
+  <dependencies>
+    <dependency>
+      <module_name>wink.net.JsLoader</module_name>
+    </dependency>
+    <dependency>
+      <module_name>wink.net.CssLoader</module_name>
+    </dependency>
+    <dependency>
+      <module_name>wink.net.ImagesLoader</module_name>
+    </dependency>
+    <dependency>
+      <module_name>wink.ui.xy.ProgressBar</module_name>
+    </dependency>
+  </dependencies>
+  <instanciation>
+    <description>The smart loader needs parameters to configure the progress bar. Use the 'load' method to start loading datas. If you want to display the progress bar, use the 'getDomNode' method of the smart loader.</description>
+    <properties>
+      <property>
+        <name>height</name>
+        <description>The height in pixels of the bar. The default value is 5px</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>width</name>
+        <description>The width in pixels of the bar. The default value is 200px</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>borderColor</name>
+        <description>The border color of the progress bar. It can be either 'transparent' or the hexa code of the color. The default value is #ff0000</description>
+        <type>string</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>progressBarColor</name>
+        <description>The color of the progress bar background. It can be either 'transparent' or the hexa code of the color. The default value is #ff5500</description>
+        <type>string</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>progressBarImage</name>
+        <description>Add a background image instead of a background color to the bar. The 'progressBarImage' is an object the contains the 'image' (the image encoded in base64) and the 'type' of the image (e.g.: gif, png). See the test page for more details.</description>
+        <type>object</type>
+        <is_optional>1</is_optional>
+      </property>
+    </properties>
+    <code_sample>
+scripts = new Array('../../dom/dom.js', '../../json/js/json.js', './false.js');
+styles = new Array('../../../ui/layout/accordion/css/accordion.css', '../../../ui/xy/datepicker/css/datepicker.css', '../../../ui/xy/colorpicker/css/colorpicker.css', '../../../ui/layout/slidingpanels/css/slidingpanels.css', '../../../ui/xy/popup/css/popup.css', '../../../ui/xy/progressbar/css/progressbar.css', '../../../ui/xy/togglebutton/css/togglebutton.css', './false.css');
+images = new Array('../img/test1.jpg', '../img/test2.jpg', '../img/test3.jpg', '../img/test4.jpg', '../img/test5.jpg', '../img/test6.jpg', '../img/test7.jpg', '../img/test8.jpg', '../img/test9.jpg');
+	
+progressBarProperties =
+{
+	'height': 15,
+	'width' : 250,
+	'borderColor': '#000',
+	'progressBarColor': 'transparent',
+	'progressBarImage':
+	{
+		'image': 'iVBORw0KGgoAAAANSUhEUgAAABQAAAAOCAIAAACgpqunAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAiRJREFUeNpckltT2lAQx5OTkzsJxFwcbpaKFu1l6PTV79WHvvaz9bXCtFocG6pAi0oUG9qBhFz6D5nC4Jk91z2/3bN7lv344T3DMP79xB2MsLANndluk6mPsblX0037iYqW6w1MTkH3Zz7u6dpTeM3v2g6RlC3YKZez2Sy+Y5jPX0+xhAdLTNc3vAAOXZgG6ZhFRtjw1HYcTNEy5BXt7o8/unL3K1ZR5Nc3iiJjtfY7F/14+qAdNCW1sIEtO4OTONY0vf22jeC9gG1YW89TdL7/y4PpF3iXXqKUIxyXwYZhYorjUFYy4PDn+LJ3xlR1TZXXsMYwJ+2jT93ebOpV6s9KRgmHHCdQSRJXF0RBjERROHz95nZyd+sHRlEXKcnhOEltQpCLbqe7d3AEWBBlnlICIBdZklRVa7aOkf/hLABDCF6XicBzisCfPN/B4WAwwAgSjbAs1BxLyGpLFaXwqt2Guj+6yXioV8JTTldV/ML4/Oxx+riMIhglaZokaQo1wyIMgiiqtTqcu340D6MEp/8b/LcqJtJ20fsWBvM4Tgg68DiOV2OS5VYptF4eY9EbTuIogulcMpWs5M69yf18sSDoQRDmEkVR7sTZLeeR/10E4RKWk1ygKtvW92vXPe/M/N8UHdnKU5//WRYqx1XrtfHw6sv1DZ4q8Jua0fk0T7tda9AHbyIrav7p6xYGYWnHRMHDCarN0LZqpqnT0x/js273nwADAG4u9cvtncYYAAAAAElFTkSuQmCC',
+		'type' : 'png'
+	}
+}
+
+smartLoader = new wink.net.SmartLoader(progressBarProperties);
+
+// Add the progress bar to the screen
+document.body.appendChild(smartLoader.getDomNode());
+		
+smartLoader.load({'scripts': scripts, 'styles': styles, 'images': images});
+    </code_sample>
+  </instanciation>
+  <components>
+    <component>
+      <name>wink.net.SmartLoader</name>
+      <description>load the datas (JS first, then CSS and Images)</description>
+      <public_methods>
+        <method>
+          <name>load</name>
+          <description>Start processing the datas. You must pass an object containing 'scripts', 'styles' and 'images' sections. Each section can be one string or an array of strings representing the resources you want to load.</description>
+          <parameters>
+            <parameter>
+              <name>data</name>
+              <description>An object containing the scripts, stylesheets and images you want to preload. See the test page for more details</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>getDomNode</name>
+          <description>returns the DOM node containing the progress bar</description>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>uId</name>
+          <description>unique identifier of the component</description>
+          <type>integer</type>
+        </property>
+      </public_properties>
+      <events>
+        <event>
+          <name>/smartloaderloader/events/loadend</name>
+          <description>all the datas have been preloaded </description>
+        </event>
+      </events>
+    </component>
+  </components>
+</module>

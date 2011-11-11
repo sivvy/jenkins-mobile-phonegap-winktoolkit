@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "../../../utils/doc/wink_doc.dtd" >
+<?xml-stylesheet type="text/xsl" href="../../../utils/doc/wink_doc.xsl"?>
+<module>
+  <title>feat</title>
+  <name>wink._feat</name>
+  <is_graphical>0</is_graphical>
+  <description>
+    The feat module provides the feature detection.
+  </description>
+  <compatibility>Iphone OS2, Iphone OS3, Iphone OS4, Android 1.1, Android 1.5, Android 2.1, Android 2.2, Android 2.3, BlackBerry 6, Bada 1.0</compatibility>
+  <instanciation>
+    <description>feat is a library of functions, so it did not need to be instantiated.</description>
+    <code_sample>
+if (wink.has("text-shadow")) {
+  // Set a text shadow style
+}
+    </code_sample>
+  </instanciation>
+  <components>
+    <component>
+      <name>wink._feat</name>
+      <description>The wink feature detection provider</description>
+      <public_methods>
+        <method>
+          <name>has</name>
+          <description>Test if the given feature is supported</description>
+          <parameters>
+            <parameter>
+              <name>feature</name>
+              <description>the feature to test</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>inquire</name>
+          <description>Inquires about the given feature</description>
+          <parameters>
+            <parameter>
+              <name>feature</name>
+              <description>the feature to inquire</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>assertSupported</name>
+              <description>the function that investigates or the boolean value if known</description>
+              <type>function</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>now</name>
+              <description>allows to investigate now</description>
+              <type>boolean</type>
+              <is_optional>1</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>inquireMap</name>
+          <description>Inquires about a map of features</description>
+          <parameters>
+            <parameter>
+              <name>map</name>
+              <description>the map of features</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>now</name>
+              <description>allows to investigate now</description>
+              <type>boolean</type>
+              <is_optional>1</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>setProp</name>
+          <description>Set a property associated to the feature detection</description>
+          <parameters>
+            <parameter>
+              <name>key</name>
+              <description>the property</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>value</name>
+              <description>the value</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>deferProp</name>
+          <description>defer the property recovery on a function or on a feature detection</description>
+          <parameters>
+            <parameter>
+              <name>key</name>
+              <description>the property</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>proc</name>
+              <description>the defered process</description>
+              <type>function</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>prop</name>
+          <description>Get a property associated to the feature detection</description>
+          <parameters>
+            <parameter>
+              <name>key</name>
+              <description>the property</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>touchstart</name>
+          <description>eg. touchstart, mousedown</description>
+          <type>string</type>
+          <is_optional>1</is_optional>
+        </property>
+        <property>
+          <name>touchmove</name>
+          <description>eg. touchmove, mousemove</description>
+          <type>string</type>
+          <is_optional>1</is_optional>
+        </property>
+        <property>
+          <name>touchend</name>
+          <description>eg. touchend, mouseup</description>
+          <type>string</type>
+          <is_optional>1</is_optional>
+        </property>
+        <property>
+          <name>transform</name>
+          <description>eg. WebkitTransform</description>
+          <type>string</type>
+          <is_optional>1</is_optional>
+        </property>
+        <property>
+          <name>transform-property</name>
+          <description>eg. -webkit-transform</description>
+          <type>string</type>
+          <is_optional>1</is_optional>
+        </property>
+        <property>
+          <name>transition-property</name>
+          <description>eg. WebkitTransitionProperty</description>
+          <type>string</type>
+          <is_optional>1</is_optional>
+        </property>
+        <property>
+          <name>transition-duration</name>
+          <description>eg. WebkitTransitionDuration</description>
+          <type>string</type>
+          <is_optional>1</is_optional>
+        </property>
+        <property>
+          <name>transition-delay</name>
+          <description>eg. WebkitTransitionDelay</description>
+          <type>string</type>
+          <is_optional>1</is_optional>
+        </property>
+        <property>
+          <name>transition-timing-function</name>
+          <description>eg. WebkitTransitionTimingFunction</description>
+          <type>string</type>
+          <is_optional>1</is_optional>
+        </property>
+        <property>
+          <name>transitionend</name>
+          <description>eg. webkitTransitionEnd</description>
+          <type>string</type>
+          <is_optional>1</is_optional>
+        </property>
+        <property>
+          <name>box-shadow</name>
+          <description>eg. WebkitBoxShadow</description>
+          <type>string</type>
+          <is_optional>1</is_optional>
+        </property>
+        <property>
+          <name>text-shadow</name>
+          <description>eg. text-shadow</description>
+          <type>string</type>
+          <is_optional>1</is_optional>
+        </property>
+        <property>
+          <name>border-radius</name>
+          <description>eg. WebkitBorderRadius</description>
+          <type>string</type>
+          <is_optional>1</is_optional>
+        </property>
+        <property>
+          <name>gradient</name>
+          <description>eg. -webkit-gradient</description>
+          <type>string</type>
+          <is_optional>1</is_optional>
+        </property>
+        <property>
+          <name>perspective</name>
+          <description>eg. WebkitPerspective</description>
+          <type>string</type>
+          <is_optional>1</is_optional>
+        </property>
+        <property>
+          <name>perspective-origin</name>
+          <description>eg. WebkitPerspectiveOrigin</description>
+          <type>string</type>
+          <is_optional>1</is_optional>
+        </property>
+        <property>
+          <name>transform-style</name>
+          <description>eg. WebkitTransformStyle</description>
+          <type>string</type>
+          <is_optional>1</is_optional>
+        </property>
+        <property>
+          <name>backface-visibility</name>
+          <description>eg. WebkitBackfaceVisibility</description>
+          <type>string</type>
+          <is_optional>1</is_optional>
+        </property>
+        <property>
+          <name>transform-origin</name>
+          <description>eg. WebkitTransformOrigin</description>
+          <type>string</type>
+          <is_optional>1</is_optional>
+        </property>
+        <property>
+          <name>transform-origin-x</name>
+          <description>eg. WebkitTransformOriginX</description>
+          <type>string</type>
+          <is_optional>1</is_optional>
+        </property>
+        <property>
+          <name>transform-origin-y</name>
+          <description>eg. WebkitTransformOriginY</description>
+          <type>string</type>
+          <is_optional>1</is_optional>
+        </property>
+        <property>
+          <name>transform-origin-z</name>
+          <description>eg. WebkitTransformOriginZ</description>
+          <type>string</type>
+          <is_optional>1</is_optional>
+        </property>
+        <property>
+          <name>tap-highlight-color</name>
+          <description>eg. WebkitTapHighlightColor</description>
+          <type>string</type>
+          <is_optional>1</is_optional>
+        </property>
+        <property>
+          <name>user-select</name>
+          <description>eg. WebkitUserSelect</description>
+          <type>string</type>
+          <is_optional>1</is_optional>
+        </property>
+      </public_properties>
+    </component>
+    <component>
+      <name>wink._featjson</name>
+      <description>json features detection</description>
+      <public_properties>
+        <property>
+            <name>json-parse</name>
+            <is_optional>1</is_optional>
+        </property>
+      </public_properties>
+    </component>
+    <component>
+      <name>wink._featcss</name>
+      <description>css features detection</description>
+      <public_properties>
+        <property>
+            <name>css-transform</name>
+            <is_optional>1</is_optional>
+        </property>
+        <property>
+            <name>css-transition</name>
+            <is_optional>1</is_optional>
+        </property>
+        <property>
+            <name>css-translate3d</name>
+            <is_optional>1</is_optional>
+        </property>
+        <property>
+            <name>css-border-radius</name>
+            <is_optional>1</is_optional>
+        </property>
+        <property>
+            <name>css-text-shadow</name>
+            <is_optional>1</is_optional>
+        </property>
+        <property>
+            <name>css-box-shadow</name>
+            <is_optional>1</is_optional>
+        </property>
+        <property>
+            <name>css-gradient</name>
+            <is_optional>1</is_optional>
+        </property>
+        <property>
+            <name>css-perspective</name>
+            <is_optional>1</is_optional>
+        </property>
+        <property>
+            <name>css-matrix</name>
+            <is_optional>1</is_optional>
+        </property>
+        <property>
+            <name>css-matrix-stack-inversed</name>
+            <is_optional>1</is_optional>
+        </property>
+      </public_properties>
+    </component>
+    <component>
+      <name>wink._featevent</name>
+      <description>event features detection</description>
+      <public_properties>
+        <property>
+            <name>touchstart</name>
+            <is_optional>1</is_optional>
+        </property>
+        <property>
+            <name>touchmove</name>
+            <is_optional>1</is_optional>
+        </property>
+        <property>
+            <name>touchend</name>
+            <is_optional>1</is_optional>
+        </property>
+        <property>
+            <name>touch</name>
+            <is_optional>1</is_optional>
+        </property>
+        <property>
+            <name>gesturestart</name>
+            <is_optional>1</is_optional>
+        </property>
+        <property>
+            <name>gesturechange</name>
+            <is_optional>1</is_optional>
+        </property>
+        <property>
+            <name>gestureend</name>
+            <is_optional>1</is_optional>
+        </property>
+        <property>
+            <name>gesture</name>
+            <is_optional>1</is_optional>
+        </property>
+        <property>
+            <name>transitionend</name>
+            <is_optional>1</is_optional>
+        </property>
+      </public_properties>
+    </component>
+    <component>
+      <name>wink._featdom</name>
+      <description>dom features detection</description>
+      <public_properties>
+        
+      </public_properties>
+    </component>
+    <component>
+      <name>wink._api</name>
+      <description>api features detection</description>
+      <public_properties>
+        <property>
+            <name>native-geolocation</name>
+            <is_optional>1</is_optional>
+        </property>
+        <property>
+            <name>native-device-orientation</name>
+            <is_optional>1</is_optional>
+        </property>
+        <property>
+            <name>native-device-motion</name>
+            <is_optional>1</is_optional>
+        </property>
+      </public_properties>
+    </component>
+    <component>
+      <name>wink._graphic</name>
+      <description>graphic features detection</description>
+      <public_properties>
+        <property>
+            <name>canvas</name>
+            <is_optional>1</is_optional>
+        </property>
+      </public_properties>
+    </component>
+    <component>
+      <name>wink._audio</name>
+      <description>audio features detection</description>
+      <public_properties>
+        
+      </public_properties>
+    </component>
+    <component>
+      <name>wink._video</name>
+      <description>video features detection</description>
+      <public_properties>
+        
+      </public_properties>
+    </component>
+  </components>
+</module>

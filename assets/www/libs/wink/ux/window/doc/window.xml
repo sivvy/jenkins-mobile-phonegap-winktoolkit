@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "../../../utils/doc/wink_doc.dtd" >
+<?xml-stylesheet type="text/xsl" href="../../../utils/doc/wink_doc.xsl"?>
+<module>
+  <title>Window</title>
+  <name>wink.ux.Window</name>
+  <is_graphical>0</is_graphical>
+  <description>
+  	The window component captures resize, scroll and orientation events and warns listeners of changes.
+  </description>
+  <test_pages>
+    <page>
+      <description>A simple test that listens to the window component events and prints the result in the web page.</description>
+      <url>test_window.html</url>
+    </page>
+  </test_pages>
+  <compatibility>Iphone OS2, Iphone OS3, Iphone OS4, Android 1.1, Android 1.5, Android 2.1, Android 2.2, Android 2.3, BlackBerry 6, Bada 1.0</compatibility>
+  <instanciation>
+    <description>The window component is a literal so it doesn't need to be instantiated</description>
+    <code_sample>
+var handleOrientation = function(properties)
+{
+	alert("Orientation: " + properties.orientation);
+};
+
+wink.subscribe('/window/events/orientationchange', { context: window, method: 'handleOrientation' });
+    </code_sample>
+  </instanciation>
+  <components>
+    <component>
+      <name>wink.ux.window</name>
+      <description>The Window component</description>
+      <public_properties>
+        <property>
+          <name>height</name>
+          <description>the height of the visible area</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>fullWidth</name>
+          <description>the width of the content</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>fullHeight</name>
+          <description>the height of the content</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>screenWidth</name>
+          <description>the width of the screen</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>screenHeight</name>
+          <description>the height of the screen</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>orientation</name>
+          <description>the orientation of the window ("horizontal" or "vertical")</description>
+          <type>string</type>
+        </property>
+      </public_properties>
+      <events>
+        <event>
+          <name>/window/events/resize</name>
+          <description>Raised when window is resized.</description>
+          <return>
+            <property>
+              <name>width</name>
+              <description>The window width</description>
+              <type>integer</type>
+              <is_optional>0</is_optional>
+            </property>
+            <property>
+              <name>height</name>
+              <description>The window height</description>
+              <type>integer</type>
+              <is_optional>0</is_optional>
+            </property>
+            <property>
+              <name>orientation</name>
+              <description>The orientation of the window</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </property>
+          </return>
+        </event>
+        <event>
+          <name>/window/events/orientationchange</name>
+          <description>Raised when orientation changed.</description>
+          <return>
+            <property>
+              <name>width</name>
+              <description>The window width</description>
+              <type>integer</type>
+              <is_optional>0</is_optional>
+            </property>
+            <property>
+              <name>height</name>
+              <description>The window height</description>
+              <type>integer</type>
+              <is_optional>0</is_optional>
+            </property>
+            <property>
+              <name>orientation</name>
+              <description>The orientation of the window</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </property>
+          </return>
+        </event>
+      </events>
+    </component>
+  </components>
+</module>

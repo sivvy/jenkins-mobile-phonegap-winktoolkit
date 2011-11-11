@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "../../../utils/doc/wink_doc.dtd" >
+<?xml-stylesheet type="text/xsl" href="../../../utils/doc/wink_doc.xsl"?>
+<module>
+  <title>Sharing wheel</title>
+  <name>wink.plugins.SharingWheel</name>
+  <is_graphical>1</is_graphical>
+  <description>A plugin to display a wheel that can be used to share items</description>
+  <test_pages>
+    <page>
+      <description>The wheel has been populated with 5 different items</description>
+      <url>test_sharingwheel.html</url>
+    </page>
+  </test_pages>
+  <compatibility>Iphone OS2, Iphone OS3, Iphone OS4, Android 2.1, Android 2.2, Android 2.3, BlackBerry 6</compatibility>
+  <instanciation>
+    <description>To instantiate the wheel, just define the items and the diameter of the wheel</description>
+    <properties>
+      <property>
+        <name>shareItems</name>
+        <description>the list of items in the wheel (must be an array containing the title of the item and eventually a sharing link)</description>
+        <type>array</type>
+        <is_optional>0</is_optional>
+      </property>>
+      <property>
+        <name>height</name>
+        <description>the diameter of the wheel</description>
+        <type>integer</type>
+        <is_optional>0</is_optional>
+      </property>
+    </properties>
+    <code_sample>
+var properties = 
+{
+	'shareItems': 
+	[
+		{'title': 'do not <br />share'},
+		{'title': 'via <br />facebook', 'shareUrl' : 'http://facebook.com/share.php?u=http%3A%2F%2Fwww.winktoolkit.org&t=wink'},
+		{'title': 'via <br />twitter', 'shareUrl' : 'http://twitter.com/intent/tweet?text=' + encodeURIComponent('I love wink !!') + '&url=' + encodeURIComponent('http://www.winktoolkit.org')},
+		{'title': 'via <br />tumblr', 'shareUrl' : 'http://www.tumblr.com/share/link?url=' + encodeURIComponent('http://www.winktoolkit.org')},
+		{'title': 'by <br />e-mail', 'shareUrl' : 'mailto:?subject=' + encodeURIComponent('I love wink !!')}
+	],
+	'height': 200
+};
+
+share = new wink.plugins.SharingWheel(properties);
+$('wheel').appendChild(share.getDomNode());
+			
+    </code_sample>
+  </instanciation>
+  <components>
+    <component>
+      <name>wink.plugins.SharingWheel</name>
+      <description>Create the wheel</description>
+      <public_methods>
+        <method>
+          <name>getDomNode</name>
+          <description>returns the DOM node containing the sliding panels</description>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>uId</name>
+          <description>unique identifier of the component</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>shareItems</name>
+          <description>the list of items in the wheel</description>
+          <type>array</type>
+        </property>
+        <property>
+          <name>height</name>
+          <description>the diameter of the wheel</description>
+          <type>integer</type>
+        </property>
+      </public_properties>
+    </component>
+  </components>
+  <styles>
+    <classes>
+      <class>
+        <name>sh_wheel</name>
+        <description>the wheel</description>
+      </class>
+      <class>
+        <name>sh_petals</name>
+        <description>an item of the wheel</description>
+      </class>
+      <class>
+        <name>sh_content</name>
+        <description>The content of a petal</description>
+      </class>
+    </classes>
+  </styles>
+</module>

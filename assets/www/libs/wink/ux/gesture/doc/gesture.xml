@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "../../../utils/doc/wink_doc.dtd" >
+<?xml-stylesheet type="text/xsl" href="../../../utils/doc/wink_doc.xsl"?>
+<module>
+  <title>Gesture</title>
+  <name>wink.ux.gesture</name>
+  <is_graphical>0</is_graphical>
+  <description>
+  	The gesture object is able to determines whether some gestures (with exactly 2 fingers) 
+  	are performed on the nodes and if so, inform the listeners. Gestures that can be listened 
+  	are : 
+  	 - two_digits_click: on click with 2 fingers
+  	 - two_digits_press: on pressure with 2 fingers
+  	 - enlargement: A separation of the 2 fingers, as if to zoom in
+  	 - narrowing: bring 2 fingers closer, as if to zoom out
+  	 - rotation: a rotation with 2 fingers
+  	 - instant_scale: Each alignment or each spacing of 2 fingers
+  	 - instant_rotation: Each rotation of 2 fingers
+  	 - gesture_end: the end a a gesture
+  	The notifications to the listeners include parameters that depends on gesture type.
+  </description>
+  <test_pages>
+    <page>
+      <description>A full test of each gesture on 2 separated nodes.</description>
+      <url>test_gesture.html</url>
+    </page>
+    <page>
+      <description>A square which can be rotated, expanded and shrunk.</description>
+      <url>test_gesture_box.html</url>
+    </page>
+  </test_pages>
+  <compatibility>Iphone OS2, Iphone OS3, Iphone OS4</compatibility>
+  <instanciation>
+    <description>The gesture object is a Literal, so it did not need to be instantiated.</description>
+    <code_sample>
+var node = $("nodeId");
+wink.ux.gesture.listenTo(node, "two_digits_click", { context: window, method: "twoDigitsClick" }, { preventDefault: true });
+    </code_sample>
+  </instanciation>
+  <components>
+    <component>
+      <name>wink.ux.gesture</name>
+      <description>The gesture component</description>
+      <public_methods>
+        <method>
+          <name>listenTo</name>
+          <description>Allows to listen for a specific gesture on a dom Node.</description>
+          <parameters>
+            <parameter>
+              <name>domNode</name>
+              <description>the DOM node that listens to gesture</description>
+              <type>DOM node</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>gesture</name>
+              <description>The gesture name to listen</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>callback</name>
+              <description>The callback to invoke when the gesture id done : { context, method, arguments }</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>options</name>
+              <description>The options associated to the listener: { preventDefault: Indicates whether an automatic preventDefault must be done (default is false) }</description>
+              <type>object</type>
+              <is_optional>1</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>unlistenTo</name>
+          <description>Allows to unlisten for a specific gesture on a dom Node.</description>
+          <parameters>
+            <parameter>
+              <name>domNode</name>
+              <description>the DOM node that listens to gesture</description>
+              <type>DOM node</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>gesture</name>
+              <description>The gesture name to unlisten</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>callback</name>
+              <description>The callback that was previously added (identified by { context, method })</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+      </public_methods>
+    </component>
+  </components>
+</module>

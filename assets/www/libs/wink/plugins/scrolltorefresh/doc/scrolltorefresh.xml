@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "../../../utils/doc/wink_doc.dtd" >
+<?xml-stylesheet type="text/xsl" href="../../../utils/doc/wink_doc.xsl"?>
+<module>
+  <title>Scroll To Refresh</title>
+  <name>wink.plugins.ScrollToRefresh</name>
+  <is_graphical>0</is_graphical>
+  <description>Enables to trigger a refresh state, using a scroller, at the top or the bottom of the content.</description>
+    <test_pages>
+    <page>
+      <description>This test page allows to simulate a simple messaging by retrieving new and old messages.</description>
+      <url>test_scrolltorefresh.html</url>
+    </page>
+  </test_pages>
+  <compatibility>Iphone OS3, Iphone OS4, Android 1.5, Android 2.1, Android 2.2, Android 2.3, BlackBerry 6, Bada 1.0</compatibility>
+  <instanciation>
+    <description>At least one section (top or bottom) is required</description>
+    <properties>
+      <property>
+        <name>scroller</name>
+        <description>the scroller</description>
+        <type>wink.ui.layout.Scroller</type>
+        <is_optional>0</is_optional>
+      </property>
+      <property>
+        <name>scrollerContent</name>
+        <description>the node of the content (target of the scroller)</description>
+        <type>node</type>
+        <is_optional>0</is_optional>
+      </property>
+      <property>
+        <name>topsection</name>
+        <description>the top section properties (waitText, triggeredText, releasedText, spinner)</description>
+        <type>object</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>bottomsection</name>
+        <description>the bottom section properties (waitText, triggeredText, releasedText, spinner)</description>
+        <type>object</type>
+        <is_optional>1</is_optional>
+      </property>
+    </properties>
+    <code_sample>
+var ctx = {};
+var scrollToRefresh = new wink.plugins.ScrollToRefresh({
+  scroller: new wink.ui.layout.Scroller({
+    target: 'scrollContent',
+    direction: 'y',
+    callbacks: {
+      scrolling:		{ context: ctx, method: 'onScrolling' },
+      endScrolling:	{ context: ctx, method: 'onEndScrolling' }
+    }
+  }),
+  scrollerContent: $('scrollContent'),
+  topsection: {
+    waitText: 'Pull down to refresh...',
+    triggeredText: 'Release to refresh...',
+    releasedText: 'Loading...',
+    spinner: new wink.ui.xy.Spinner({ background: "light", size: 20 })
+  },
+  bottomsection: {
+    waitText: 'Pull up to load more...',
+    triggeredText: 'Release to refresh...',
+    releasedText: 'Loading...',
+    spinner: new wink.ui.xy.Spinner({ background: "light", size: 20 })
+  },
+  onTopReleased: function(callback) {
+    // refresh job
+  },
+  onBottomReleased: function(callback) {
+    // refresh job
+  }
+});
+
+// Bind scroller callbacks to notify the ScrollToRefresh
+ctx.onScrolling = wink.bind(scrollToRefresh.onScrolling, scrollToRefresh);
+ctx.onEndScrolling = wink.bind(scrollToRefresh.onEndScrolling, scrollToRefresh);
+    </code_sample>
+  </instanciation>
+  <components>
+    <component>
+      <name>wink.plugins.ScrollToRefresh</name>
+      <description>the ScrollToRefresh component</description>
+      <public_methods>
+        <method>
+          <name>getDomNode</name>
+          <description>Returns the DOM node of the component</description>
+        </method>
+        <method>
+          <name>onScrolling</name>
+          <description>Allows to notify the component that of a scroll</description>
+        </method>
+        <method>
+          <name>onEndScrolling</name>
+          <description>Allows to notify the component that of a scroll end</description>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>uId</name>
+          <description>unique identifier of the component</description>
+          <type>integer</type>
+        </property>
+      </public_properties>
+    </component>
+  </components>
+  <styles>
+    <classes>
+      <class>
+        <name>str_section</name>
+        <description>the section class (top, bottom)</description>
+      </class>
+      <class>
+        <name>str_text</name>
+        <description>the content of the section</description>
+      </class>
+      <class>
+        <name>str_icon</name>
+        <description>the status icon</description>
+      </class>
+      <class>
+        <name>str_label</name>
+        <description>the section label</description>
+      </class>
+      <class>
+        <name>str_sp_box</name>
+        <description>the spinner box</description>
+      </class>
+    </classes>
+  </styles>
+</module>

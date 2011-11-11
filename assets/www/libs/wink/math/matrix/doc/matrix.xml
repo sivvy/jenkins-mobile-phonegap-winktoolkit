@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "../../../utils/doc/wink_doc.dtd" >
+<?xml-stylesheet type="text/xsl" href="../../../utils/doc/wink_doc.xsl"?>
+<module>
+  <title>Math Matrix</title>
+  <name>wink.math._matrix</name>
+  <is_graphical>0</is_graphical>
+  <description>
+  	The Math Matrix is an extension of wink.math which provides matrix support.
+  </description>
+  <compatibility>Iphone OS2, Iphone OS3, Iphone OS4, Android 2.1, Android 2.2, Android 2.3, BlackBerry 6, Bada 1.0</compatibility>
+  <instanciation>
+    <description>wink.math is a Literal, so it did not need to be instantiated.</description>
+    <code_sample>
+var rotationMatrix = wink.math.createTransformMatrix();
+rotationMatrix.rotateAxisAngle(0, 1, 0, 45);
+    </code_sample>
+  </instanciation>
+  <components>
+    <component>
+      <name>wink.math._matrix</name>
+      <description>The math component</description>
+      <public_methods>
+        <method>
+          <name>createTransformMatrix</name>
+          <description>Creates a transformation matrix with the given css transform</description>
+          <parameters>
+            <parameter>
+              <name>cssTransform</name>
+              <description>the css transform which will initialize the matrix</description>
+              <type>string</type>
+              <is_optional>1</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+      </public_methods>
+    </component>
+    <component>
+      <name>wink.math.Matrix</name>
+      <description>
+      	A matrix encapsulation object (of order 4) that is representative of a 3d transformation.
+      </description>
+      <public_methods>
+        <method>
+          <name>scale</name>
+          <description>Apply a scale operation to the matrix</description>
+          <parameters>
+            <parameter>
+              <name>x</name>
+              <description>x scale component</description>
+              <type>number</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>y</name>
+              <description>y scale component</description>
+              <type>number</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>z</name>
+              <description>z scale component</description>
+              <type>number</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>translate</name>
+          <description>Apply a translate operation to the matrix</description>
+          <parameters>
+            <parameter>
+              <name>x</name>
+              <description>x translation component</description>
+              <type>number</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>y</name>
+              <description>y translation component</description>
+              <type>number</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>z</name>
+              <description>z translation component</description>
+              <type>number</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>rotateAxisAngle</name>
+          <description>Apply a rotation operation to the matrix</description>
+          <parameters>
+            <parameter>
+              <name>x</name>
+              <description>x rotation component</description>
+              <type>number</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>y</name>
+              <description>y rotation component</description>
+              <type>number</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>z</name>
+              <description>z rotation component</description>
+              <type>number</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>angleDeg</name>
+              <description>The rotation angle in degree</description>
+              <type>number</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>multiply</name>
+          <description>Multiply the current matrix by an other one</description>
+          <parameters>
+            <parameter>
+              <name>otherWinkMatrix</name>
+              <description>The matrix to multiply</description>
+              <type>wink.math.Matrix</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>clone</name>
+          <description>Clone the current WinkMatrix object</description>
+        </method>
+        <method>
+          <name>loadCssTransform</name>
+          <description>Load the given transformation</description>
+          <parameters>
+            <parameter>
+              <name>transformation</name>
+              <description>The transformation to load into the matrix</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>getValues</name>
+          <description>Returns the matrix values as an array</description>
+        </method>
+        <method>
+          <name>getCssMatrix</name>
+          <description>Return the corresponding WebKitCSSMatrix</description>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>uId</name>
+          <description>The unique identifier of the component.</description>
+          <type>integer</type>
+          <is_optional>0</is_optional>
+        </property>
+      </public_properties>
+    </component>
+  </components>
+</module>

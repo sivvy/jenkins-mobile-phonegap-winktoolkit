@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "../../../utils/doc/wink_doc.dtd" >
+<?xml-stylesheet type="text/xsl" href="../../../utils/doc/wink_doc.xsl"?>
+<module>
+  <title>CSS loader</title>
+  <name>wink.net.CssLoader</name>
+  <is_graphical>0</is_graphical>
+  <description>Load CSS files and warn the user when the task is complete</description>
+  <test_pages>
+    <page>
+      <description>Loads 8 stylesheets at startup. An alert is fired once the styles have been loaded. The CSSLoader is a singleton and only need to be instantiated once.</description>
+      <url>test_cssloader.html</url>
+    </page>
+  </test_pages>
+  <compatibility>Iphone OS2, Iphone OS3, Iphone OS4, Android 1.1, Android 1.5, Android 2.1, Android 2.2, Android 2.3, BlackBerry 6, Bada 1.0</compatibility>
+  <instanciation>
+    <description>The CssLoader doesn't take any entry parameter. Use the 'load' method to start loading datas.</description>
+    <code_sample>
+datas = new Array('../../../ui/layout/accordion/css/accordion.css', '../../../ui/xy/datepicker/css/datepicker.css', '../../../ui/xy/colorpicker/css/colorpicker.css', '../../../ui/layout/slidingpanels/css/slidingpanels.css', '../../../ui/xy/popup/css/popup.css', '../../../ui/xy/progressbar/css/progressbar.css', '../../../ui/xy/togglebutton/css/togglebutton.css', './false.css');
+  	
+cssLoader = new wink.net.CssLoader();
+
+cssLoader.load(datas);
+    </code_sample>
+  </instanciation>
+  <components>
+    <component>
+      <name>wink.net.CssLoader</name>
+      <description>load the stylesheets</description>
+      <public_methods>
+        <method>
+          <name>load</name>
+          <description>Start processing the datas. It can be a single stylesheet or a collection of stylesheets</description>
+          <parameters>
+            <parameter>
+              <name>data</name>
+              <description>the stylesheet(s) you want to preload. It must be a string or an array of strings</description>
+              <type>array/string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>uId</name>
+          <description>unique identifier of the component</description>
+          <type>integer</type>
+        </property>
+      </public_properties>
+      <events>
+        <event>
+          <name>/cssloader/events/loadstart</name>
+          <description>starts loading stylesheets</description>
+          <return>
+            <property>
+              <name>items</name>
+              <description>The list of data currently being processed</description>
+              <type>array</type>
+            </property>
+          </return>
+        </event>
+        <event>
+          <name>/cssloader/events/load</name>
+          <description>loading stylesheet</description>
+          <return>
+            <property>
+              <name>items</name>
+              <description>The list of data currently being processed</description>
+              <type>array</type>
+            </property>
+            <property>
+              <name>currentItem</name>
+              <description>The index of the currently processed item in the list</description>
+              <type>integer</type>
+            </property>
+            <property>
+              <name>progress</name>
+              <description>The percentage of progress (0: no stylesheet loaded; 100: all stylesheets loaded)</description>
+              <type>integer</type>
+            </property>
+            <property>
+              <name>success</name>
+              <description>Did the load went well (1: OK; -1: KO)</description>
+              <type>integer</type>
+            </property>
+          </return>
+        </event>
+        <event>
+          <name>/cssloader/events/loadend</name>
+          <description>all the stylesheets have been loaded</description>
+          <return>
+            <property>
+              <name>items</name>
+              <description>The list of data currently being processed</description>
+              <type>array</type>
+            </property>
+          </return>
+        </event>
+      </events>
+    </component>
+  </components>
+</module>

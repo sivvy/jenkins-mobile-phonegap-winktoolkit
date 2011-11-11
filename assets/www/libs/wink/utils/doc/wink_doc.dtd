@@ -1,0 +1,43 @@
+<!ELEMENT module ( title, name, is_graphical, description, test_pages?, compatibility, dependencies?, instanciation, components, styles? ) >
+
+<!ELEMENT test_pages ( page+ ) >
+<!ELEMENT page ( description, url ) >
+
+<!ELEMENT dependencies ( dependency+ ) >
+<!ELEMENT dependency ( module_name ) >
+
+<!ELEMENT instanciation ( description, properties*, code_sample ) >
+
+<!ELEMENT components ( component+ ) >
+<!ELEMENT component ( name, description, public_methods*, public_properties*, events* ) >
+
+<!ELEMENT public_methods ( method+ ) >
+<!ELEMENT method ( name, description, parameters? ) >
+
+<!ELEMENT parameters ( parameter+ ) >
+<!ELEMENT parameter ( name, description, type, is_optional ) >
+
+<!ELEMENT public_properties ( property+ ) >
+
+<!ELEMENT properties ( property+ ) >
+<!ELEMENT property ( name, description, type, is_optional? ) >
+
+<!ELEMENT events ( event+ ) >
+<!ELEMENT event ( name, description, return? ) >
+
+<!ELEMENT return ( property+ ) >
+
+<!ELEMENT styles ( classes ) >
+<!ELEMENT classes ( class+ ) >
+<!ELEMENT class ( name, description ) >
+
+<!ELEMENT code_sample ( #PCDATA ) >
+<!ELEMENT compatibility ( #PCDATA ) >
+<!ELEMENT description ( #PCDATA ) >
+<!ELEMENT is_graphical ( #PCDATA ) >
+<!ELEMENT is_optional ( #PCDATA ) >
+<!ELEMENT module_name ( #PCDATA ) >
+<!ELEMENT name ( #PCDATA ) >
+<!ELEMENT title ( #PCDATA ) >
+<!ELEMENT type ( #PCDATA ) >
+<!ELEMENT url ( #PCDATA ) >

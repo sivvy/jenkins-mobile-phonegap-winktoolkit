@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "../../../../utils/doc/wink_doc.dtd" >
+<?xml-stylesheet type="text/xsl" href="../../../../utils/doc/wink_doc.xsl"?>
+<module>
+  <title>Tag Cloud</title>
+  <name>wink.ui.xyz.TagCloud</name>
+  <is_graphical>1</is_graphical>
+  <description>
+    The tag cloud is a generic name for a graphical representation of a set of objects defined by user : the tags. 
+    The representation takes the form of a sphere or a circle in 3D. Each tag is an object containing at least one 
+    identifier of a node (the view) and a rating (how can impact be displayed).
+    The user can interact with the tag cloud rotating it around one or more axes, the depth and the rating has an 
+    impact when the size of the tag and makes the visual effect expected.
+  </description>
+  <test_pages>
+    <page>
+      <description>A Tag Cloud with selectable text tags.</description>
+      <url>test_tagcloud.html</url>
+    </page>
+    <page>
+      <description>A Tag Cloud with selectable image and text tags.</description>
+      <url>test_tagcloud_image.html</url>
+    </page>
+    <page>
+      <description>An horizontal text 3d menu (a Tag Cloud represented as a circle)</description>
+      <url>test_tagcloud_menu3d.html</url>
+    </page>
+    <page>
+      <description>An horizontal image 3d menu (a Tag Cloud represented as a circle)</description>
+      <url>test_tagcloud_menu3d_image.html</url>
+    </page>
+    <page>
+      <description>A vertical text 3d menu (a Tag Cloud represented as a circle)</description>
+      <url>test_tagcloud_menu3dv.html</url>
+    </page>
+  </test_pages>
+  <compatibility>Iphone OS2 (slow), Iphone OS3, Iphone OS4, Android 2.1, Android 2.2, Android 2.3, BlackBerry 6 (very slow), Bada 1.0 (slow)</compatibility>
+  <dependencies>
+    <dependency>
+      <module_name>wink.ux.MovementTracker</module_name>
+    </dependency>
+    <dependency>
+      <module_name>wink.math._geometric</module_name>
+    </dependency>
+    <dependency>
+      <module_name>wink.math._matrix</module_name>
+    </dependency>
+    <dependency>
+      <module_name>wink.fx._xyz</module_name>
+    </dependency>
+  </dependencies>
+  <instanciation>
+    <description></description>
+    <properties>
+      <property>
+        <name>tags</name>
+        <description>An array of tags ( tag: { id, rating })</description>
+        <type>array</type>
+        <is_optional>0</is_optional>
+      </property>
+      <property>
+        <name>size</name>
+        <description>The radius size of the TagCloud (in pixel)</description>
+        <type>integer</type>
+        <is_optional>0</is_optional>
+      </property>
+      <property>
+        <name>textColor</name>
+        <description>The text color value : { r, g, b }</description>
+        <type>object</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>selectedTextColor</name>
+        <description>The text color value for selected tag : { r, g, b }</description>
+        <type>object</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>scaleFactors</name>
+        <description>The factors (depth and rating) that influence the size of tags { ratioDepth, ratioRating }</description>
+        <type>object</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>canMove</name>
+        <description>Indicates whether the user can move the TagCloud</description>
+        <type>boolean</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>canSelect</name>
+        <description>Indicates whether the user can select a tag in the TagCloud</description>
+        <type>boolean</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>axis</name>
+        <description>Rotation axis (x, y or xy)</description>
+        <type>string</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>shiftX</name>
+        <description>Shifts the tag cloud on x from the given value (in pixel)</description>
+        <type>number</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>shiftY</name>
+        <description>Shifts the tag cloud on y from the given value (in pixel)</description>
+        <type>number</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>asCircle</name>
+        <description>If specified, displays TagCloud as a Circle around specified axis. Value : { tilt: tiltValue }</description>
+        <type>object</type>
+        <is_optional>1</is_optional>
+      </property>
+    </properties>
+    <code_sample>
+var properties = {
+	tags: [ { id: "tagNodeId1", rating: 56.6 }, { id: "tagNodeId2", 	rating: 93.4 } ],
+	size: 130,
+	textColor: { r: 100, g: 200, b: 255 },
+	selectedTextColor: { r: 230, g: 255, b: 170 },
+	scaleFactors : { ratioDepth: 0.6, ratioRating: 0.8 },
+	canMove: true,
+	canSelect: true,
+	axis: "xy"
+};
+var tagcloud = new wink.ui.xyz.TagCloud(properties);
+container.appendChild(tagcloud.getDomNode());
+    </code_sample>
+  </instanciation>
+  <components>
+    <component>
+      <name>wink.ui.xyz.TagCloud</name>
+      <description>The Tag Cloud component</description>
+      <public_methods>
+        <method>
+          <name>getDomNode</name>
+          <description>Returns the component main dom node</description>
+        </method>
+        <method>
+          <name>setTextColor</name>
+          <description>Set a new text color</description>
+          <parameters>
+            <parameter>
+              <name>inColor</name>
+              <description>The text color value</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>inSelectedColor</name>
+              <description>The text color value for selected tag : { r, g, b }</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>uId</name>
+          <description>The unique identifier of the component.</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>tags</name>
+          <description>the list of tags of the cloud</description>
+          <type>array</type>
+        </property>
+        <property>
+          <name>size</name>
+          <description>the radius size of the TagCloud in pixel</description>
+          <type>number</type>
+        </property>
+        <property>
+          <name>textColor</name>
+          <description>the text color value</description>
+          <type>object</type>
+        </property>
+        <property>
+          <name>selectedTextColor</name>
+          <description>the text color value for selected tag</description>
+          <type>object</type>
+        </property>
+        <property>
+          <name>scaleFactors</name>
+          <description>factors (depth and rating) that influence the size of tags</description>
+          <type>object</type>
+        </property>
+        <property>
+          <name>canMove</name>
+          <description>true if user can move the TagCloud</description>
+          <type>boolean</type>
+        </property>
+        <property>
+          <name>canSelect</name>
+          <description>true if user can select a tag in the TagCloud</description>
+          <type>boolean</type>
+        </property>
+        <property>
+          <name>axis</name>
+          <description>rotation axis</description>
+          <type>string</type>
+        </property>
+        <property>
+          <name>shiftX</name>
+          <description>the original X shift</description>
+          <type>number</type>
+        </property>
+        <property>
+          <name>shiftY</name>
+          <description>the original Y shift</description>
+          <type>number</type>
+        </property>
+        <property>
+          <name>asCircle</name>
+          <description>if specified, displays TagCloud as a Circle around specified axis</description>
+          <type>object</type>
+        </property>
+      </public_properties>
+      <events>
+        <event>
+          <name>/tagcloud/events/selection</name>
+          <description>A tag selection</description>
+          <return>
+            <property>
+              <name>tag</name>
+              <description>The selected tag object</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </property>
+          </return>
+        </event>
+      </events>
+    </component>
+  </components>
+</module>

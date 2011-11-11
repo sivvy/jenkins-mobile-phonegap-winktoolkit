@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "../../utils/doc/wink_doc.dtd" >
+<?xml-stylesheet type="text/xsl" href="../../utils/doc/wink_doc.xsl"?>
+<module>
+  <title>amd</title>
+  <name>define</name>
+  <is_graphical>0</is_graphical>
+  <description>
+  	The amd file contains an implementation of the AMD define method (http://www.commonjs.org/)
+  </description>
+  <compatibility>Iphone OS2, Iphone OS3, Iphone OS4, Android 1.1, Android 1.5, Android 2.1, Android 2.2, Android 2.3, BlackBerry 6, Bada 1.0</compatibility>
+  <instanciation>
+    <description>The AMD syntax is to be used in your modules definition</description>
+    <code_sample>
+define(['../../../_base/_base/js/base'], function(wink)
+{
+...
+});
+    </code_sample>
+  </instanciation>
+  <components>
+    <component>
+      <name>amd</name>
+      <description>The AMD implementation</description>
+      <public_methods>
+      	<method>
+          <name>define</name>
+          <description>AMD modules definition</description>
+          <parameters>
+            <parameter>
+              <name>mid</name>
+              <description>the unique id of the module</description>
+              <type>string</type>
+              <is_optional>1</is_optional>
+            </parameter>
+            <parameter>
+              <name>dependencies</name>
+              <description>the list of dependencies of the module</description>
+              <type>array</type>
+              <is_optional>1</is_optional>
+            </parameter>
+            <parameter>
+              <name>factory</name>
+              <description>the module constructor</description>
+              <type>function</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+      </public_methods>
+    </component>
+  </components>
+</module>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "../../../utils/doc/wink_doc.dtd" >
+<?xml-stylesheet type="text/xsl" href="../../../utils/doc/wink_doc.xsl"?>
+<module>
+  <title>Browser history management</title>
+  <name>wink.ux.history</name>
+  <is_graphical>0</is_graphical>
+  <description>Handle the 'back' and 'forward' buttons of the browser by checking the URL hash changes. User can add new elements to the history and be notified when the user clicks on the 'back' or 'forward' buttons.</description>
+  <test_pages>
+    <page>
+      <description>Click on the 'push' button to add entries to the History. Then you can start navigating using the 'back' and 'forward' buttons and you will see the actions you've made being written on the page.</description>
+      <url>test_history.html</url>
+    </page>
+  </test_pages>
+  <compatibility>Iphone OS2, Iphone OS3, Iphone OS4, Android 1.1, Android 1.5, Android 2.1, Android 2.2, Android 2.3, BlackBerry 6, Bada 1.0</compatibility>
+  <instanciation>
+    <description>
+    	The history component is a literal, so it doesn't need to be instantiated.
+    	As soon as you add the history script to your page, it will start listening to history changes.
+    	Use the 'push' method to add entries to the history and start listening the 'back' and 'forward' events</description>
+    <code_sample>
+wink.subscribe('/history/events/back', {method: 'back'});
+wink.subscribe('/history/events/forward', {method: 'forward'});
+
+wink.ux.history.push('test', 1);
+    </code_sample>
+  </instanciation>
+  <components>
+    <component>
+      <name>wink.ux.history</name>
+      <description>Add new history entries, check for 'back' and 'forward' actions and fire corresponding events</description>
+      <public_methods>
+        <method>
+          <name>start</name>
+          <description>start listening to history changes. This method is automatically called when you add the history script to your page, so you don't need to call it at page startup.</description>
+        </method>
+        <method>
+          <name>stop</name>
+          <description>stop listening to history changes.</description>
+        </method>
+        <method>
+          <name>push</name>
+          <description>add a new history entry.</description>
+          <parameters>
+            <parameter>
+              <name>id</name>
+              <description>unique identifier for the history listener. Multiple objects can listen to history events in the page (e.g.: a slider and a carousel), so it is a way to identify them.</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>params</name>
+              <description>parameters that will be given back with the 'back' or 'forward' events</description>
+              <type>object/string/integer</type>
+              <is_optional>1</is_optional>
+            </parameter>
+            <parameter>
+              <name>hash</name>
+              <description>forces the component to use the specified hash</description>
+              <type>string</type>
+              <is_optional>1</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>pop</name>
+          <description>Forces the History object to go back even if the user didn't click on the 'back' or 'forward' buttons.</description>
+        </method>
+        <method>
+          <name>updateCheckInterval</name>
+          <description>Change the history check interval. The default check interval is 100ms</description>
+          <parameters>
+           <parameter>
+              <name>interval</name>
+              <description>the interval in milliseconds</description>
+              <type>integer</type>
+              <is_optional>0</is_optional>
+            </parameter>
+           </parameters>
+        </method>
+      </public_methods>
+      <events>
+        <event>
+          <name>/history/events/back</name>
+          <description>the event is fired when the user clicks on the 'back' button</description>
+          <return>
+            <property>
+              <name>id</name>
+              <description>the identifier of the listening object (passed along the 'push' method)</description>
+              <type>string</type>
+            </property>
+            <property>
+              <name>params</name>
+              <description>the parameters passed along the 'push' method by the listening object</description>
+              <type>object/string/integer</type>
+            </property>
+          </return>
+        </event>
+        <event>
+          <name>/history/events/forward</name>
+          <description>the event is fired when the user clicks on the 'back' button. Note that if we are back to the first page, the return id will be set to 'main'</description>
+          <return>
+            <property>
+              <name>id</name>
+              <description>the identifier of the listening object (passed along the 'push' method)</description>
+              <type>string</type>
+            </property>
+            <property>
+              <name>params</name>
+              <description>the parameters passed along the 'push' method by the listening object</description>
+              <type>object/string/integer</type>
+            </property>
+          </return>
+        </event>
+      </events>
+    </component>
+  </components>
+</module>

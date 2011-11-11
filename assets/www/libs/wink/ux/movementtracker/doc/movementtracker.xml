@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "../../../utils/doc/wink_doc.dtd" >
+<?xml-stylesheet type="text/xsl" href="../../../utils/doc/wink_doc.xsl"?>
+<module>
+  <title>Movement Tracker</title>
+  <name>wink.ux.MovementTracker</name>
+  <is_graphical>0</is_graphical>
+  <description>
+  	The Movement Tracker follows the touch movement performed on a node.
+  	It listens to touch events and elaborates a movement which consists of point statements sequence. 
+  	Each point statement includes these informations : a position, a direction, a distance and a duration.
+  </description>
+  <test_pages>
+    <page>
+      <description>A space for drawing the points associated with the movement points.</description>
+      <url>test_movementtracker.html</url>
+    </page>
+  </test_pages>
+  <compatibility>Iphone OS2, Iphone OS3, Iphone OS4, Android 1.5, Android 2.1, Android 2.2, Android 2.3, BlackBerry 6, Bada 1.0</compatibility>
+  <instanciation>
+    <description>The user needs to pass the node to track and to listen on the states of movement</description>
+    <properties>
+      <property>
+        <name>target</name>
+        <description>The target DOM node which must be tracked</description>
+        <type>DOM node</type>
+        <is_optional>0</is_optional>
+      </property>
+      <property>
+        <name>captureFlow</name>
+        <description>indicates whether the capture event flow is used (default: true)</description>
+        <type>boolean</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>preventStart</name>
+        <description>indicates whether the start event must be prevented (default: true)</description>
+        <type>boolean</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>preventMove</name>
+        <description>indicates whether the move event must be prevented (default: false)</description>
+        <type>boolean</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>trackThresholdX</name>
+        <description>the minimum distance on x-axis before tracking the movement - in pixels (default: 0)</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>trackThresholdY</name>
+        <description>the minimum distance on y-axis before tracking the movement - in pixels (default: 0)</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+    </properties>
+    <code_sample>
+var mvt = new wink.ux.MovementTracker({ target: $("nodeId") });
+wink.subscribe('/movementtracker/events/mvtbegin', { context: window, method: 'handleMovementBegin' });
+wink.subscribe('/movementtracker/events/mvtchanged', { context: window, method: 'handleMovementChanged' });
+wink.subscribe('/movementtracker/events/mvtstored', { context: window, method: 'handleMovementStored' });
+    </code_sample>
+  </instanciation>
+  <components>
+    <component>
+      <name>wink.ux.MovementTracker</name>
+      <description>The Movement Tracker component</description>
+      <public_methods>
+        <method>
+          <name>updateTrackThresholdX</name>
+          <description>Updates the tracking threshold on x-axis</description>
+          <parameters>
+            <parameter>
+              <name>threshold</name>
+              <description>the threshold to set</description>
+              <type>integer</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>updateTrackThresholdY</name>
+          <description>Updates the tracking threshold on y-axis</description>
+          <parameters>
+            <parameter>
+              <name>threshold</name>
+              <description>the threshold to set</description>
+              <type>integer</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>destroy</name>
+          <description>Destroys the component</description>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>uId</name>
+          <description>The unique identifier of the component.</description>
+          <type>integer</type>
+        </property>
+      </public_properties>
+      <events>
+        <event>
+          <name>/movementtracker/events/mvtbegin</name>
+          <description>the movement begins</description>
+          <return>
+            <property>
+              <name>publisher</name>
+              <description>Identifies the movement tracker itself in order, for the caller, to check whether the event relates to it.</description>
+              <type>wink.ux.MovementTracker</type>
+              <is_optional>0</is_optional>
+            </property>
+            <property>
+              <name>movement</name>
+              <description>A Movement object : { pointStatement, duration, dx, dy }.
+              	- pointStatement is an array of "points" : a point is an object which is composed as { x, y, timestamp, duration, globalDuration, dx, dy, globalDx, globalDy, directionX, directionY }
+              	- duration is the duration of the movement
+              	- dx is the distance on x-axis
+              	- dy is the distance on x-axis
+              </description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </property>
+            <property>
+              <name>uxEvent</name>
+              <description>The Wink Event that is the cause of the event</description>
+              <type>wink.ux.Event</type>
+              <is_optional>0</is_optional>
+            </property>
+            <property>
+              <name>target</name>
+              <description>The target DOM node tracked</description>
+              <type>DOM node</type>
+              <is_optional>0</is_optional>
+            </property>
+          </return>
+        </event>
+        <event>
+          <name>/movementtracker/events/mvtchanged</name>
+          <description>the movement changes</description>
+          <return>
+            <property>
+              <name>publisher</name>
+              <description>Identifies the movement tracker itself in order, for the caller, to check whether the event relates to it.</description>
+              <type>wink.ux.MovementTracker</type>
+              <is_optional>0</is_optional>
+            </property>
+            <property>
+              <name>movement</name>
+              <description>A Movement object : { pointStatement, duration, dx, dy }.</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </property>
+            <property>
+              <name>uxEvent</name>
+              <description>The Wink Event that is the cause of the event</description>
+              <type>wink.ux.Event</type>
+              <is_optional>0</is_optional>
+            </property>
+            <property>
+              <name>target</name>
+              <description>The target DOM node tracked</description>
+              <type>DOM node</type>
+              <is_optional>0</is_optional>
+            </property>
+          </return>
+        </event>
+        <event>
+          <name>/movementtracker/events/mvtstored</name>
+          <description>the movement stops</description>
+          <return>
+            <property>
+              <name>publisher</name>
+              <description>Identifies the movement tracker itself in order, for the caller, to check whether the event relates to it.</description>
+              <type>wink.ux.MovementTracker</type>
+              <is_optional>0</is_optional>
+            </property>
+            <property>
+              <name>movement</name>
+              <description>A Movement object : { pointStatement, duration, dx, dy }.</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </property>
+            <property>
+              <name>uxEvent</name>
+              <description>The Wink Event that is the cause of the event</description>
+              <type>wink.ux.Event</type>
+              <is_optional>0</is_optional>
+            </property>
+            <property>
+              <name>target</name>
+              <description>The target DOM node tracked</description>
+              <type>DOM node</type>
+              <is_optional>0</is_optional>
+            </property>
+          </return>
+        </event>
+        <event>
+          <name>/movementtracker/events/notrack</name>
+          <description>the touch events of the movement are not currently tracked</description>
+          <return>
+            <property>
+              <name>publisher</name>
+              <description>Identifies the movement tracker itself in order, for the caller, to check whether the event relates to it.</description>
+              <type>wink.ux.MovementTracker</type>
+              <is_optional>0</is_optional>
+            </property>
+            <property>
+              <name>uxEvent</name>
+              <description>The Wink Event that is the cause of the event</description>
+              <type>wink.ux.Event</type>
+              <is_optional>0</is_optional>
+            </property>
+            <property>
+              <name>target</name>
+              <description>The target DOM node tracked</description>
+              <type>DOM node</type>
+              <is_optional>0</is_optional>
+            </property>
+          </return>
+        </event>
+      </events>
+    </component>
+  </components>
+</module>

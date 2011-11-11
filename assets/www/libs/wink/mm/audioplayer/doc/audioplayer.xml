@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "../../../utils/doc/wink_doc.dtd" >
+<?xml-stylesheet type="text/xsl" href="../../../utils/doc/wink_doc.xsl"?>
+<module>
+  <title>Audio player</title>
+  <name>wink.mm.AudioPlayer</name>
+  <is_graphical>1</is_graphical>
+  <description>An audio player based on the HTML5 audio tag. It can also read LRC files</description>
+  <test_pages>
+    <page>
+      <description>This test page creates an audio player. The audio file can be changed by clicking on the "change music" button.</description>
+      <url>test_audioplayer.html</url>
+    </page>
+  </test_pages>
+  <compatibility>Iphone OS4</compatibility>
+  <instanciation>
+    <description>The audio player can take several parameters. It takes at least an audio file url but it can also take an LRC file and various parameters to change the player look and behaviour. Use the getDomNode method to add the player to the page</description>
+    <properties>
+      <property>
+        <name>source.type</name>
+        <description>either 'stream' or 'file'</description>
+        <type>string</type>
+        <is_optional>0</is_optional>
+      </property>
+      <property>
+        <name>source.url</name>
+        <description>the url of the audio file to load</description>
+        <type>string</type>
+        <is_optional>0</is_optional>
+      </property>
+      <property>
+        <name>source.lyrics</name>
+        <description>the url of the LRC file corresponding to the audio file</description>
+        <type>string</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>displayControls</name>
+        <description>specify if the play/pause buttons should be displayed. The default value is 1</description>
+        <type>string</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>displayDuration</name>
+        <description>dispaly the time left and the duration of the file. The default value is 1</description>
+        <type>string</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>displayCursor</name>
+        <description>specify if the cursor (to manually navigate through the audio file) should be displayed. The default value is 1</description>
+        <type>string</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>silentSeeking</name>
+        <description>the audio is stopped while the cursor is moved. The default value is 1</description>
+        <type>string</type>
+        <is_optional>1</is_optional>
+      </property>
+    </properties>
+    <code_sample>
+var properties =
+{
+	source:
+	{
+		type: 'file',
+		url: '../files/lou.mp3',
+		lyrics: '../files/lou.lrc'
+	},
+	displayControls: 1,
+	displayDuration: 1,
+	displayCursor: 1,
+	silentSeeking: 1
+};
+
+audioPlayer = new wink.mm.AudioPlayer(properties);
+
+$('audio').appendChild(audioPlayer.getDomNode());
+    </code_sample>
+  </instanciation>
+  <components>
+    <component>
+      <name>wink.mm.AudioPlayer</name>
+      <description>the Audio player</description>
+      <public_methods>
+        <method>
+          <name>play</name>
+          <description>start playing the current audio file</description>
+        </method>
+        <method>
+          <name>pause</name>
+          <description>stop the current audio file play</description>
+        </method>
+        <method>
+          <name>forward</name>
+          <description>change the current audio time</description>
+          <parameters>
+            <parameter>
+              <name>seconds</name>
+              <description>the number of seconds to chage(+: forward ; -: rewind)</description>
+              <type>real</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>changeSource</name>
+          <description>change the current audio file</description>
+          <parameters>
+            <parameter>
+              <name>type</name>
+              <description>either 'file' or 'stream'</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>url</name>
+              <description>the file to be played</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>lyrics</name>
+              <description>the LRC lyrics associated to the file</description>
+              <type>string</type>
+              <is_optional>1</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>getDomNode</name>
+          <description>return the dom node containing the audio player</description>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>uId</name>
+          <description>unique identifier of the component</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>state</name>
+          <description>the current state of the player (either 'play' or 'pause')</description>
+          <type>string</type>
+        </property>
+        <property>
+          <name>source</name>
+          <description>the current audio source</description>
+          <type>object</type>
+        </property>
+        <property>
+          <name>displayControls</name>
+          <description>whether the play/pause button is displayed</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>displayDuration</name>
+          <description>whether the time left and the duration of the file are displayed</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>displayCursor</name>
+          <description>whether the cursor is displayed</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>silentSeeking</name>
+          <description>whether the audio is stopped while the cursor is moved</description>
+          <type>integer</type>
+        </property>
+      </public_properties>
+      <events>
+        <event>
+          <name>/audioplayer/events/play</name>
+          <description>The user clicked on the play button</description>
+        </event>
+        <event>
+          <name>/audioplayer/events/pause</name>
+          <description>The user clicked on the pause button</description>
+        </event>
+      </events>
+    </component>
+    <component>
+      <name>wink.mm.LRCReader</name>
+      <description>Implements a LRC file reader</description>
+      <public_methods>
+        <method>
+          <name>getLyric</name>
+          <description>return the current lyric</description>
+          <parameters>
+            <parameter>
+              <name>time</name>
+              <description>the position of the audio file in millisecond</description>
+              <type>float</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>uId</name>
+          <description>unique identifier of the component</description>
+          <type>integer</type>
+          <is_optional>0</is_optional>
+        </property>
+        <property>
+          <name>title</name>
+          <description>the title of the lyrics</description>
+          <type>string</type>
+          <is_optional>0</is_optional>
+        </property>
+        <property>
+          <name>artist</name>
+          <description>the name of the artist</description>
+          <type>string</type>
+          <is_optional>0</is_optional>
+        </property>
+        <property>
+          <name>album</name>
+          <description>the name of the album</description>
+          <type>string</type>
+          <is_optional>0</is_optional>
+        </property>
+        <property>
+          <name>editor</name>
+          <description>the player or editor that creates LRC file</description>
+          <type>string</type>
+          <is_optional>0</is_optional>
+        </property>
+        <property>
+          <name>version</name>
+          <description>the version of the program which edited the lyrics</description>
+          <type>string</type>
+          <is_optional>0</is_optional>
+        </property>
+        <property>
+          <name>creator</name>
+          <description>creator of the LRC file</description>
+          <type>string</type>
+          <is_optional>0</is_optional>
+        </property>
+        <property>
+          <name>offset</name>
+          <description>overall timestamp adjustment in milliseconds</description>
+          <type>integer</type>
+          <is_optional>0</is_optional>
+        </property>
+        <property>
+          <name>lyricsTab</name>
+          <description>the lyrics</description>
+          <type>array</type>
+          <is_optional>0</is_optional>
+        </property>
+      </public_properties>
+    </component>
+  </components>
+  <styles>
+    <classes>
+      <class>
+        <name>ap_container</name>
+        <description>the main DOM node of the audio player</description>
+      </class>
+      <class>
+        <name>ap_progress_container</name>
+        <description>the progress bar and buffering bar container</description>
+      </class>
+      <class>
+        <name>ap_progress</name>
+        <description>the progress bar</description>
+      </class>
+      <class>
+        <name>ap_buffering_bar</name>
+        <description>the buffering bar</description>
+      </class>
+      <class>
+        <name>ap_cursor</name>
+        <description>the cursor</description>
+      </class>
+      <class>
+        <name>ap_duration</name>
+        <description>the file duration and current time display</description>
+      </class>
+      <class>
+        <name>ap_lyrics</name>
+        <description>the lyrics container</description>
+      </class>
+    </classes>
+  </styles>
+</module>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "../../../../utils/doc/wink_doc.dtd" >
+<?xml-stylesheet type="text/xsl" href="../../../../utils/doc/wink_doc.xsl"?>
+<module>
+  <title>Modal Window</title>
+  <name>wink.ui.layout.ModalWindow</name>
+  <is_graphical>1</is_graphical>
+  <description>
+  	A modal window can make a content as an icon, this content can be displayed as a window. 
+  	An icon is optionally movable, is associated with an image and the transition time between the view as an icon 
+  	and the view as content is customizable.
+  </description>
+  <test_pages>
+    <page>
+      <description>Single small desktop including 6 moveable modal windows</description>
+      <url>test_modalwindow.html</url>
+    </page>
+    <page>
+      <description>An example of presentation of content with a Scroller</description>
+      <url>test_modalwindow_scroll.html</url>
+    </page>
+  </test_pages>
+  <compatibility>Iphone OS2, Iphone OS3, Iphone OS4, Android 1.5, Android 2.1, BlackBerry 6, Bada 1.0</compatibility>
+  <dependencies>
+    <dependency>
+      <module_name>wink.ux.MovementTracker</module_name>
+    </dependency>
+  </dependencies>
+  <instanciation>
+    <description></description>
+    <properties>
+      <property>
+        <name>iconView</name>
+        <description>Identifies the position, the size and the image of the icon viewer : { image, x, y, sizeX, sizeY }</description>
+        <type>object</type>
+        <is_optional>0</is_optional>
+      </property>
+      <property>
+        <name>modalView</name>
+        <description>Identifies the position, the size and the content node Id of the modal view : { content, x, y, sizeX, sizeY }</description>
+        <type>object</type>
+        <is_optional>0</is_optional>
+      </property>
+      <property>
+        <name>displayDuration</name>
+        <description>The duration of the transition from icon to modal view and conversely (in milliseconds)</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>canDrag</name>
+        <description>Indicates whether icon dragging is enabled</description>
+        <type>boolean</type>
+        <is_optional>1</is_optional>
+      </property>
+    </properties>
+    <code_sample>
+var modalWindow = new wink.ui.layout.ModalWindow({
+	iconView:  { image: "./icon.png", x: 0, y: 0, sizeX:  80, sizeY:  80 },
+	modalView: { content: "content1", x: 0, y: 0, sizeX: 300, sizeY: 300 },
+	displayDuration: 800,
+	canDrag: true
+});
+container.appendChild(modalWindow.getDomNode());
+    </code_sample>
+  </instanciation>
+  <components>
+    <component>
+      <name>wink.ui.layout.ModalWindow</name>
+      <description>The Modal Window component</description>
+      <public_methods>
+        <method>
+          <name>getDomNode</name>
+          <description>Returns the component main dom node</description>
+        </method>
+        <method>
+          <name>shiftCloseNode</name>
+          <description>Shifts the close node to the given position</description>
+          <parameters>
+            <parameter>
+              <name>x</name>
+              <description>position on x-axis</description>
+              <type>integer</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>y</name>
+              <description>position on y-axis</description>
+              <type>integer</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>uId</name>
+          <description>the unique identifier of the component</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>iconView</name>
+          <description>the characteristics of the icon view</description>
+          <type>object</type>
+        </property>
+        <property>
+          <name>modalView</name>
+          <description>the characteristics of the modal view</description>
+          <type>object</type>
+        </property>
+        <property>
+          <name>displayDuration</name>
+          <description>the duration of the transition from icon to modal view and conversely</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>canDrag</name>
+          <description>is icon dragging enabled</description>
+          <type>boolean</type>
+        </property>
+      </public_properties>
+    </component>
+  </components>
+</module>

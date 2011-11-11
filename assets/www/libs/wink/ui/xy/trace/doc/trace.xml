@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "../../../../utils/doc/wink_doc.dtd" >
+<?xml-stylesheet type="text/xsl" href="../../../../utils/doc/wink_doc.xsl"?>
+<module>
+  <title>Trace</title>
+  <name>wink.ui.xy.Trace</name>
+  <is_graphical>1</is_graphical>
+  <description>Implements a tracer that allows to erase the trace after a specified time</description>
+    <test_pages>
+    <page>
+      <description>This test shows a simple use.</description>
+      <url>test_trace.html</url>
+    </page>
+    <page>
+      <description>Draw an image using trace on a tablet</description>
+      <url>test_trace_draw.html</url>
+    </page>
+    <page>
+      <description>Using trace in conjunction with the gesture recognition</description>
+      <url>test_trace_recognition.html</url>
+    </page>
+  </test_pages>
+  <compatibility>Iphone OS2, Iphone OS3, Iphone OS4, Android 1.5, Android 2.1, Android 2.2, Android 2.3, BlackBerry 6, Bada 1.0</compatibility>
+  <instanciation>
+    <description>Trace is fully configurable, all parameters are optional</description>
+    <properties>
+      <property>
+        <name>height</name>
+        <description>the height of the trace container</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>width</name>
+        <description>the width of the trace container</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>duration</name>
+        <description>the life time of the trace before erasing</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>linewidth</name>
+        <description>the line width</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>refreshrate</name>
+        <description>the refresh rate of rendering process</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>linestyle</name>
+        <description>the style of the line (may be a color or a background image)</description>
+        <type>string</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>fadeonend</name>
+        <description>option to allows to fade on touch end</description>
+        <type>boolean</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>onMovement</name>
+        <description>a callback that allows to be notified when a movement is done</description>
+        <type>function</type>
+        <is_optional>1</is_optional>
+      </property>
+    </properties>
+    <code_sample>
+var trace = new wink.ui.xy.Trace({
+  height: 300,
+  width: 320,
+  linewidth: 2,
+  duration: 1500,
+  linewidth: 2,
+  linestyle: '#f00',
+  refreshrate: 200
+});
+$('container').appendChild(trace.getDomNode());
+    </code_sample>
+  </instanciation>
+  <components>
+    <component>
+      <name>wink.ui.xy.Trace</name>
+      <description>the Trace component</description>
+      <public_methods>
+        <method>
+          <name>getDomNode</name>
+          <description>Returns the main DOM node of the component</description>
+        </method>
+        <method>
+          <name>toggle</name>
+          <description>Starts / Stops rendering</description>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>uId</name>
+          <description>unique identifier of the component</description>
+          <type>integer</type>
+        </property>
+      </public_properties>
+    </component>
+  </components>
+  <styles>
+    <classes>
+      <class>
+        <name>tr_container</name>
+        <description>the trace container class</description>
+      </class>
+    </classes>
+  </styles>
+</module>

@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE wink SYSTEM "utils/doc/wink_map.dtd" >
+<wink>
+	<title>Webapp Innovation Kit</title>
+	<description>Toolkit to develop mobile Webapps on Webphones</description>
+	<modules>
+		<module>
+			<title>2d fx</title>
+			<name>xy</name>
+			<family>core</family>
+			<directory>fx/_xy</directory>
+		</module>
+		<module>
+			<title>3d fx</title>
+			<name>xyz</name>
+			<family>fx</family>
+			<directory>fx/_xyz</directory>
+		</module>
+		<module>
+			<title>3d Wall</title>
+			<name>wall</name>
+			<family>ui</family>
+			<directory>ui/xyz/wall</directory>
+		</module>
+		<module>
+			<title>Accordion</title>
+			<name>accordion</name>
+			<family>ui</family>
+			<directory>ui/layout/accordion</directory>
+		</module>
+		<module>
+			<title>Animation</title>
+			<name>animation</name>
+			<family>fx</family>
+			<directory>fx/_animation</directory>
+		</module>
+		<module>
+			<title>Async Panels</title>
+			<name>asyncpanels</name>
+			<family>plugins</family>
+			<directory>plugins/asyncpanels</directory>
+		</module>
+		<module>
+			<title>Audio player</title>
+			<name>audioplayer</name>
+			<family>multimedia</family>
+			<directory>mm/audioplayer</directory>
+		</module>
+		<module>
+			<title>Base</title>
+			<name>base</name>
+			<family>core</family>
+			<directory>_base/_base</directory>
+		</module>
+		<module>
+			<title>Browser history</title>
+			<name>history</name>
+			<family>ux</family>
+			<directory>ux/history</directory>
+		</module>
+		<module>
+			<title>Carousel</title>
+			<name>carousel</name>
+			<family>ui</family>
+			<directory>ui/xy/carousel</directory>
+		</module>
+		<module>
+			<title>Color picker</title>
+			<name>colorpicker</name>
+			<family>ui</family>
+			<directory>ui/xy/colorpicker</directory>
+		</module>
+		<module>
+			<title>Auto complete</title>
+			<name>completion</name>
+			<family>plugins</family>
+			<directory>plugins/completion</directory>
+		</module>
+		<module>
+			<title>Coverflow</title>
+			<name>coverflow</name>
+			<family>ui</family>
+			<directory>ui/xyz/coverflow</directory>
+		</module>
+		<module>
+			<title>CSpinner</title>
+			<name>cspinner</name>
+			<family>ui</family>
+			<directory>ui/xy/cspinner</directory>
+		</module>
+		<module>
+			<title>CSS loader</title>
+			<name>cssloader</name>
+			<family>net</family>
+			<directory>net/cssloader</directory>
+		</module>
+		<module>
+			<title>Cube</title>
+			<name>cube</name>
+			<family>ui</family>
+			<directory>ui/xyz/cube</directory>
+		</module>
+		<module>
+			<title>Date picker</title>
+			<name>datepicker</name>
+			<family>ui</family>
+			<directory>ui/xy/datepicker</directory>
+		</module>
+		<module>
+			<title>Drag and drop</title>
+			<name>dnd</name>
+			<family>ux</family>
+			<directory>ux/dnd</directory>
+		</module>
+		<module>
+			<title>DOM extensions</title>
+			<name>dom</name>
+			<family>core</family>
+			<directory>_base/_dom</directory>
+		</module>
+		<module>
+			<title>Easy Caching</title>
+			<name>cache</name>
+			<family>cache</family>
+			<directory>_cache</directory>
+		</module>
+		<module>
+			<title>Error and Debug</title>
+			<name>error</name>
+			<family>core</family>
+			<directory>_base/error</directory>
+		</module>
+		<module>
+			<title>Feat</title>
+			<name>feat</name>
+			<family>core</family>
+			<directory>_base/_feat</directory>
+		</module>
+		<module>
+			<title>Fixed layout</title>
+			<name>fixedlayout</name>
+			<family>ui</family>
+			<directory>ui/layout/fixedlayout</directory>
+		</module>
+		<module>
+			<title>Flipdisc display</title>
+			<name>flipdisc</name>
+			<family>ui</family>
+			<directory>ui/xyz/flipdisc</directory>
+		</module>
+		<module>
+			<title>Flippage</title>
+			<name>flippage</name>
+			<family>ui</family>
+			<directory>ui/layout/flippage</directory>
+		</module>
+		<module>
+			<title>Geolocation</title>
+			<name>geolocation</name>
+			<family>api</family>
+			<directory>api/geolocation</directory>
+		</module>
+		<module>
+			<title>Gesture handling</title>
+			<name>gesture</name>
+			<family>ux</family>
+			<directory>ux/gesture</directory>
+		</module>
+		<module>
+			<title>Gesture Recognizer</title>
+			<name>gesturerecognizer</name>
+			<family>ux</family>
+			<directory>ux/gesturerecognizer</directory>
+		</module>
+		<module>
+			<title>Images loader</title>
+			<name>imagesloader</name>
+			<family>net</family>
+			<directory>net/imagesloader</directory>
+		</module>
+		<module>
+			<title>Inertia</title>
+			<name>inertia</name>
+			<family>ux</family>
+			<directory>ux/inertia</directory>
+		</module>
+		<module>
+			<title>Input</title>
+			<name>input</name>
+			<family>ui</family>
+			<directory>ui/form/input</directory>
+		</module>
+		<module>
+			<title>JS loader</title>
+			<name>jsloader</name>
+			<family>net</family>
+			<directory>net/jsloader</directory>
+		</module>
+		<module>
+			<title>JSON</title>
+			<name>json</name>
+			<family>core</family>
+			<directory>_base/json</directory>
+		</module>
+		<module>
+			<title>Layer</title>
+			<name>layer</name>
+			<family>core</family>
+			<directory>ui/xy/layer</directory>
+		</module>
+		<module>
+			<title>Local storage</title>
+			<name>storage</name>
+			<family>api</family>
+			<directory>api/storage</directory>
+		</module>
+		<module>
+			<title>Math (basics)</title>
+			<name>basics</name>
+			<family>core</family>
+			<directory>math/_basics</directory>
+		</module>
+		<module>
+			<title>Math (geometry)</title>
+			<name>geometric</name>
+			<family>math</family>
+			<directory>math/_geometric</directory>
+		</module>
+		<module>
+			<title>Math (matrix)</title>
+			<name>matrix</name>
+			<family>math</family>
+			<directory>math/_matrix</directory>
+		</module>
+		<module>
+			<title>Media Wheel</title>
+			<name>mediawheel</name>
+			<family>multimedia</family>
+			<directory>mm/mediawheel</directory>
+		</module>
+		<module>
+			<title>Menu</title>
+			<name>menu</name>
+			<family>ui</family>
+			<directory>ui/xy/menu</directory>
+		</module>
+		<module>
+			<title>Modal Windows</title>
+			<name>modalwindow</name>
+			<family>ui</family>
+			<directory>ui/layout/modalwindow</directory>
+		</module>
+		<module>
+			<title>Movement tracker</title>
+			<name>movementtracker</name>
+			<family>ux</family>
+			<directory>ux/movementtracker</directory>
+		</module>
+		<module>
+			<title>Newsticker</title>
+			<name>newsticker</name>
+			<family>ui</family>
+			<directory>ui/xy/newsticker</directory>
+		</module>
+		<module>
+			<title>Opener</title>
+			<name>opener</name>
+			<family>ui</family>
+			<directory>ui/xyz/opener</directory>
+		</module>
+		<module>
+			<title>Popup</title>
+			<name>popup</name>
+			<family>ui</family>
+			<directory>ui/xy/popup</directory>
+		</module>
+		<module>
+			<title>Progress bar</title>
+			<name>progressbar</name>
+			<family>ui</family>
+			<directory>ui/xy/progressbar</directory>
+		</module>
+		<module>
+			<title>Scroller</title>
+			<name>scroller</name>
+			<family>ui</family>
+			<directory>ui/layout/scroller</directory>
+		</module>
+		<module>
+			<title>Scroll To Load</title>
+			<name>scrolltoload</name>
+			<family>plugins</family>
+			<directory>plugins/scrolltoload</directory>
+		</module>
+		<module>
+			<title>Scroll To Refresh</title>
+			<name>scrolltorefresh</name>
+			<family>plugins</family>
+			<directory>plugins/scrolltorefresh</directory>
+		</module>
+		<module>
+			<title>Search</title>
+			<name>search</name>
+			<family>ux</family>
+			<directory>ux/search</directory>
+		</module>
+		<module>
+			<title>Sharing Wheel</title>
+			<name>sharingwheel</name>
+			<family>plugins</family>
+			<directory>plugins/sharingwheel</directory>
+		</module>
+		<module>
+			<title>Slideshow</title>
+			<name>slideshow</name>
+			<family>ui</family>
+			<directory>ui/xy/slideshow</directory>
+		</module>
+		<module>
+			<title>Sliding panels</title>
+			<name>slidingpanels</name>
+			<family>ui</family>
+			<directory>ui/layout/slidingpanels</directory>
+		</module>
+		<module>
+			<title>Smart loader</title>
+			<name>smartloader</name>
+			<family>net</family>
+			<directory>net/smartloader</directory>
+		</module>
+		<module>
+			<title>Spinner</title>
+			<name>spinner</name>
+			<family>ui</family>
+			<directory>ui/xy/spinner</directory>
+		</module>
+		<module>
+			<title>Tab container</title>
+			<name>tabcontainer</name>
+			<family>ui</family>
+			<directory>ui/layout/tabcontainer</directory>
+		</module>
+		<module>
+			<title>Tag cloud</title>
+			<name>tagcloud</name>
+			<family>ui</family>
+			<directory>ui/xyz/tagcloud</directory>
+		</module>
+		<module>
+			<title>Toggle button</title>
+			<name>togglebutton</name>
+			<family>ui</family>
+			<directory>ui/xy/togglebutton</directory>
+		</module>
+		<module>
+			<title>Topics (publish/subscribe)</title>
+			<name>topics</name>
+			<family>core</family>
+			<directory>_base/topics</directory>
+		</module>
+		<module>
+			<title>Touch events</title>
+			<name>event</name>
+			<family>core</family>
+			<directory>ux/event</directory>
+		</module>
+		<module>
+			<title>Touch events handling</title>
+			<name>touch</name>
+			<family>core</family>
+			<directory>ux/touch</directory>
+		</module>
+		<module>
+			<title>Trace</title>
+			<name>trace</name>
+			<family>ui</family>
+			<directory>ui/xy/trace</directory>
+		</module>
+		<module>
+			<title>Tracking</title>
+			<name>tracking</name>
+			<family>net</family>
+			<directory>net/tracking</directory>
+		</module>
+		<module>
+			<title>User Agent</title>
+			<name>ua</name>
+			<family>core</family>
+			<directory>_base/ua</directory>
+		</module>
+		<module>
+			<title>Video player</title>
+			<name>videoplayer</name>
+			<family>multimedia</family>
+			<directory>mm/videoplayer</directory>
+		</module>
+		<module>
+			<title>Window</title>
+			<name>window</name>
+			<family>ux</family>
+			<directory>ux/window</directory>
+		</module>
+		<module>
+			<title>Windows</title>
+			<name>windows</name>
+			<family>ui</family>
+			<directory>ui/layout/windows</directory>
+		</module>
+		<module>
+			<title>Xhr</title>
+			<name>xhr</name>
+			<family>core</family>
+			<directory>net/xhr</directory>
+		</module>
+	</modules>
+</wink>

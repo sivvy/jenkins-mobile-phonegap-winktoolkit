@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "../../../utils/doc/wink_doc.dtd" >
+<?xml-stylesheet type="text/xsl" href="../../../utils/doc/wink_doc.xsl"?>
+<module>
+  <title>Media wheel</title>
+  <name>wink.mm.MediaWheel</name>
+  <is_graphical>1</is_graphical>
+  <description>The media wheel is a progress bar, displayed as a wheel, used for media files and based on the Canvas tag</description>
+    <test_pages>
+    <page>
+      <description>This test page associates a media wheel with an audio tag.</description>
+      <url>test_mediawheel.html</url>
+    </page>
+    <page>
+      <description>This test page associates a media wheel with a video tag.</description>
+      <url>test_mediawheel2.html</url>
+    </page>
+  </test_pages>
+  <compatibility>Iphone OS4, Ipad</compatibility>
+  <dependencies>
+    <dependency>
+      <module_name>wink.math._geometric</module_name>
+    </dependency>
+    <dependency>
+      <module_name>wink.ux.MovementTracker</module_name>
+    </dependency>
+  </dependencies>
+  <instanciation>
+    <description>The audio player can take several parameters. It takes at least the width and height parameters. Use the getDomNode method to add the component to the page</description>
+    <properties>
+      <property>
+        <name>width</name>
+        <description>the width of the container</description>
+        <type>integer</type>
+        <is_optional>0</is_optional>
+      </property>
+      <property>
+        <name>height</name>
+        <description>the height of the container</description>
+        <type>integer</type>
+        <is_optional>0</is_optional>
+      </property>
+      <property>
+        <name>radius</name>
+        <description>the radius of the wheel</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>thickness</name>
+        <description>the thickness of the wheel</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>startAngle</name>
+        <description>the start angle of the wheel</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>endAngle</name>
+        <description>the end angle of the wheel</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>readGradientColors</name>
+        <description>the gradient colors of the read part of the media (eg. [{ pos: 0, color: color1 },{ pos: 0.75, color: color2 },{ pos: 1, color: color3 }])</description>
+        <type>array</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>bgGradientColors</name>
+        <description>the gradient colors of the background part of the media (eg. [{ pos: 0, color: color1 },{ pos: 0.75, color: color2 },{ pos: 1, color: color3 }])</description>
+        <type>array</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>unbufferedGradientColors</name>
+        <description>the gradient colors of the unbuffered part of the media (eg. [{ pos: 0, color: color1 },{ pos: 0.75, color: color2 },{ pos: 1, color: color3 }])</description>
+        <type>array</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>cursorRectColor</name>
+        <description>the color of the cursor's rectangle</description>
+        <type>string</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>cursorTriangleColor</name>
+        <description>the color of the cursor's triangle</description>
+        <type>string</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>canChangeTime</name>
+        <description>indicates whether the user can change the time by moving or clicking on the wheel (default is true)</description>
+        <type>boolean</type>
+        <is_optional>1</is_optional>
+      </property>
+    </properties>
+    <code_sample>
+var mediaWheel = new wink.mm.MediaWheel({
+  width: $('content').offsetWidth,
+  height: $('content').offsetHeight
+});
+
+$('content').appendChild(mediaWheel.getDomNode());
+    </code_sample>
+  </instanciation>
+  <components>
+    <component>
+      <name>wink.mm.MediaWheel</name>
+      <description>the Media player</description>
+      <public_methods>
+        <method>
+          <name>getDomNode</name>
+          <description>Returns the DOM node of the component</description>
+        </method>
+        <method>
+          <name>setDuration</name>
+          <description>Set the duration</description>
+          <parameters>
+            <parameter>
+              <name>duration</name>
+              <description>the duration</description>
+              <type>real</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>setTime</name>
+          <description>Set the time</description>
+          <parameters>
+            <parameter>
+              <name>time</name>
+              <description>the time</description>
+              <type>real</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>setBufferedTime</name>
+          <description>Set the buffered time</description>
+          <parameters>
+            <parameter>
+              <name>buftime</name>
+              <description>the buffered time</description>
+              <type>real</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>uId</name>
+          <description>unique identifier of the component</description>
+          <type>integer</type>
+        </property>
+      </public_properties>
+      <events>
+        <event>
+          <name>/mediawheel/events/timeupdate</name>
+          <description>the time is updated by the user</description>
+        </event>
+      </events>
+    </component>
+  </components>
+  <styles>
+    <classes>
+      <class>
+        <name>mw_container</name>
+        <description>the main DOM node of the component</description>
+      </class>
+    </classes>
+  </styles>
+</module>

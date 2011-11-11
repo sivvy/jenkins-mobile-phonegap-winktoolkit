@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "../../../../utils/doc/wink_doc.dtd" >
+<?xml-stylesheet type="text/xsl" href="../../../../utils/doc/wink_doc.xsl"?>
+<module>
+  <title>Cube</title>
+  <name>wink.ui.xyz.Cube</name>
+  <is_graphical>1</is_graphical>
+  <description>
+  	The Cube allows to display a cube shape and to interact with it. The cube faces are nodes builded and managed by the user,
+  	so the user can integrate various contents. The size, the position and the rotation axis are parameters that make the cube to be configurable.
+  </description>
+  <test_pages>
+    <page>
+      <description>A simple example that allows to interact with a Cube</description>
+      <url>test_cube_simple.html</url>
+    </page>
+    <page>
+      <description>Two cubes of news that rotate automatically</description>
+      <url>test_cube_actu.html</url>
+    </page>
+    <page>
+      <description>A navigation cube</description>
+      <url>test_cube_nav.html</url>
+    </page>
+  </test_pages>
+  <compatibility>Iphone OS2, Iphone OS3, Iphone OS4</compatibility>
+  <dependencies>
+    <dependency>
+      <module_name>wink.math._geometric</module_name>
+    </dependency>
+    <dependency>
+      <module_name>wink.math._matrix</module_name>
+    </dependency>
+    <dependency>
+      <module_name>wink.fx._xyz</module_name>
+    </dependency>
+    <dependency>
+      <module_name>wink.ux.MovementTracker</module_name>
+    </dependency>
+  </dependencies>
+  <instanciation>
+    <description></description>
+    <properties>
+      <property>
+        <name>faces</name>
+        <description>An array of faces ( face: { id: position of the face (1 to 6), faceId: the node id, callback: the click callback })</description>
+        <type>array</type>
+        <is_optional>0</is_optional>
+      </property>
+      <property>
+        <name>size</name>
+        <description>The size of the Cube</description>
+        <type>integer</type>
+        <is_optional>0</is_optional>
+      </property>
+      <property>
+        <name>shiftX</name>
+        <description>the shift of the Cube on x-axis</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>shiftY</name>
+        <description>the shift of the Cube on y-axis</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>shiftZ</name>
+        <description>the shift of the Cube on z-axis</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>observerX</name>
+        <description>the x position of the observer, relative to the Cube node, that influence the perspective view</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>observerY</name>
+        <description>the y position of the observer, relative to the Cube node, that influence the perspective view</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>axis</name>
+        <description>Rotation axis (x, y or xy)</description>
+        <type>string</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>focus</name>
+        <description>Indicates whether a focus on a face must be performed after a rotation</description>
+        <type>boolean</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>focusDuration</name>
+        <description>The duration of the auto focus</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>dispatch</name>
+        <description>Indicates whether the face callback must be invoked when a face is selected</description>
+        <type>boolean</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>rotationCallback</name>
+        <description>The callback to invoke when a rotation is performed</description>
+        <type>object</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>rotationEndCallback</name>
+        <description>The callback to invoke when a rotation end occurs</description>
+        <type>object</type>
+        <is_optional>1</is_optional>
+      </property>
+    </properties>
+    <code_sample>
+var properties = {
+	faces: [
+		{ id: 1, faceId: "face1", callback: null },
+		{ id: 2, faceId: "face2", callback: null },
+		{ id: 3, faceId: "face3", callback: null },
+		{ id: 4, faceId: "face4", callback: null },
+		{ id: 5, faceId: "face5", callback: null },
+		{ id: 6, faceId: "face6", callback: null }
+	],
+	size: 300,
+	shiftX: 0,
+	shiftY: 0,
+	shiftZ: -500,
+	observerX: 150,
+	observerY: 150,
+	axis: "xy",
+	focus: true,
+	focusDuration: 200,
+	dispatch: true,
+	rotationCallback: null,
+	rotationEndCallback: null
+};
+cube = new wink.ui.xyz.Cube(properties);
+$("container").appendChild(cube.getDomNode());
+    </code_sample>
+  </instanciation>
+  <components>
+    <component>
+      <name>wink.ui.xyz.Cube</name>
+      <description>The Cube component</description>
+      <public_methods>
+      	<method>
+          <name>getDomNode</name>
+          <description>Returns the component main dom node</description>
+        </method>
+        <method>
+          <name>rotate</name>
+          <description>Rotates the Cube by the given angles</description>
+          <parameters>
+            <parameter>
+              <name>angleX</name>
+              <description>angle done by a movement on x-axis, so around y-axis</description>
+              <type>integer</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>angleY</name>
+              <description>angle done by a movement on y-axis, so around x-axis</description>
+              <type>integer</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>duration</name>
+              <description>duration of the rotation (millisecond)</description>
+              <type>integer</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>faceFocus</name>
+          <description>Focus on the main visible face</description>
+          <parameters>
+            <parameter>
+              <name>duration</name>
+              <description>duration of the focus (millisecond)</description>
+              <type>integer</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>setFace</name>
+          <description>Sets the given faceObject</description>
+          <parameters>
+            <parameter>
+              <name>faceObject</name>
+              <description>A face object: { id: position of the face (1 to 6), faceId: the node id, callback: the click callback }</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>uId</name>
+          <description>The unique identifier of the component.</description>
+          <type>integer</type>
+        </property>
+      </public_properties>
+    </component>
+  </components>
+</module>

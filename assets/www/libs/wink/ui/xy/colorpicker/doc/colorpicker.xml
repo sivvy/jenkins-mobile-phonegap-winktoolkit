@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "../../../../utils/doc/wink_doc.dtd" >
+<?xml-stylesheet type="text/xsl" href="../../../../utils/doc/wink_doc.xsl"?>
+<module>
+  <title>Color picker</title>
+  <name>wink.ui.xy.ColorPicker</name>
+  <is_graphical>1</is_graphical>
+  <description>Displays a color panel where user can choose betwwen 30 different colors. An event is fired when the user selects a color</description>
+  <test_pages>
+    <page>
+      <description>Click on the 'show colors' button to display the color picker. Click on a color to select one. The result of your choice should be displayed in the input field of the test page</description>
+      <url>test_colorpicker.html</url>
+    </page>
+  </test_pages>
+  <compatibility>Iphone OS2, Iphone OS3, Iphone OS4, Android 1.1, Android 1.5, Android 2.1, Android 2.2, Android 2.3, BlackBerry 6, Bada 1.0</compatibility>
+  <instanciation>
+    <description>The ColorPicker is a singleton, it needs to be instantiated only once. No parameter is needed. To display the color picker, call the 'show' method. To be informed of a color pick, the application must listen to the '/colorpicker/events/pickcolor' event.</description>
+    <code_sample>
+colorpicker = new wink.ui.xy.ColorPicker();
+ 	
+colorpicker.show();
+    </code_sample>
+  </instanciation>
+  <components>
+    <component>
+      <name>wink.ui.xy.ColorPicker</name>
+      <description>Create the color picker DOM node and fires events when a color is selected</description>
+      <public_methods>
+        <method>
+          <name>show</name>
+          <description>display the color picker</description>
+        </method>
+        <method>
+          <name>hide</name>
+          <description>hide the color picker</description>
+        </method>
+        <method>
+          <name>updatePosition</name>
+          <description>update the position of the color picker and places it at the center of the page</description>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>uId</name>
+          <description>The unique identifier of the component</description>
+          <type>integer</type>
+        </property>
+      </public_properties>
+      <events>
+        <event>
+          <name>/colorpicker/events/pickcolor</name>
+          <description>The user clicked on a color</description>
+          <return>
+            <property>
+              <name>color</name>
+              <description>The hexa code of the selected color</description>
+              <type>string</type>
+            </property>
+          </return>
+        </event>
+      </events>
+    </component>
+  </components>
+  <styles>
+    <classes>
+      <class>
+        <name>cp_colorpicker</name>
+        <description>The class of the color picker</description>
+      </class>
+      <class>
+        <name>cp_separator</name>
+        <description>The class for the colors rows</description>
+      </class>
+      <class>
+        <name>cp_color</name>
+        <description>The class for a color square</description>
+      </class>
+    </classes>
+  </styles>
+</module>

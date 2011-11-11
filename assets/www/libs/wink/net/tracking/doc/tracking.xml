@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "../../../utils/doc/wink_doc.dtd" >
+<?xml-stylesheet type="text/xsl" href="../../../utils/doc/wink_doc.xsl"?>
+<module>
+  <title>Tracking</title>
+  <name>wink.net.Tracking</name>
+  <is_graphical>0</is_graphical>
+  <description>Send stat tracks to the given tracking system. Trackers are defined as plugins and MUST implement a "start" and "send" method. The default tracker of wink is wink.net.tracking.defaulttracker</description>
+  <test_pages>
+    <page>
+      <description>Push and flush tracks. You can define how often tracks should be flushed. You can choose between the default tracking plugin or the Google Analytics plugin</description>
+      <url>test_tracking.html</url>
+    </page>
+  </test_pages>
+  <compatibility>Iphone OS2, Iphone OS3, Iphone OS4, Android 1.1, Android 1.5, Android 2.1, Android 2.2, Android 2.3, BlackBerry 6, Bada 1.0</compatibility>
+  <instanciation>
+    <description>The tracking object takes a "tracking plugin" and a "flush interval" as parameters. You can then use the push method to add tracks to the tracking queue and use flush to send the data (if you specified a flush interval of 0, you will have to manually send your tracks using the flush method).</description>
+    <code_sample>
+gaTracker = new wink.net.tracking.GaTracker({ gaUrchinAccount : "UA-xxxxxxx-x" });
+  	
+tracking = new wink.net.Tracking({statTracker : gaTracker, intervalFlush : 0 });
+
+tracking.push("/WINK/Test1");
+tracking.push("/WINK/Test2");
+
+tracking.flush();
+    </code_sample>
+  </instanciation>
+  <components>
+    <component>
+      <name>wink.net.Tracking</name>
+      <description>The tracking object</description>
+      <public_methods>
+        <method>
+          <name>flush</name>
+          <description>Flush all pushed statistic tracks</description>
+        </method>
+        <method>
+          <name>push</name>
+          <description>Push a statistic track</description>
+          <parameters>
+            <parameter>
+              <name>msg</name>
+              <description>the message to track</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>reset</name>
+          <description>empty the tracks queue</description>
+        </method>
+        <method>
+          <name>setIntervalFlush</name>
+          <description>Set the flush interval</description>
+          <parameters>
+            <parameter>
+              <name>interval</name>
+              <description>the flush interval (in seconds)</description>
+              <type>int</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>setStatTracker</name>
+          <description>Set the statistic tracker plugin</description>
+          <parameters>
+            <parameter>
+              <name>statTracker</name>
+              <description>the statistic tracker plugin</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>uId</name>
+          <description>unique identifier of the component</description>
+          <type>integer</type>
+        </property>
+      </public_properties>
+    </component>
+    <component>
+      <name>wink.net.tracking.DefaultTracker</name>
+      <description>The default tracking plugin</description>
+      <public_methods>
+        <method>
+          <name>start</name>
+          <description>Start the statistic tracker</description>
+        </method>
+        <method>
+          <name>send</name>
+          <description>Send a statistic track</description>
+          <parameters>
+            <parameter>
+              <name>msg</name>
+              <description>the message to track</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>uId</name>
+          <description>unique identifier of the component</description>
+          <type>integer</type>
+        </property>
+      </public_properties>
+    </component>
+    <component>
+      <name>wink.net.tracking.GaTracker</name>
+      <description>A Google Analytics plugin</description>
+      <public_methods>
+        <method>
+          <name>start</name>
+          <description>Start the statistic tracker</description>
+        </method>
+        <method>
+          <name>send</name>
+          <description>Send a statistic track</description>
+          <parameters>
+            <parameter>
+              <name>msg</name>
+              <description>the message to track</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>uId</name>
+          <description>unique identifier of the component</description>
+          <type>integer</type>
+        </property>
+      </public_properties>
+    </component>
+  </components>
+</module>

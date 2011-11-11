@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "../../../../utils/doc/wink_doc.dtd" >
+<?xml-stylesheet type="text/xsl" href="../../../../utils/doc/wink_doc.xsl"?>
+<module>
+  <title>Input</title>
+  <name>wink.ui.form.Input</name>
+  <is_graphical>1</is_graphical>
+  <description>Implements a customizable input field (keyboard type, values, erase button...)</description>
+  <test_pages>
+    <page>
+      <description>This test page a customized input field at the center of the page</description>
+      <url>test_input.html</url>
+    </page>
+  </test_pages>
+  <compatibility>Iphone OS2, Iphone OS3, Iphone OS4, Android 1.5, Android 2.1, Android 2.2, Android 2.3, BlackBerry 6, Bada 1.0</compatibility>
+  <instanciation>
+    <description>The Input needs properties to define its behaviour. As all other graphical components, it has a getDomNode method that should be used after the instantiation to add the input to the page. The code sample shows how to instantiate a new input and to add it into a webpage.</description>
+    <properties>
+      <property>
+        <name>type</name>
+        <description>the type of the field : "text", "password", "number", "tel", "email", "url" (DEFAULT: "text")</description>
+        <type>string</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>width</name>
+        <description>the width in pixels of the input field (DEFAULT: 250)</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>eraseButton</name>
+        <description>display an erase button if set to 1 (DEFAULT: 1)</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>autoCorrect</name>
+        <description>enables the auto correction feature if set to 1 (DEFAULT: 1)</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>autoCapitalize</name>
+        <description>enables the auto capitalization feature if set to 1 (DEFAULT: 1)</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>defaultValue</name>
+        <description>the value of the input field</description>
+        <type>string/integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>placeholder</name>
+        <description>the value of the placeholder</description>
+        <type>string/integer</type>
+        <is_optional>1</is_optional>
+      </property>
+    </properties>
+    <code_sample>
+var properties =
+{
+	type: 'tel',
+	eraseButton: 1,
+	autoCorrect: 0,
+	autoCapitalize: 1,
+	placeholder: 'type a number',
+	width: 150
+}
+			
+input = new wink.ui.form.Input(properties);
+$('output').appendChild(input.getDomNode());
+    </code_sample>
+  </instanciation>
+  <components>
+    <component>
+      <name>wink.ui.form.Input</name>
+      <description>create the input DOM node and handle the touch events</description>
+      <public_methods>
+        <method>
+          <name>getDomNode</name>
+          <description>Returns the component main dom node</description>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>uId</name>
+          <description>The unique identifier of the component</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>inputNode</name>
+          <description>The input field node</description>
+          <type>DOM node</type>
+        </property>
+        <property>
+          <name>type</name>
+          <description>The type of the field ("text", "password", "number", "tel", "email", "url")</description>
+          <type>string</type>
+        </property>
+        <property>
+          <name>width</name>
+          <description>The width in pixels of the input field</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>eraseButton</name>
+          <description>display an erase button if set to 1</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>autoCorrect</name>
+          <description>enables the auto correction feature if set to 1</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>autoCapitalize</name>
+          <description>enables the auto capitalization feature if set to 1</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>defaultValue</name>
+          <description>the default value of the input field</description>
+          <type>string/integer</type>
+        </property>
+        <property>
+          <name>placeholder</name>
+          <description>the value of the placeholder</description>
+          <type>string/integer</type>
+        </property>
+      </public_properties>
+    </component>
+  </components>
+  <styles>
+    <classes>
+      <class>
+        <name>in_erase</name>
+        <description>The class of the erase button</description>
+      </class>
+    </classes>
+  </styles>
+</module>

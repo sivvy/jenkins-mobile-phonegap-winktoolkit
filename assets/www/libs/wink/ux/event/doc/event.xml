@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "../../../utils/doc/wink_doc.dtd" >
+<?xml-stylesheet type="text/xsl" href="../../../utils/doc/wink_doc.xsl"?>
+<module>
+  <title>Wink Event</title>
+  <name>wink.ux.Event</name>
+  <is_graphical>0</is_graphical>
+  <description>
+  	The Event object is an encapsulation of an event. Only the touch object has to create such events.
+  	It can thus be seen as an only readable object.
+  </description>
+  <compatibility>Iphone OS2, Iphone OS3, Iphone OS4, Android 1.5, Android 2.1, Android 2.2, Android 2.3, BlackBerry 6, Bada 1.0</compatibility>
+  <instanciation>
+    <description></description>
+    <properties>
+      <property>
+        <name>type</name>
+        <description>The type of event (start, move, end, gesturestart, gesturemove, gestureend)</description>
+        <type>string</type>
+        <is_optional>0</is_optional>
+      </property>
+      <property>
+        <name>x</name>
+        <description>x coordinate of the event</description>
+        <type>number</type>
+        <is_optional>0</is_optional>
+      </property>
+      <property>
+        <name>y</name>
+        <description>y coordinate of the event</description>
+        <type>number</type>
+        <is_optional>0</is_optional>
+      </property>
+      <property>
+        <name>timestamp</name>
+        <description>the event timestamp</description>
+        <type>timestamp</type>
+        <is_optional>0</is_optional>
+      </property>
+      <property>
+        <name>target</name>
+        <description>the target node</description>
+        <type>DOM node</type>
+        <is_optional>0</is_optional>
+      </property>
+      <property>
+        <name>srcEvent</name>
+        <description>the original source event</description>
+        <type>DOM event</type>
+        <is_optional>0</is_optional>
+      </property>
+      <property>
+        <name>multitouch</name>
+        <description>boolean that indicates whether the current event occurs in a multi-touch context</description>
+        <type>boolean</type>
+        <is_optional>0</is_optional>
+      </property>
+    </properties>
+    <code_sample></code_sample>
+  </instanciation>
+  <components>
+    <component>
+      <name>wink.ux.Event</name>
+      <description>The event component</description>
+      <public_methods>
+        <method>
+          <name>preventDefault</name>
+          <description>Prevents from default behavior</description>
+        </method>
+        <method>
+          <name>stopPropagation</name>
+          <description>Allows to stop the event propagation</description>
+        </method>
+        <method>
+          <name>dispatch</name>
+          <description>Dispatch the source event to the given element</description>
+          <parameters>
+            <parameter>
+              <name>target</name>
+              <description>the node that will receive the dispatched event</description>
+              <type>DOM node</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>type</name>
+              <description>the type of event dispatched (eg: click)</description>
+              <type>string</type>
+              <is_optional>1</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>uId</name>
+          <description>The unique identifier of the component.</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>type</name>
+          <description>The type of event (start, move, end, gesturestart, gesturemove, gestureend)</description>
+          <type>string</type>
+        </property>
+        <property>
+          <name>x</name>
+          <description>x coordinate of the event</description>
+          <type>number</type>
+        </property>
+        <property>
+          <name>y</name>
+          <description>y coordinate of the event</description>
+          <type>number</type>
+        </property>
+        <property>
+          <name>timestamp</name>
+          <description>the event timestamp</description>
+          <type>timestamp</type>
+        </property>
+        <property>
+          <name>target</name>
+          <description>the target node</description>
+          <type>DOM node</type>
+        </property>
+        <property>
+          <name>srcEvent</name>
+          <description>the original source event</description>
+          <type>DOM event</type>
+        </property>
+        <property>
+          <name>multitouch</name>
+          <description>boolean that indicates whether the current event occurs in a multi-touch context</description>
+          <type>boolean</type>
+        </property>
+      </public_properties>
+    </component>
+  </components>
+</module>

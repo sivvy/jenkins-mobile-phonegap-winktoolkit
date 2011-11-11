@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "../../../utils/doc/wink_doc.dtd" >
+<?xml-stylesheet type="text/xsl" href="../../../utils/doc/wink_doc.xsl"?>
+<module>
+  <title>base</title>
+  <name>wink._base</name>
+  <is_graphical>0</is_graphical>
+  <description>
+  	The base file contains the definition of the wink object and a set of functions used by the entire toolkit.
+  </description>
+  <compatibility>Iphone OS2, Iphone OS3, Iphone OS4, Android 1.1, Android 1.5, Android 2.1, Android 2.2, Android 2.3, BlackBerry 6, Bada 1.0</compatibility>
+  <instanciation>
+    <description>In base you will find a library of functions. The wink object doesn't need to be instantiated.</description>
+    <code_sample>
+var x = 0.567;
+var xSet = wink.isSet(x);
+var isInt = wink.isInteger(x);
+    	
+var node = $('nodeId');
+node.id = wink.getUId();
+    	
+var roundX = function(decimals)
+{
+	x = wink.math.round(x, decimals);
+};
+wink.setTimeout(window, roundX, 1000, 2);
+    </code_sample>
+  </instanciation>
+  <components>
+    <component>
+      <name>wink._base</name>
+      <description>The base component</description>
+      <public_methods>
+      	<method>
+          <name>byId (alias $)</name>
+          <description>returns a DOM element</description>
+          <parameters>
+            <parameter>
+              <name>id</name>
+              <description>the identifier of the DOM element to return</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>query (alias $$)</name>
+          <description>returns an array of DOM element</description>
+          <parameters>
+            <parameter>
+              <name>selector</name>
+              <description>the query selector you want to use</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>element</name>
+              <description>the element where you want to search (default is document)</description>
+              <type>HTMLElement</type>
+              <is_optional>1</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>setLocale</name>
+          <description>Set wink locale used for translation</description>
+          <parameters>
+            <parameter>
+              <name>locale</name>
+              <description>the locale to set</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>translate (alias _)</name>
+          <description>returns the translated value of a key</description>
+          <parameters>
+            <parameter>
+              <name>key</name>
+              <description>the key identifying a ressource</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>object</name>
+              <description>the component that holds the resource list (i18n)</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+      	<method>
+          <name>isUndefined</name>
+          <description>Returns true if the given parameter is undefined, false otherwise</description>
+          <parameters>
+            <parameter>
+              <name>object</name>
+              <description>The object to test</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>isNull</name>
+          <description>Returns true if the given parameter is null, false otherwise</description>
+          <parameters>
+            <parameter>
+              <name>object</name>
+              <description>The object to test</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>isSet</name>
+          <description>Returns true if the given parameter is set, false otherwise</description>
+          <parameters>
+            <parameter>
+              <name>object</name>
+              <description>The object to test</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>isset</name>
+          <description>deprecated: must use wink.isSet</description>
+        </method>
+        <method>
+          <name>isCallback</name>
+          <description>Return true if the given callback object is valid (contains at least a method. It can also contain a context)</description>
+          <parameters>
+            <parameter>
+              <name>callback</name>
+              <description>The object to test</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>isString</name>
+          <description>Returns true if the given parameter is a string, false otherwise</description>
+          <parameters>
+            <parameter>
+              <name>object</name>
+              <description>The object to test</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>isInteger</name>
+          <description>Returns true if the given parameter is an integer</description>
+          <parameters>
+            <parameter>
+              <name>object</name>
+              <description>The object to test</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>isNumber</name>
+          <description>Returns true if the given parameter is a number</description>
+          <parameters>
+            <parameter>
+              <name>object</name>
+              <description>The object to test</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>isArray</name>
+          <description>Return true if the given parameter is an array</description>
+          <parameters>
+            <parameter>
+              <name>object</name>
+              <description>The object to test</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>isBoolean</name>
+          <description>Return true if the given parameter is a boolean</description>
+          <parameters>
+            <parameter>
+              <name>object</name>
+              <description>The object to test</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>isFunction</name>
+          <description>Return true if the given parameter is a function</description>
+          <parameters>
+            <parameter>
+              <name>object</name>
+              <description>The object to test</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>trim</name>
+          <description>Returns the given string parameter trimed</description>
+          <parameters>
+            <parameter>
+              <name>str</name>
+              <description>The string to trim</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>bind</name>
+          <description>Binds a method to a given context</description>
+          <parameters>
+            <parameter>
+              <name>context</name>
+              <description>the execution context of the method to call</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>method</name>
+              <description>the method to call</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>argument1, argument2 ...</name>
+              <description>optional arguments to pass to the binded function</description>
+              <type>object, object ...</type>
+              <is_optional>1</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+       	<method>
+          <name>call</name>
+          <description>Invokes the given callback</description>
+          <parameters>
+            <parameter>
+              <name>callback</name>
+              <description>the callback to invoke. The callback must be an object containing a 'method' and a 'context'.</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>parameters</name>
+              <description>parameters to pass to the callback</description>
+              <type>string/integer/object</type>
+              <is_optional>1</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>connect</name>
+          <description>Connect a method to another method</description>
+          <parameters>
+          	<parameter>
+              <name>source</name>
+              <description>the source context</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>method</name>
+              <description>the source method</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>callback</name>
+              <description>a callback that will be called once the source method will be invoked</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>disconnect</name>
+          <description>disconnect two methods</description>
+          <parameters>
+          	<parameter>
+              <name>source</name>
+              <description>the source context</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>method</name>
+              <description>the source method</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>callback</name>
+              <description>the callback that was previously connected</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>setTimeout</name>
+          <description>Calls a deferred function</description>
+          <parameters>
+            <parameter>
+              <name>context</name>
+              <description>the execution context of the method to call</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>method</name>
+              <description>the method to call</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>delay</name>
+              <description>time to wait before calling method (millisecond)</description>
+              <type>integer</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>argument1, argument2 ...</name>
+              <description>a list of optional arguments</description>
+              <type>object, object ...</type>
+              <is_optional>1</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>setInterval</name>
+          <description>Calls a deferred function</description>
+          <parameters>
+            <parameter>
+              <name>context</name>
+              <description>the execution context of the method to call</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>method</name>
+              <description>the method to call</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>delay</name>
+              <description>time to wait before calling method (millisecond)</description>
+              <type>integer</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>argument1, argument2 ...</name>
+              <description>a list of optional arguments</description>
+              <type>object, object ...</type>
+              <is_optional>1</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>getUId</name>
+          <description>Generates a unique identifier. Usually used in components in order to identify them.</description>
+        </method>
+      </public_methods>
+    </component>
+  </components>
+</module>

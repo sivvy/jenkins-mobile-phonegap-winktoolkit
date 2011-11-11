@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "../../../utils/doc/wink_doc.dtd" >
+<?xml-stylesheet type="text/xsl" href="../../../utils/doc/wink_doc.xsl"?>
+<module>
+  <title>dom</title>
+  <name>wink._dom</name>
+  <is_graphical>0</is_graphical>
+  <description>
+  	The dom module is a library of functions that extend HTMLElement.
+  	It allows to get DOM nodes positions or to apply a 2d transformation on a DOM node.
+  	An optional dependency is required to listen gestures on a DOM node (see wink.ux.gesture module).
+  </description>
+  <compatibility>Iphone OS2, Iphone OS3, Iphone OS4, Android 1.1 (partial), Android 1.5, Android 2.1, Android 2.2, Android 2.3, BlackBerry 6, Bada 1.0</compatibility>
+  <dependencies>
+    <dependency>
+      <module_name>wink.ux.gesture</module_name>
+    </dependency>
+  </dependencies>
+  <instanciation>
+    <description>dom is a library of functions, so it did not need to be instantiated.</description>
+    <code_sample>
+var node = $("nodeId");
+var leftPos = node.getLeftPosition();
+var topPos = node.getTopPosition();
+node.translate(-leftPos, -topPos);
+node.scale(0.5, 0.5);
+    </code_sample>
+  </instanciation>
+  <components>
+    <component>
+      <name>wink._dom</name>
+      <description>The dom component</description>
+      <public_methods>
+      	<method>
+          <name>winkGetTopPosition (alias getTopPosition)</name>
+          <description>Retrieves the top position of a node.</description>
+          <parameters>
+            <parameter>
+              <name>parentNode</name>
+              <description>The parent node ; If specified, the returned value is relative to the parentNode node, otherwise it is absolute an absolute value</description>
+              <type>DOM node</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>winkGetLeftPosition (alias getLeftPosition)</name>
+          <description>Retrieves the left position of a node.</description>
+          <parameters>
+            <parameter>
+              <name>parentNode</name>
+              <description>The parent node ; If specified, the returned value is relative to the parentNode node, otherwise it is absolute an absolute value</description>
+              <type>DOM node</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>winkTranslate (alias translate)</name>
+          <description>Translates the node (x and y must both be integers or both with percentage notation).</description>
+          <parameters>
+            <parameter>
+              <name>x</name>
+              <description>The x coordinate of the translation.</description>
+              <type>number</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>y</name>
+              <description>The y coordinate of the translation.</description>
+              <type>number</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>force2d</name>
+              <description>used to prevent "translate3d".</description>
+              <type>boolean</type>
+              <is_optional>1</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>winkScale (alias scale)</name>
+          <description>Scales the node.</description>
+          <parameters>
+            <parameter>
+              <name>x</name>
+              <description>The x ratio of the scale.</description>
+              <type>integer</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>y</name>
+              <description>The y ratio of the scale.</description>
+              <type>integer</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>winkRotate (alias rotate)</name>
+          <description>Rotates the node.</description>
+          <parameters>
+            <parameter>
+              <name>angle</name>
+              <description>The angle of the rotation in degrees.</description>
+              <type>integer</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>winkListenToGesture (alias listenToGesture)</name>
+          <description>Allow to listen for a specific gesture on a dom Node.</description>
+          <parameters>
+            <parameter>
+              <name>gesture</name>
+              <description>the gesture name to listen (see wink.ux.gesture)</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>callback</name>
+              <description>the callback to invoke when this gesture is done : { context, method, arguments }</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>options</name>
+              <description>The options associated to the listener: { preventDefault: Indicates whether an automatic preventDefault must be done (default is false) }</description>
+              <type>object</type>
+              <is_optional>1</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>winkUnlistenToGesture (alias unlistenToGesture)</name>
+          <description>Allow to unlisten for a specific gesture on a dom Node.</description>
+          <parameters>
+            <parameter>
+              <name>gesture</name>
+              <description>the gesture name to unlisten (see wink.ux.gesture)</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>callback</name>
+              <description>the callback associated to this gesture : { context, method, arguments }</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+      </public_methods>
+    </component>
+  </components>
+</module>

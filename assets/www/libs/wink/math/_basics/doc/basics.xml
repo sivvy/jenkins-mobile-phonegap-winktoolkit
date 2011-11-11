@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "../../../utils/doc/wink_doc.dtd" >
+<?xml-stylesheet type="text/xsl" href="../../../utils/doc/wink_doc.xsl"?>
+<module>
+  <title>Math Basics</title>
+  <name>wink.math._basics</name>
+  <is_graphical>0</is_graphical>
+  <description>
+  	The Math Basics is a math library.
+  </description>
+  <compatibility>Iphone OS2, Iphone OS3, Iphone OS4, Android 1.1, Android 1.5, Android 2.1, Android 2.2, Android 2.3, BlackBerry 6, Bada 1.0</compatibility>
+  <instanciation>
+    <description>wink.math is a Literal, so it did not need to be instantiated.</description>
+    <code_sample>
+var r = wink.math.round(Math.PI, 2);
+    </code_sample>
+  </instanciation>
+  <components>
+    <component>
+      <name>wink.math._basics</name>
+      <description>The math component</description>
+      <public_methods>
+        <method>
+          <name>round</name>
+          <description>Returns the rounded value to a given number of decimal places</description>
+          <parameters>
+            <parameter>
+              <name>n</name>
+              <description>the value to round</description>
+              <type>number</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>d</name>
+              <description>number of decimal places</description>
+              <type>integer</type>
+              <is_optional>1</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+      </public_methods>
+    </component>
+  </components>
+</module>

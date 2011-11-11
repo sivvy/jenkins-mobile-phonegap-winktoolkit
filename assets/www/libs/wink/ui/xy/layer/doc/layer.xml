@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "../../../../utils/doc/wink_doc.dtd" >
+<?xml-stylesheet type="text/xsl" href="../../../../utils/doc/wink_doc.xsl"?>
+<module>
+  <title>Layer</title>
+  <name>wink.ui.xy.layer</name>
+  <is_graphical>1</is_graphical>
+  <description>displays a semi transparent layer you can use to build modal objects</description>
+  <test_pages>
+    <page>
+      <description>click on the 'test' button to display the layer. click on the Layer to make it disappear. In the test page, the color and opacity of the layer have been changed</description>
+      <url>test_layer.html</url>
+    </page>
+  </test_pages>
+  <compatibility>Iphone OS2, Iphone OS3, Iphone OS4, Android 1.1, Android 1.5, Android 2.1, Android 2.2, Android 2.3, BlackBerry 6, Bada 1.0</compatibility>
+  <instanciation>
+    <description>
+    	The layer is a literal so it doesn't need to be instantiated.
+    	Use the 'show' and 'hide' method to display the layer or hide it. 
+    	The layer object is part of the core so you can either use 'wink.ui.xy.layer.show()' or directly 'wink.layer.show()'.
+    	The layer object is part of the core so you can either use 'wink.ui.xy.layer.hide()' or directly 'wink.layer.hide()'.
+    	You can see if the layer is displayed by checking its 'visible' attribute.
+    	You can also define an 'onclick' method to the layer that will be called if the user clicks on the layer (see the test page for more details)
+    </description>
+    <code_sample>
+wink.layer.show();
+wink.layer.hide();
+	</code_sample>
+  </instanciation>
+  <components>
+    <component>
+      <name>wink.ui.xy.layer</name>
+      <description>create, display and hide the layer</description>
+      <public_methods>
+        <method>
+          <name>show</name>
+          <description>display the layer</description>
+        </method>
+        <method>
+          <name>hide</name>
+          <description>hide the layer</description>
+        </method>
+        <method>
+          <name>refresh</name>
+          <description>update the display. Should be called in case of a change of height in the page for instance</description>
+        </method>
+        <method>
+          <name>update</name>
+          <description>update the color, opacity and zIndex of the layer. Use this method if you want to change the opacity or color or zIndex after you called the 'show' method.</description>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>visible</name>
+          <description>true if the Layer is displayed, false otherwise</description>
+          <type>boolean</type>
+        </property>
+        <property>
+          <name>color</name>
+          <description>the hexa code of the layer color. The default value is #000</description>
+          <type>string</type>
+        </property>
+        <property>
+          <name>opacity</name>
+          <description>opacity level of the layer between 0 and 1. The default value is 0.3</description>
+          <type>float</type>
+        </property>
+        <property>
+          <name>zIndex</name>
+          <description>the hierarchical level of the layer between 0 and 999. The default value is 998</description>
+          <type>integer</type>
+        </property>
+      </public_properties>
+    </component>
+  </components>
+</module>

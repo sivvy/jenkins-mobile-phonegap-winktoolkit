@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "../../../../utils/doc/wink_doc.dtd" >
+<?xml-stylesheet type="text/xsl" href="../../../../utils/doc/wink_doc.xsl"?>
+<module>
+  <title>Fixed layout</title>
+  <name>wink.ui.layout.FixedLayout</name>
+  <is_graphical>0</is_graphical>
+  <description>
+    The Fixed layout implements a layout with "fixed" header and/or footer. 
+    There are two implementations depending on whether the fixed position is supported.
+    If it is supported, then it is a native behavior that does not include public property.
+  </description>
+  <test_pages>
+    <page>
+      <description>This test shows a layout with a header and a footer bar.</description>
+      <url>test_fixedlayout.html</url>
+    </page>
+    <page>
+      <description>A variant with semi-transparent bars.</description>
+      <url>test_fixedlayout2.html</url>
+    </page>
+  </test_pages>
+  <compatibility>Iphone OS2 (slow), Iphone OS3, Iphone OS4, Android 1.5, Android 2.1, Android 2.2, Android 2.3, BlackBerry 6, Bada 1.0</compatibility>
+  <dependencies>
+    <dependency>
+      <module_name>wink.ux.window</module_name>
+    </dependency>
+  </dependencies>
+  <instanciation>
+    <description></description>
+    <properties>
+      <property>
+        <name>target</name>
+        <description>The target node identifier</description>
+        <type>string</type>
+        <is_optional>0</is_optional>
+      </property>
+      <property>
+        <name>header</name>
+        <description>The header node identifier</description>
+        <type>string</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>footer</name>
+        <description>The footer node identifier</description>
+        <type>string</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>nativeFixed</name>
+        <description>false to enable the default implementation even if the fixed positioning is supported</description>
+        <type>boolean</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>displayDuration</name>
+        <description>the duration of the opacity transition when bars appear (default: 0)</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>moveDuration</name>
+        <description>the duration of the top transition when bars are partially visible (cut) (default: 0)</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>preventTouchBar</name>
+        <description>prevents from moving the bars with touch (default: true)</description>
+        <type>boolean</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>activated</name>
+        <description>indicates if the layout is activated (default: true)</description>
+        <type>boolean</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>showHideOnClick</name>
+        <description>allows to show / hide the bars on click (default: false)</description>
+        <type>boolean</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>urlBarShorcutHeight</name>
+        <description>used when a shortcut is displayed for the url bar (default: 0)</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>scrollAtStart</name>
+        <description>Indicates if the component needs to listen the start event in order to hide bars properly (default: 0)</description>
+        <type>boolean</type>
+        <is_optional>1</is_optional>
+      </property>
+    </properties>
+    <code_sample>
+var properties = 
+{
+	target: 'targetElementId',
+	header: 'headerElementId',
+	footer: 'footerElementId'
+};
+fixedlayout = new wink.ui.layout.FixedLayout(properties);
+    </code_sample>
+  </instanciation>
+  <components>
+    <component>
+      <name>wink.ui.layout.FixedLayout</name>
+      <description>The Fixed layout component</description>
+      <public_methods>
+        <method>
+          <name>enable</name>
+          <description>Enables the bars position updates</description>
+        </method>
+        <method>
+          <name>disable</name>
+          <description>Disables the bars position updates</description>
+        </method>
+        <method>
+          <name>getPosition</name>
+          <description>Returns the current y position</description>
+        </method>
+        <method>
+          <name>scrollTo</name>
+          <description>Scroll explicitly to the given position</description>
+          <parameters>
+            <parameter>
+              <name>y</name>
+              <description>The y targeted coordinates</description>
+              <type>integer</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>refreshView</name>
+          <description>Refresh the view. This can be useful after a change of view.</description>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>uId</name>
+          <description>The unique identifier of the component.</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>displayDuration</name>
+          <description>see instanciation</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>moveDuration</name>
+          <description>see instanciation</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>preventTouchBar</name>
+          <description>see instanciation</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>activated</name>
+          <description>see instanciation</description>
+          <type>boolean</type>
+        </property>
+      </public_properties>
+    </component>
+  </components>
+</module>

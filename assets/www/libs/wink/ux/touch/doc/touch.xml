@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "../../../utils/doc/wink_doc.dtd" >
+<?xml-stylesheet type="text/xsl" href="../../../utils/doc/wink_doc.xsl"?>
+<module>
+  <title>Touch events handler</title>
+  <name>wink.ux.touch</name>
+  <is_graphical>0</is_graphical>
+  <description>
+  	The Touch object provides a layer of abstraction with all event listeners and listened elements.
+  	It manages the events of the finger or the mouse so that the caller does not care about the target platform.
+  	When events occur, the touch object handles them invoking callbacks with the resulting event and associated arguments.
+  </description>
+  <test_pages>
+    <page>
+      <description>A space for drawing the points associated with user events</description>
+      <url>test_touch.html</url>
+    </page>
+    <page>
+      <description>4 squares separately listening events : results are generated in the console</description>
+      <url>test_touchmove.html</url>
+    </page>
+    <page>
+      <description>4 squares separately listening events : the same callback is invoked with differents arguments</description>
+      <url>test_touchselection.html</url>
+    </page>
+  </test_pages>
+  <compatibility>Iphone OS2, Iphone OS3, Iphone OS4, Android 1.5, Android 2.1, Android 2.2, Android 2.3, BlackBerry 6, Bada 1.0</compatibility>
+  <instanciation>
+    <description>The touch object is a Literal, so it did not need to be instantiated.</description>
+    <code_sample>
+var handleStart = function(uxEvent)
+{
+    alert("Start At: " + uxEvent.x + ", " + uxEvent.y);
+};
+  
+wink.ux.touch.addListener($("nodeId"), "start", { context: window, method: "handleStart" });
+    </code_sample>
+  </instanciation>
+  <components>
+    <component>
+      <name>wink.ux.touch</name>
+      <description>The touch component</description>
+      <public_methods>
+        <method>
+          <name>addListener</name>
+          <description>Add a new listener</description>
+          <parameters>
+            <parameter>
+              <name>domNode</name>
+              <description>the DOM node reference</description>
+              <type>DOM node</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>eventType</name>
+              <description>the event type that must match with one of {"start", "move", "end", "gesturestart", "gesturemove", "gestureend" }</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>callback</name>
+              <description>The callback to invoke when event is received by the node : { context, method, arguments }</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>options</name>
+              <description>
+                The options associated to the listener:
+                {
+                  preventDefault: Indicates whether an automatic preventDefault must be done (default is false),
+                  tracking: Indicates whether the node must be tracked after the first start event (taken into account in the first method call) (default is true),
+                  captureFlow: Indicates whether the capture event flow is used (default is false)
+                }
+              </description>
+              <type>object</type>
+              <is_optional>1</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>removeListener</name>
+          <description>Remove an existing listener</description>
+          <parameters>
+            <parameter>
+              <name>domNode</name>
+              <description>the DOM node reference</description>
+              <type>DOM node</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>eventType</name>
+              <description>the event type that must match with one of {"start", "move", "end", "gesturestart", "gesturemove", "gestureend" }</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>callback</name>
+              <description>The callback that was previously added (identified by { context, method })</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>getTouchProperties</name>
+          <description>Returns the touch properties (x, y, target).</description>
+          <parameters>
+            <parameter>
+              <name>touch</name>
+              <description>The touch object</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+      </public_methods>
+    </component>
+    <component>
+      <name>wink.ux.touch.Element</name>
+      <description>
+      	The touch Element component handled by the Touch object.
+      	It is an object encapsulating the concept of the DOM element receiving user events.
+      	An element is linked to one or more events and each event refers to one or more callbacks.
+      </description>
+      <public_methods>
+        <method>
+          <name>addEventCallback</name>
+          <description>Add a new callback associated to the given event type.</description>
+          <parameters>
+            <parameter>
+              <name>eventType</name>
+              <description>The type of event</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>callback</name>
+              <description>The callback to add : { context, method, arguments }</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>preventDefault</name>
+              <description>Lets do a "preventDefault" automatically when receiving the event</description>
+              <type>boolean</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>removeEventCallback</name>
+          <description>Removes a callback associated to the given event type.</description>
+          <parameters>
+            <parameter>
+              <name>eventType</name>
+              <description>The type of event</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>callback</name>
+              <description>The callback to remove (identified by { context, method })</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>isListening</name>
+          <description>Indicates whether the element should be notified of events that matches to the given one because at least one callback target exists.</description>
+          <parameters>
+            <parameter>
+              <name>eventType</name>
+              <description>The type of event</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>notifyEvent</name>
+          <description>Notifies the element so that it handles the given Wink Event.</description>
+          <parameters>
+            <parameter>
+              <name>uxEvent</name>
+              <description>The event to handle</description>
+              <type>wink.ux.Event</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>uId</name>
+          <description>The unique identifier of the component.</description>
+          <type>integer</type>
+          <is_optional>0</is_optional>
+        </property>
+        <property>
+          <name>domNode</name>
+          <description>The dom node associated to the touch element.</description>
+          <type>DOM node</type>
+          <is_optional>0</is_optional>
+        </property>
+        <property>
+          <name>tracking</name>
+          <description>Indicates whether the touch element is in tracking mode.</description>
+          <type>boolean</type>
+          <is_optional>0</is_optional>
+        </property>
+        <property>
+          <name>tracked</name>
+          <description>Indicates whether the touch element is currently tracked.</description>
+          <type>boolean</type>
+          <is_optional>0</is_optional>
+        </property>
+      </public_properties>
+    </component>
+  </components>
+</module>

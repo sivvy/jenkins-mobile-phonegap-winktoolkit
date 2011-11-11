@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "../../../utils/doc/wink_doc.dtd" >
+<?xml-stylesheet type="text/xsl" href="../../../utils/doc/wink_doc.xsl"?>
+<module>
+  <title>2d fx</title>
+  <name>wink.fx._xy</name>
+  <is_graphical>0</is_graphical>
+  <description>
+  	The 2d fx object provides a layer of abstraction with all specifics related to the css rules.
+  	It is used to apply css classes, 2d transformations and transitions to some node.
+  	This module is closely tied to the "dom" module for simplifying 2d transformations writing.
+  </description>
+  <test_pages>
+    <page>
+      <description>A 2d basic use : a movable box.</description>
+      <url>test_xy_dom.html</url>
+    </page>
+    <page>
+      <description>This test page displays the coordinates of a box with a movement undergoing transition.</description>
+      <url>test_xy_transition.html</url>
+    </page>
+  </test_pages>
+  <compatibility>Iphone OS2, Iphone OS3, Iphone OS4, Android 1.5, Android 2.1, Android 2.2, Android 2.3, Bada 1.0</compatibility>
+  <instanciation>
+    <description>the 2d fx object is a Literal, so it did not need to be instantiated.</description>
+    <code_sample>
+var node = $("nodeId");
+
+wink.fx.applyTransition(node, 'opacity', '500ms', '0ms', 'linear');
+wink.fx.applyTransformTransition(node, '800ms', '0ms', 'default');
+
+wink.addClass(node, 'MyCssClass');
+    </code_sample>
+  </instanciation>
+  <components>
+    <component>
+      <name>wink.fx._xy</name>
+      <description>The 2d fx component</description>
+      <public_methods>
+      	<method>
+          <name>addClass</name>
+          <description>Add a css class to a node. You can either use 'wink.fx.addClass()' or directly 'wink.addClass()'.</description>
+          <parameters>
+            <parameter>
+              <name>node</name>
+              <description>The DOM node</description>
+              <type>DOM node</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>classStr</name>
+              <description>the css class name to add.</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>removeClass</name>
+          <description>Remove a css class from a node. You can either use 'wink.fx.removeClass()' or directly 'wink.removeClass()'.</description>
+          <parameters>
+            <parameter>
+              <name>node</name>
+              <description>The DOM node</description>
+              <type>DOM node</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>classStr</name>
+              <description>the css class name to remove.</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>apply</name>
+          <description>apply styles to a given node</description>
+          <parameters>
+            <parameter>
+              <name>node</name>
+              <description>the node on which styles will be applied</description>
+              <type>DOM node</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>properties</name>
+              <description>an object containing all the properties to set</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>applyTransition</name>
+          <description>Apply a transition to the a node.</description>
+          <parameters>
+            <parameter>
+              <name>node</name>
+              <description>The DOM node.</description>
+              <type>DOM node</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>property</name>
+              <description>The transition property.</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>duration</name>
+              <description>The transition duration (ex: 800ms, 1s).</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>delay</name>
+              <description>The transition delay (ex: 0s).</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>func</name>
+              <description>The transition function (default, linear, ease-in, ease-out, ease-in-out, cubic-bezier).</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>applyTransformTransition</name>
+          <description>Apply a transform transition to the given node (applyTransition shorcut on transform property).</description>
+          <parameters>
+            <parameter>
+              <name>node</name>
+              <description>The DOM node.</description>
+              <type>DOM node</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>duration</name>
+              <description>The transition duration (ex: 800ms, 1s).</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>delay</name>
+              <description>The transition delay (ex: 0s).</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>func</name>
+              <description>The transition function (default, linear, ease-in, ease-out, ease-in-out, cubic-bezier).</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>onTransitionEnd</name>
+          <description>connect a function to the end of a transition on the given node. returns the listener in order to be able to remove it.</description>
+          <parameters>
+            <parameter>
+              <name>node</name>
+              <description>the node on which a transition is applied.</description>
+              <type>DOM node</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>func</name>
+              <description>the function to connect.</description>
+              <type>function</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>persistent</name>
+              <description>specify that the listener must be kept.</description>
+              <type>boolean</type>
+              <is_optional>1</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>getTransformPosition</name>
+          <description>Returns the instantaneous position of the node, even during a transition.</description>
+          <parameters>
+            <parameter>
+              <name>node</name>
+              <description>The DOM node.</description>
+              <type>DOM node</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>applyTranslate</name>
+          <description>Apply the CSS Translation to a node (HTMLElement.translate recommended)</description>
+          <parameters>
+            <parameter>
+              <name>node</name>
+              <description>The node to translate.</description>
+              <type>DOM node</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>x</name>
+              <description>The x coordinate of the translation.</description>
+              <type>number</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>y</name>
+              <description>The y coordinate of the translation.</description>
+              <type>number</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>force2d</name>
+              <description>used to prevent "translate3d".</description>
+              <type>boolean</type>
+              <is_optional>1</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>applyScale</name>
+          <description>Apply the CSS Scale to a node (HTMLElement.scale recommended)</description>
+          <parameters>
+            <parameter>
+              <name>node</name>
+              <description>The node to scale.</description>
+              <type>DOM node</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>x</name>
+              <description>The x ratio of the scale.</description>
+              <type>integer</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>y</name>
+              <description>The y ratio of the scale.</description>
+              <type>integer</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>applyRotate</name>
+          <description>Apply the CSS Rotation (z-axis) to a node (HTMLElement.rotate recommended)</description>
+          <parameters>
+            <parameter>
+              <name>node</name>
+              <description>The node to scale.</description>
+              <type>DOM node</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>angle</name>
+              <description>The angle of the rotation in degrees.</description>
+              <type>integer</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>getTransform</name>
+          <description>Returns the transform affected to a node.</description>
+          <parameters>
+            <parameter>
+              <name>node</name>
+              <description>Returns the transform affected to the given node.</description>
+              <type>DOM node</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>setTransform</name>
+          <description>Apply the given transformation to a node.</description>
+          <parameters>
+            <parameter>
+              <name>node</name>
+              <description>Apply the given transformation to the given node</description>
+              <type>DOM node</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>transform</name>
+              <description>Apply the given transformation to the given node</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+      </public_methods>
+    </component>
+  </components>
+</module>

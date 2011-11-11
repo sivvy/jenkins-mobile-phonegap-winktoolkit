@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "../../../../utils/doc/wink_doc.dtd" >
+<?xml-stylesheet type="text/xsl" href="../../../../utils/doc/wink_doc.xsl"?>
+<module>
+  <title>Slideshow</title>
+  <name>wink.ui.xy.Slideshow</name>
+  <is_graphical>1</is_graphical>
+  <description>
+    Implements a slideshow based on the html canvas tag. 
+    This component is highly customizable on how to display images: interaction with the user to touch, 
+    sliding between images, transition animations, etc. It takes as an argument a list of items related to images; 
+    operation consists of distinct parts: loading images, the process of sliding, the process of animation and rendering process. 
+    The rendering process is based on a single JavaScript interval, which stops when the slideshow is inactive.
+    The user must be careful about the fact that performance depends on the platform, the size of images and animations selected.
+    Also, some animations have different behaviors between iPhone and Android (fade, light), because they depend on the implementation 
+    of the tag Canvas. The Android OS 2.1 introduces bugs in the implementation of the Canvas tag, which does not allow for proper operation 
+  </description>
+  <test_pages>
+    <page>
+      <description>A simple example that shows a slideshow with animated transitions and autoplaying mode</description>
+      <url>test_slideshow.html</url>
+    </page>
+  </test_pages>
+  <compatibility>Iphone OS2, Iphone OS3, Android 1.5, Android 1.6, Android 2.2, Android 2.3, BlackBerry 6, Bada 1.0</compatibility>
+  <dependencies>
+    <dependency>
+      <module_name>wink.ux.MovementTracker</module_name>
+    </dependency>
+  </dependencies>
+  <instanciation>
+    <description></description>
+    <properties>
+      <property>
+        <name>height</name>
+        <description>the height of the slideshow</description>
+        <type>integer</type>
+        <is_optional>0</is_optional>
+      </property>
+      <property>
+        <name>width</name>
+        <description>the with of the slideshow</description>
+        <type>integer</type>
+        <is_optional>0</is_optional>
+      </property>
+      <property>
+        <name>items</name>
+        <description>An array of items ( item: { image: the image path, title: the item title, info: the items details })</description>
+        <type>array</type>
+        <is_optional>0</is_optional>
+      </property>
+      <property>
+        <name>position</name>
+        <description>index of the displayed item in the item list</description>
+        <type>integer</type>
+        <is_optional>0</is_optional>
+      </property>
+      <property>
+        <name>listeningTouch</name>
+        <description>Indicates whether the component must listen to touch events (default: true)</description>
+        <type>boolean</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>touchTranslation</name>
+        <description>Indicates whether a translation based on the user's touch must be performed (default: false)</description>
+        <type>boolean</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>withSliding</name>
+        <description>Indicates whether the sliding mode is active (default: false)</description>
+        <type>boolean</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>withAnim</name>
+        <description>Indicates whether the animation mode is active (default: false)</description>
+        <type>boolean</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>anims</name>
+        <description>An array of named animation. Animation names : oneSquare, nSquare, fade, horizontalOut, horizontalIn, circleOut, circleIn, circlesOut, circlesIn, rowDown, rowUp, colLeft, colRight, rotate, spin, spinQuarter, light, wrap, scaleIn, scaleOut</description>
+        <type>array</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>animRandom</name>
+        <description>Indicates whether a random selection of animation in the list must be done (default: false)</description>
+        <type>boolean</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>autoplay</name>
+        <description>Indicates whether the autoplay mode is active (default: false)</description>
+        <type>boolean</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>autoplayDuration</name>
+        <description>The duration between two displays of items in milliseconds (default: 5000)</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>slideDuration</name>
+        <description>The duration of the slide in milliseconds (default: 200)</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>animDuration</name>
+        <description>The duration of the animations in milliseconds (default: 800)</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>displayHeader</name>
+        <description>Indicates whether the header is displayed (default: true)</description>
+        <type>boolean</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>displayFooter</name>
+        <description>Indicates whether the footer is displayed (default: true)</description>
+        <type>boolean</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>headerHeight</name>
+        <description>height of the header in pixel (default: 26)</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>footerHeight</name>
+        <description>height of the footer in pixel (default: 26)</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>scopeSize</name>
+        <description>number of loaded images around the current image (default: 4)</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+    </properties>
+    <code_sample>
+var properties = {
+    height: 250,
+    width: 310,
+    items: [
+        { image: 'image1.jpg', title: 'Image 1', info: 'Details of Image 1' },
+        { image: 'image2.jpg', title: 'Image 2', info: 'Details of Image 2' }
+    ],
+    position: 0,
+    withAnim: true,
+    autoplay: true,
+    anims: [ "spin", "spinQuarter" ],
+    animRandom: false
+};
+
+var ss = new wink.ui.xy.Slideshow(properties);
+$('container').appendChild(ss.getDomNode());
+    </code_sample>
+  </instanciation>
+  <components>
+    <component>
+      <name>wink.ui.xy.Slideshow</name>
+      <description>The Slideshow component</description>
+      <public_methods>
+      	<method>
+          <name>getDomNode</name>
+          <description>Returns the component main dom node</description>
+        </method>
+        <method>
+          <name>getCurrentItem</name>
+          <description>Returns the current displayed item</description>
+        </method>
+        <method>
+          <name>updateParameters</name>
+          <description>Updates the slideshow parameters</description>
+          <parameters>
+            <parameter>
+              <name>properties</name>
+              <description>the new properties</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>next</name>
+          <description>Shows the next item</description>
+        </method>
+        <method>
+          <name>previous</name>
+          <description>Shows the previous item</description>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>uId</name>
+          <description>The unique identifier of the component.</description>
+          <type>integer</type>
+        </property>
+      </public_properties>
+      <events>
+        <event>
+          <name>/slideshow/events/animstart</name>
+          <description>the animation is starting</description>
+          <return>
+            <property>
+              <name>currentItem</name>
+              <description>The current displayed item</description>
+              <type>object</type>
+            </property>
+            <property>
+              <name>nextItem</name>
+              <description>The next item</description>
+              <type>object</type>
+            </property>
+            <property>
+              <name>animation</name>
+              <description>The animation name</description>
+              <type>string</type>
+            </property>
+          </return>
+        </event>
+        <event>
+          <name>/slideshow/events/animend</name>
+          <description>the animation is ending</description>
+          <return>
+            <property>
+              <name>previousItem</name>
+              <description>The previous item</description>
+              <type>object</type>
+            </property>
+            <property>
+              <name>currentItem</name>
+              <description>The current displayed item</description>
+              <type>object</type>
+            </property>
+            <property>
+              <name>animation</name>
+              <description>The animation name</description>
+              <type>string</type>
+            </property>
+          </return>
+        </event>
+        <event>
+          <name>/slideshow/events/itemChanged</name>
+          <description>the item displayed has changed</description>
+          <return>
+            <property>
+              <name>currentItem</name>
+              <description>The current displayed item</description>
+              <type>object</type>
+            </property>
+          </return>
+        </event>
+      </events>
+    </component>
+    <component>
+      <name>wink.ui.xy.Slideshow.Transition</name>
+      <description>Implements a slideshow Transition. A transition, allows to change the value of one or more properties in the steps that compose it.</description>
+      <public_methods>
+        <method>
+          <name>nextStep</name>
+          <description>performs the next step of the transition</description>
+        </method>
+        <method>
+          <name>isFinished</name>
+          <description>returns true if the transition is finished</description>
+        </method>
+        <method>
+          <name>isOnDelay</name>
+          <description>returns true if the transition is waiting</description>
+        </method>
+        <method>
+          <name>getProperties</name>
+          <description>returns the transition properties</description>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>uId</name>
+          <description>The unique identifier of the component</description>
+          <type>integer</type>
+        </property>
+      </public_properties>
+    </component>
+  </components>
+  <styles>
+    <classes>
+      <class>
+        <name>ss_container</name>
+        <description>The class of the Slideshow main DOM node</description>
+      </class>
+      <class>
+        <name>ss_canvas</name>
+        <description>The class of the Slideshow canvas node</description>
+      </class>
+      <class>
+        <name>ss_header</name>
+        <description>The class of the header node</description>
+      </class>
+      <class>
+        <name>ss_footer</name>
+        <description>The class of the footer node</description>
+      </class>
+    </classes>
+  </styles>
+</module>

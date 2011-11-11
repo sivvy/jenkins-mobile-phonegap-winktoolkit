@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "../../../utils/doc/wink_doc.dtd" >
+<?xml-stylesheet type="text/xsl" href="../../../utils/doc/wink_doc.xsl"?>
+<module>
+  <title>Error management</title>
+  <name>wink.error</name>
+  <is_graphical>0</is_graphical>
+  <description>Handles the log system of WINK. If a console is defined, the output will be printed out on the console, otherwise, the error object will raise alerts.</description>
+  <test_pages>
+    <page>
+      <description>Prints out a 'test' message at page startup</description>
+      <url>test_error.html</url>
+    </page>
+  </test_pages>
+  <compatibility>Iphone OS2, Iphone OS3, Iphone OS4, Android 1.1, Android 1.5, Android 2.1, Android 2.2, Android 2.3, BlackBerry 6, Bada 1.0</compatibility>
+  <instanciation>
+    <description>The error object is a Literal, so it does not need to be instantiated. In order to view the messages, the 'logLevel' of the error object MUST be set to 1. Use the 'log' method to display a new message (you can either use 'wink.log()' or 'wink.error.log()'). The error object should only be used for debug purposes.</description>
+    <code_sample>
+wink.error.logLevel = 1;
+wink.log('test');
+    </code_sample>
+  </instanciation>
+  <components>
+    <component>
+      <name>wink.error</name>
+      <description>Handles the different log outputs</description>
+      <public_methods>
+        <method>
+          <name>log</name>
+          <description>Display a log message if the log level has been previously set to 1</description>
+          <parameters>
+            <parameter>
+              <name>value</name>
+              <description>The log message</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>logLevel</name>
+          <description>If set to 0, no message will be displayed. If set to 1, the log messages will be displayed. The default value is 0.</description>
+          <type>integer</type>
+        </property>
+      </public_properties>
+    </component>
+  </components>
+</module>

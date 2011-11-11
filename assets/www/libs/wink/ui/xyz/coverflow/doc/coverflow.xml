@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "../../../../utils/doc/wink_doc.dtd" >
+<?xml-stylesheet type="text/xsl" href="../../../../utils/doc/wink_doc.xsl"?>
+<module>
+  <title>Cover Flow</title>
+  <name>wink.ui.xyz.CoverFlow</name>
+  <is_graphical>1</is_graphical>
+  <description>
+  	The Cover Flow allows the user to browse a list of items ; each item consisting of an image, and perhaps a title, a rear face or an action to invoke when it is selected.
+  	It is developed to be as flexible and configurable as possible, so the user can enable or disable some graphical options to adapt visual rendering.
+  	The user must pay attention to the fact that the parameters significantly affect performance (number of covers, reflected and displayTitle especially).
+  </description>
+  <test_pages>
+    <page>
+      <description>A Simple example with back faces</description>
+      <url>test_coverflow.html</url>
+    </page>
+    <page>
+      <description>An extended version with TV Channel images, a custom back face, a custom title and user-defined actions for others items</description>
+      <url>test_coverflow_custom.html</url>
+    </page>
+    <page>
+      <description>A basic template with faces with numbers</description>
+      <url>test_coverflow_numerical.html</url>
+    </page>
+  </test_pages>
+  <compatibility>Iphone OS2 (slow), Iphone OS3, Iphone OS4</compatibility>
+  <dependencies>
+    <dependency>
+      <module_name>wink.math._geometric</module_name>
+    </dependency>
+    <dependency>
+      <module_name>wink.math._matrix</module_name>
+    </dependency>
+    <dependency>
+      <module_name>wink.fx._xyz</module_name>
+    </dependency>
+    <dependency>
+      <module_name>wink.ux.MovementTracker</module_name>
+    </dependency>
+    <dependency>
+      <module_name>wink.ux.window</module_name>
+    </dependency>
+    <dependency>
+      <module_name>wink.ux.gesture</module_name>
+    </dependency>
+  </dependencies>
+  <instanciation>
+    <description></description>
+    <properties>
+      <property>
+        <name>covers</name>
+        <description>An array of cover items : { image [, title [, backFaceId [, action]]] }. "title" and "backFaceId" are DOM node ids. "action" is a callback object : { context, method, arguments }.</description>
+        <type>array</type>
+        <is_optional>0</is_optional>
+      </property>
+      <property>
+        <name>size</name>
+        <description>the component size</description>
+        <type>integer</type>
+        <is_optional>0</is_optional>
+      </property>
+      <property>
+        <name>position</name>
+        <description>the initial selected cover</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>viewportWidth</name>
+        <description>the width of the viewport (viewable area)</description>
+        <type>integer</type>
+        <is_optional>0</is_optional>
+      </property>
+      <property>
+        <name>reflected</name>
+        <description>indicates if reflection must be displayed</description>
+        <type>boolean</type>
+        <is_optional>0</is_optional>
+      </property>
+      <property>
+        <name>displayTitle</name>
+        <description>indicates if title must be displayed</description>
+        <type>boolean</type>
+        <is_optional>0</is_optional>
+      </property>
+      <property>
+        <name>fadeEdges</name>
+        <description>indicates if fade along the component edges must be displayed</description>
+        <type>boolean</type>
+        <is_optional>0</is_optional>
+      </property>
+      <property>
+        <name>handleOrientationChange</name>
+        <description>indicates if the component must resized itself automatically if orientation has changed</description>
+        <type>boolean</type>
+        <is_optional>0</is_optional>
+      </property>
+      <property>
+        <name>handleGesture</name>
+        <description>indicates if gestures must be handled to rotate the Cover Flow on x-axis</description>
+        <type>boolean</type>
+        <is_optional>0</is_optional>
+      </property>
+      <property>
+        <name>backgroundColor</name>
+        <description>the background color value : { r: redValue, g: greenValue, b: blueValue }</description>
+        <type>object</type>
+        <is_optional>0</is_optional>
+      </property>
+      <property>
+        <name>coverSpacing</name>
+        <description>the spacing between covers</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>displayTitleDuration</name>
+        <description>the duration of the title display (in millisecond)</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>borderSize</name>
+        <description>the cover shaded border size</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+    </properties>
+    <code_sample>
+var properties = {
+	covers: covers,
+	size: 300,
+	viewportWidth: 320,
+	reflected: true,
+	displayTitle: true,
+	fadeEdges: true,
+	handleOrientationChange: true,
+	handleGesture: true,
+	backgroundColor: { r: 25, g: 25, b: 25 },
+	coverSpacing: 40,
+	displayTitleDuration: 0,
+	borderSize: 2
+};
+var coverflow = new wink.ui.xyz.CoverFlow(properties);
+container.appendChild(coverflow.getDomNode());
+    </code_sample>
+  </instanciation>
+  <components>
+    <component>
+      <name>wink.ui.xyz.CoverFlow</name>
+      <description>The Cover Flow component</description>
+      <public_methods>
+        <method>
+          <name>getDomNode</name>
+          <description>Returns the component main dom node</description>
+        </method>
+        <method>
+          <name>updateSize</name>
+          <description>Updates the component sizes</description>
+          <parameters>
+            <parameter>
+              <name>size</name>
+              <description>the component size</description>
+              <type>integer</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>viewportWidth</name>
+              <description>the width of the viewport (viewable area)</description>
+              <type>integer</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>setBackgroundColor</name>
+          <description>Updates the background color</description>
+          <parameters>
+            <parameter>
+              <name>color</name>
+              <description>the background color value as { r: redValue, g: greenValue, b: blueValue }</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>getPosition</name>
+          <description>get current position</description>
+        </method>
+        <method>
+          <name>setPosition</name>
+          <description>Set position</description>
+          <parameters>
+            <parameter>
+              <name>position</name>
+              <description>the position to set</description>
+              <type>integer</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>uId</name>
+          <description>The unique identifier of the component</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>covers</name>
+          <description>the list of covers</description>
+          <type>array</type>
+        </property>
+        <property>
+          <name>backgroundColor</name>
+          <description>the background color of the coverflow</description>
+          <type>object</type>
+        </property>
+        <property>
+          <name>reflected</name>
+          <description>whether reflection is displayed</description>
+          <type>boolean</type>
+        </property>
+        <property>
+          <name>displayTitle</name>
+          <description>whether a title is displayed for each cover</description>
+          <type>boolean</type>
+        </property>
+        <property>
+          <name>fadeEdges</name>
+          <description>whether the coverflow edges are faded</description>
+          <type>boolean</type>
+        </property>
+        <property>
+          <name>size</name>
+          <description>the coverflow size</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>viewportWidth</name>
+          <description>the width of the viewport</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>handleGesture</name>
+          <description>whether the coverflow can be rotated</description>
+          <type>boolean</type>
+        </property>
+        <property>
+          <name>handleOrientationChange</name>
+          <description>whether the coverflow is automatically resized on orientation changes</description>
+          <type>boolean</type>
+        </property>
+        <property>
+          <name>coverSpacing</name>
+          <description>spacing between covers</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>displayTitleDuration</name>
+          <description>how long it takes the title to be displayed</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>borderSize</name>
+          <description>the covers border size</description>
+          <type>integer</type>
+        </property>
+      </public_properties>
+    </component>
+  </components>
+</module>

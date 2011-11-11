@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "../../../../utils/doc/wink_doc.dtd" >
+<?xml-stylesheet type="text/xsl" href="../../../../utils/doc/wink_doc.xsl"?>
+<module>
+  <title>Flippage</title>
+  <name>wink.ui.layout.FlipPage</name>
+  <is_graphical>1</is_graphical>
+  <description>Creates a Flippage display. You can navigate through pages with your finger or just use the "flipForward" and "flipTo" methods</description>
+  <test_pages>
+    <page>
+      <description>This test page creates a flippage layout containing 8 different pages</description>
+      <url>test_flippage.html</url>
+    </page>
+    <page>
+      <description>The same test page as test_flippage.html but it also integrates the History component. You can navigate using the 'back' and 'forward' buttons of your browser</description>
+      <url>test_flippage_with_history.html</url>
+    </page>
+    <page>
+      <description>The same test page as test_flippage.html but it also integrates the Scroller component.</description>
+      <url>test_flippage_with_scroller.html</url>
+    </page>
+  </test_pages>
+  <compatibility>Iphone OS3, Iphone OS4</compatibility>
+  <dependencies>
+    <dependency>
+      <module_name>wink.math._geometric</module_name>
+    </dependency>
+    <dependency>
+      <module_name>wink.math._matrix</module_name>
+    </dependency>
+    <dependency>
+      <module_name>wink.fx._xyz</module_name>
+    </dependency>
+    <dependency>
+      <module_name>wink.fx._animation</module_name>
+    </dependency>
+  </dependencies>
+  <instanciation>
+    <description>To instantiate a flippage container, the pages (dom nodes) MUST already be present in the page and each one MUST be defined by a unique id. Use the 'getDomNode' method to add the flippage container into the page.</description>
+    <properties>
+      <property>
+        <name>duration</name>
+        <description>The flip duration in milliseconds. The default value is 1500</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>pages</name>
+        <description>An array containing the ids of the pages to add into the flippage container. The pages dom nodes MUST be present in the page at instantiation time.</description>
+        <type>array</type>
+        <is_optional>0</is_optional>
+      </property>
+      <property>
+        <name>shadow</name>
+        <description>Should we display the page shadow. The default value is false</description>
+        <type>boolean</type>
+        <is_optional>1</is_optional>
+      </property>
+    </properties>
+    <code_sample>
+var properties = 
+{
+	'duration': 1400,
+	'pages': ['page1', 'page2', 'page3', 'page4', 'page5', 'page6', 'page7', 'page8']
+}
+					
+flipPage = new wink.ui.layout.FlipPage(properties);
+document.body.appendChild(flipPage.getDomNode());	
+    </code_sample>
+  </instanciation>
+  <components>
+    <component>
+      <name>wink.ui.layout.FlipPage</name>
+      <description>Create the flippage container, creates pages and handle the animation of the pages</description>
+      <public_methods>
+        <method>
+          <name>getDomNode</name>
+          <description>Returns the component main dom node</description>
+        </method>
+        <method>
+          <name>flipTo</name>
+          <description>flip to the specified page</description>
+          <parameters>
+            <parameter>
+              <name>id</name>
+              <description>The id of the page </description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>flipForward</name>
+          <description>flips one page forward</description>
+        </method>
+        <method>
+          <name>flipBack</name>
+          <description>flips one page backward</description>
+        </method>
+        <method>
+          <name>updateContent</name>
+          <description>Update the content of a page</description>
+          <parameters>
+            <parameter>
+              <name>id</name>
+              <description>The id of the page</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>content</name>
+              <description>a string containg the page content</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>uId</name>
+          <description>The unique identifier of the component</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>pages</name>
+          <description>The list of pages id of the flippage</description>
+          <type>array</type>
+        </property>
+        <property>
+          <name>duration</name>
+          <description>The transition duration between each page flip</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>shadow</name>
+          <description>Whether the shadow is displayed or not</description>
+          <type>boolean</type>
+        </property>
+      </public_properties>
+    </component>
+    <component>
+      <name>wink.ui.layout.FlipPage.Page</name>
+      <description>Create a flippage page. Pages should only be instantiated by the flippage object</description>
+      <public_methods>
+        <method>
+          <name>getDomNode</name>
+          <description>Returns the component main dom node</description>
+        </method>
+        <method>
+          <name>setFrontContent</name>
+          <description>update the content of the front cover</description>
+          <parameters>
+            <parameter>
+              <name>content</name>
+              <description>a string containg the page content</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>setBackContent</name>
+          <description>update the content of the back cover</description>
+          <parameters>
+            <parameter>
+              <name>content</name>
+              <description>a string containg the page content</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>setPosition</name>
+          <description>set the current position of the page</description>
+          <parameters>
+            <parameter>
+              <name>position</name>
+              <description>0: page is flipped ; 1: page is not flipped</description>
+              <type>integer</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>uId</name>
+          <description>The unique identifier of the component</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>index</name>
+          <description>the rank of the page in the pages list</description>
+          <type>integer</type>
+          <is_optional>0</is_optional>
+        </property>
+        <property>
+          <name>position</name>
+          <description>the position of the page (0: flipped ; 1: not flipped)</description>
+          <type>integer</type>
+          <is_optional>0</is_optional>
+        </property>
+        <property>
+          <name>zIndex</name>
+          <description>the current depth of the page</description>
+          <type>integer</type>
+          <is_optional>0</is_optional>
+        </property>
+      </public_properties>
+      <events>
+        <event>
+          <name>/flippage/events/flipstart</name>
+          <description>the event is fired when we start flipping a page</description>
+          <return>
+            <property>
+              <name>id</name>
+              <description>the current page id</description>
+              <type>string</type>
+            </property>
+            <property>
+              <name>direction</name>
+              <description>the flipping direction (1: forward ; -1: backward)</description>
+              <type>integer</type>
+            </property>
+          </return>
+        </event>
+        <event>
+          <name>/flippage/events/flipend</name>
+          <description>the event is fired when the flipping ends</description>
+          <return>
+            <property>
+              <name>id</name>
+              <description>the current page id</description>
+              <type>string</type>
+            </property>
+          </return>
+        </event>
+      </events>
+    </component>
+  </components>
+  <styles>
+    <classes>
+      <class>
+        <name>fb_container</name>
+        <description>The class of the Flippage main DOM node</description>
+      </class>
+      <class>
+        <name>fb_page</name>
+        <description>The class of a Flippage page</description>
+      </class>
+      <class>
+        <name>fb_content_front</name>
+        <description>The class of a Flippage page's front cover</description>
+      </class>
+      <class>
+        <name>fb_content_back</name>
+        <description>The class of a Flippage page's back cover</description>
+      </class>
+      <class>
+        <name>fb_content_right</name>
+        <description>The class to position a Flippage page's front content</description>
+      </class>
+      <class>
+        <name>fb_content_left</name>
+        <description>The class to position a Flippage page's back content</description>
+      </class>
+    </classes>
+  </styles>
+</module>

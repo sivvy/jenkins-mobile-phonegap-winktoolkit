@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "../../../utils/doc/wink_doc.dtd" >
+<?xml-stylesheet type="text/xsl" href="../../../utils/doc/wink_doc.xsl"?>
+<module>
+  <title>Drag and Drop</title>
+  <name>wink.ux.dnd</name>
+  <is_graphical>0</is_graphical>
+  <description>
+  	Implements a Drag and Drop management systems.
+  	It is based on a dnd object which will handle sources and targets.
+  	Sources are objects that can be moved over the page. Each source MUST define its own behaviour on the user drag (e.g.: creation of an avatar)
+  	Targets are objects that can react when particular sources are dropped over them (it defines its own events). A target MUST also define what will be its behaviour when a source is over it or not.
+  	When a source is dropped on a target, the dnd object fires the event defined by the target.
+  </description>
+  <test_pages>
+    <page>
+      <description>
+      	The source is the Orange square on the top left corner of the page. The targets are the 2 squares at the bottom of the page.
+      	When you start touching the source, an avatar is created and you can move it around the page.
+      	If you move your finger over one of the targets, it will react (a dotted border should appear around the square).
+      	If you drop the source over on of the targets, the source should take the color of the target on which you dropped it.
+      	If you drop the source elsewhere, nothing will happen.
+      	As explained in the module description, those behaviours (avatar, dotted borders, source reaction) HAVE BEEN defined by the source and targets themselves.
+      </description>
+      <url>test_dnd.html</url>
+    </page>
+    <page>
+      <description>
+      	Another test page where you have to rebuild the San Francisco bridge.
+      	The images of the puzzle are sources and targets at the same time (in this page the dnd object handles 25 sources and 25 targets)
+      </description>
+      <url>test_dnd_puzzle.html</url>
+    </page>
+    <page>
+      <description>
+      	The same test pages as the previous one but with caching capabilities. Once you loaded it once, you can play in offline mode...
+      </description>
+      <url>test_dnd_puzzle_offline.html</url>
+    </page>
+    <page>
+      <description>
+      	A page containing 6 items that can be re-ordered using DnD. Overrides the default behaviour to have a vertical only drag
+      </description>
+      <url>test_dnd_list.html</url>
+    </page>
+  </test_pages>
+  <compatibility>Iphone OS2, Iphone OS3, Iphone OS4, Android 1.5, Android 2.1, Android 2.2, Android 2.3, BlackBerry 6, Bada 1.0</compatibility>
+  <instanciation>
+    <description>
+		The dnd object can take a "zone" property to define the drag zone where to listen to touch events.
+		
+		Targets must be instanciated, giving a valid DOM node id AND the event that will be fired when a source is dropped over it (see the implementation in the code sample section).
+		Targets must override the 'onSourceOver' and 'onSourceOut' methods. The first will be called when a source is over the target, the second one, when the source leaves the target (see the implementation in the code sample section).
+		
+		Sources must be instanciated, giving a valid DOM node id (see the implementation in the code sample section).
+		Sources must override the 'getAvatar' method that will be called by the Dnd component when a user touches the source.
+		Sources should use the 'registerEvent' method to listen to the targets specific events.
+		
+		Sources and targets must be added to the dnd object through the 'addSource' and 'addTarget' methods.
+	</description>
+	<properties>
+      <property>
+        <name>zone</name>
+        <description>the drag zone where to listen to touch events. The default value is document</description>
+        <type>HTMLElement</type>
+        <is_optional>1</is_optional>
+      </property>
+    </properties>
+    <code_sample>
+var dnd = new wink.ux.Dnd();
+
+// Define the dnd source and its methods
+var source1 = new wink.ux.dnd.Source({'id': 'source1'});
+
+source1.registerEvent('/dnd/events/dropIcon1', source1, 'drop1');
+source1.registerEvent('/dnd/events/dropIcon2', source1, 'drop2');
+
+source1.drop1 = function(params)
+{
+	...
+}
+
+source1.drop2 = function(params)
+{
+	...
+}
+
+source1.getAvatar = function()
+{
+	...
+}
+
+// Define the dnd targets and their methods
+var target1 = new wink.ux.dnd.Target({'id': 'target1', 'event': '/dnd/events/dropIcon1'});
+var target2 = new wink.ux.dnd.Target({'id': 'target2', 'event': '/dnd/events/dropIcon2'});
+
+wink.ux.dnd.Target.prototype.over = wink.ux.dnd.Target.prototype.onSourceOver;
+wink.ux.dnd.Target.prototype.out = wink.ux.dnd.Target.prototype.onSourceOut;
+
+wink.ux.dnd.Target.prototype.onSourceOver = function()
+{
+	if(!this._isOver)
+	{
+		this.over();
+		$(this.id).style.border = '1px dotted #000';
+	}
+} 
+
+wink.ux.dnd.Target.prototype.onSourceOut = function()
+{
+	if(this._isOver)
+	{
+		this.out();
+		$(this.id).style.border = '1px solid #fff';
+	}
+} 
+
+// Add the source and the targets to the dnd component
+dnd.addSource(source1);
+dnd.addTarget(target1);
+dnd.addTarget(target2);
+    </code_sample>
+  </instanciation>
+  <components>
+    <component>
+      <name>wink.ux.Dnd</name>
+      <description>Handles the sources and targets. Makes them react to user gestures (e.g.: avatar creation, drag, drop)</description>
+      <public_methods>
+        <method>
+          <name>addSource</name>
+          <description>Add a new source to the dnd object</description>
+          <parameters>
+            <parameter>
+              <name>source</name>
+              <description>The source to add</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>addTarget</name>
+          <description>Add a new target to the dnd object</description>
+          <parameters>
+            <parameter>
+              <name>target</name>
+              <description>The target to add</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>updateTargets</name>
+          <description>update the targets positions. To call if the page display changes</description>
+        </method>
+        <method>
+          <name>clean</name>
+          <description>reset the dnd object (empty the sources and targets lists)</description>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>uId</name>
+          <description>unique identifier of the component</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>zone</name>
+          <description>the drag zone where to listen to touch events</description>
+          <type>HTMLElement</type>
+        </property>
+      </public_properties>
+    </component>
+    <component>
+      <name>wink.ux.dnd.Source</name>
+      <description>Implement a source</description>
+      <public_methods>
+        <method>
+          <name>registerEvent</name>
+          <description>Add a new event on which the source can react</description>
+          <parameters>
+            <parameter>
+              <name>event</name>
+              <description>The name of the event (created at the instantiation of a target) we want to listen to</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>context</name>
+              <description>the context where to execute the callback method. It should be 'null' if the callback method is in the global scope</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>method</name>
+              <description>callback method. It is called when the event is fired.</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>getAvatar</name>
+          <description>This method is called by the dnd object when the user start touching the source. It MUST be overwriten by the application AND it MUST return a DOM node corresponding to the drag avatar</description>
+          <parameters>
+            <parameter>
+              <name>target</name>
+              <description>The target to add</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>activate</name>
+          <description>Activate the listeners corresponding to all the registered events of the source. This method is called by the dnd object. It SHOULD only be called by the dnd object</description>
+        </method>
+        <method>
+          <name>deactivate</name>
+          <description>Deactivate the listeners corresponding to all the registered events of the source. This method is called by the dnd object. It SHOULD only be called by the dnd object</description>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>uId</name>
+          <description>unique identifier of the component</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>id</name>
+          <description>the id of the DOM node representing the source</description>
+          <type>string</type>
+        </property>
+      </public_properties>
+    </component>
+    <component>
+      <name>wink.ux.dnd.Target</name>
+      <description>Implement a target</description>
+      <public_methods>
+        <method>
+          <name>onSourceOver</name>
+          <description>This method is called by the dnd object when a compliant source is over the target. It SHOULD be overwritten by the application</description>
+        </method>
+        <method>
+          <name>onSourceOut</name>
+          <description>This method is called by the dnd object when a compliant source is out of the target. It SHOULD be overwritten by the application</description>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>uId</name>
+          <description>unique identifier of the component</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>id</name>
+          <description>the id of the DOM node representing the target</description>
+          <type>string</type>
+        </property>
+        <property>
+          <name>dnd</name>
+          <description>the manager associated to the target</description>
+          <type>object</type>
+        </property>
+      </public_properties>
+    </component>
+  </components>
+</module>

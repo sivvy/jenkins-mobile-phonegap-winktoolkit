@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "../../../../utils/doc/wink_doc.dtd" >
+<?xml-stylesheet type="text/xsl" href="../../../../utils/doc/wink_doc.xsl"?>
+<module>
+  <title>Carousel</title>
+  <name>wink.ui.xy.Carousel</name>
+  <is_graphical>1</is_graphical>
+  <description>Built to add a Carousel in your page. You can insert images or DOM nodes inside your Carousel. The navigation is handled through touch events (a gesture on the left or on the right will make it switch items). The carousel also handles the click events on its items. Note that it could also be used with the 'history' component to handle the 'back' and 'forward' buttons in a custom way</description>
+  <test_pages>
+    <page>
+      <description>This test page instantiate 3 different carousels with various options. When you click on one of the items of the first carousel, it should make the second carousel move to a specific position. When the second carousel moves, it automatically makes the third one move too. You can also click on the second carousel items which raise an alert</description>
+      <url>test_carousel.html</url>
+    </page>
+    <page>
+      <description>This test page instantiate a vertical carousel</description>
+      <url>test_carousel_2.html</url>
+    </page>
+  </test_pages>
+  <compatibility>Iphone OS2, Iphone OS3, Iphone OS4, Android 1.5, Android 2.1, Android 2.2, Android 2.3, BlackBerry 6, Bada 1.0</compatibility>
+  <instanciation>
+    <description>The Carousel needs properties to define its behaviour and its items. As all other graphical components, it has a getDomNode method that should be used after the instantiation to add the carousel node to the page. The code sample shows how to instantiate a new carousel and to add it to a section of a webpage.</description>
+    <properties>
+      <property>
+        <name>display</name>
+        <description>Either 'vertical' or 'horizontal'</description>
+        <type>string</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>itemsWidth</name>
+        <description>The width in pixels of all the Carousel items (e.g.: if the carousel items are images, the 'itemsWidth' property should be the width of the images). The default value is 250</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>itemsHeight</name>
+        <description>The height in pixels of all the Carousel items (e.g.: if the carousel items are images, the 'itemsHeight' property should be the height of the images). The default value is 100</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>autoAdjust</name>
+        <description>This property specifies if at the end of a "slide" transition, the currently selected item should be centered in the middle of the carousel. The default value is 1</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>autoAdjustDuration</name>
+        <description>This property specifies the duration in milliseconds of the autoAdjustment process. It will only be taken into account if the 'autoAdjust' parameter was set to 1. The default value is 800</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>autoPlay</name>
+        <description>If set to 1, the carousel will automatically start moving. As soon as the user touches the carousel, the autoplay stops. The default value is 0</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>autoPlayDuration</name>
+        <description>The interval in milliseconds befor 2 autoplays. It will only be taken into account if the 'autoPlay' parameter was set to 1. The default value is 3000</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>firstItemIndex</name>
+        <description>Specifies which item should be the selected one at startup. The default value is 1</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>containerWidth</name>
+        <description>the width of the div containing the carousel. The default value is document.documentElement.offsetWidth</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>itemsAlign</name>
+        <description>the alignment of the first item of the carousel. Values can be "left" or "center". The default value is "center")</description>
+        <type>string</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>displayDots</name>
+        <description>Specifies if the positionning dots under the carousel items should be visible or not. The default value is 1</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>items</name>
+        <description>This MUST be an array of Object representing the carousel items. Each object MUST contain a 'type' and a 'content'. The 'type' can be either 'string' or 'node'. If the type is 'string', the 'content' should be either a textual content or a representation of DOM elements. If the type is 'node', the 'content' should be DOM node</description>
+        <type>array</type>
+        <is_optional>0</is_optional>
+      </property>
+      <property>
+        <name>touchPropagation</name>
+        <description>indicates whether the touch event on the carousel must be propagated</description>
+        <type>boolean</type>
+        <is_optional>1</is_optional>
+      </property>
+    </properties>
+    <code_sample>
+var properties = 
+{
+	'itemsWidth': 280,
+	'itemsHeight': 136,
+	'autoAdjust': 1,
+	'autoAdjustDuration': 400,
+	'autoPlay': 1,
+	'autoPlayDuration': 4000,
+	'firstItemIndex': 2,
+	'items':
+	[
+		{'type': 'string', 'content': '&lt;img src="../img/carousel_image_01.png" onclick="alert(1)" /&gt;'},
+		{'type': 'string', 'content': '&lt;img src="../img/carousel_image_02.png" onclick="alert(2)" /&gt;'},
+		{'type': 'string', 'content': '&lt;img src="../img/carousel_image_03.png" onclick="alert(3)"/&gt;'}
+	]
+}
+	
+carousel = new wink.ui.xy.Carousel(properties);
+	
+$('output').appendChild(carousel.getDomNode());
+    </code_sample>
+  </instanciation>
+  <components>
+    <component>
+      <name>wink.ui.xy.Carousel</name>
+      <description>create the carousel DOM node and handle the touch events</description>
+      <public_methods>
+        <method>
+          <name>getDomNode</name>
+          <description>Returns the component main dom node</description>
+        </method>
+        <method>
+          <name>clean</name>
+          <description>Cleans the dom of the carousel content nodes. To invoke only if carousel no longer used.</description>
+        </method>
+        <method>
+          <name>goToItem</name>
+          <description>Slide the carousel to the specified item</description>
+          <parameters>
+            <parameter>
+              <name>index</name>
+              <description>The index of the carousel item where to slide. 0 is the first item of the carousel</description>
+              <type>integer</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>refreshContainerWidth</name>
+          <description>refresh container width with the specified value </description>
+          <parameters>
+            <parameter>
+              <name>containerWidth</name>
+              <description>The width of the carousel's container</description>
+              <type>integer</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>uId</name>
+          <description>The unique identifier of the component</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>itemsWidth</name>
+          <description>The width of the items of the Carousel</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>itemsHeight</name>
+          <description>The height of the items of the Carousel</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>display</name>
+          <description>Either 'vertical' or 'horizontal'</description>
+          <type>string</type>
+        </property>
+        <property>
+          <name>displayDots</name>
+          <description>Whether or not to display the position indicators</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>autoAdjust</name>
+          <description>Should the Carousel auto-adjust items position after each movement</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>autoAdjustDuration</name>
+          <description>The transition duration for the auto adjust slide</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>autoPlay</name>
+          <description>Does the Carousel automatically starts sliding</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>autoPlayDuration</name>
+          <description>The time interval between two autoplays</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>firstItemIndex</name>
+          <description>The item to be displayed in the center of the page at startup</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>containerWidth</name>
+          <description>The width of the div containing the carousel</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>itemsAlign</name>
+          <description>The alignment of the first item of the carousel</description>
+          <type>string</type>
+        </property>
+        <property>
+          <name>items</name>
+          <description>The list of carousel items to create</description>
+          <type>array</type>
+        </property>
+        <property>
+          <name>touchPropagation</name>
+          <description>Indicates whether the touch event on the Carousel must be propagated</description>
+          <type>boolean</type>
+        </property>
+      </public_properties>
+      <events>
+        <event>
+          <name>/carousel/events/switch</name>
+          <description>The event is fired when items are switched</description>
+          <return>
+            <property>
+              <name>carouselId</name>
+              <description>uId of the Carousel</description>
+              <type>integer</type>
+            </property>
+            <property>
+              <name>currentItemIndex</name>
+              <description>The index of the currently selected item</description>
+              <type>integer</type>
+            </property>
+          </return>
+        </event>
+      </events>
+    </component>
+    <component>
+      <name>wink.ui.xy.Carousel.Item</name>
+      <description>create a carousel item DOM node. Should only be instantiated by the Carousel itself</description>
+      <public_methods>
+        <method>
+          <name>getDomNode</name>
+          <description>Returns the component main dom node</description>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>uId</name>
+          <description>The unique identifier of the component</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>index</name>
+          <description>The position of the item in the Carousel</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>width</name>
+          <description>The width of the item</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>height</name>
+          <description>The height of the item</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>position</name>
+          <description>The current position in pixels of the item in the Carousel</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>beginX</name>
+          <description>The start position in pixels of the item in the Carousel</description>
+          <type>integer</type>
+        </property>
+      </public_properties>
+    </component>
+  </components>
+  <styles>
+    <classes>
+      <class>
+        <name>ca_container</name>
+        <description>The class of the Carousel main DOM node</description>
+      </class>
+      <class>
+        <name>ca_vertical</name>
+        <description>The class of the Carousel main DOM node in its vertical position</description>
+      </class>
+      <class>
+        <name>ca_header</name>
+        <description>The class of the Carousel header node</description>
+      </class>
+      <class>
+        <name>ca_dots</name>
+        <description>The class of the Carousel positionning dots container node</description>
+      </class>
+      <class>
+        <name>ca_dot</name>
+        <description>The class of the Carousel positionning dots</description>
+      </class>
+      <class>
+        <name>ca_dot_selected</name>
+        <description>The class of the Carousel positionning dots (once sselected)</description>
+      </class>
+      <class>
+        <name>ca_footer</name>
+        <description>The class of the Carousel footer node</description>
+      </class>
+      <class>
+        <name>ca_items</name>
+        <description>The class of Carousel items container (included in the main DOM node)</description>
+      </class>
+      <class>
+        <name>ca_item</name>
+        <description>The class of a Carousel item</description>
+      </class>
+    </classes>
+  </styles>
+</module>

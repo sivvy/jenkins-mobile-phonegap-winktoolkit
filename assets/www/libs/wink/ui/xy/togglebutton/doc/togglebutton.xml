@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "../../../../utils/doc/wink_doc.dtd">
+<?xml-stylesheet type="text/xsl" href="../../../../utils/doc/wink_doc.xsl"?>
+<module>
+  <title>Toggle button</title>
+  <name>wink.ui.xy.ToggleButton</name>
+  <is_graphical>1</is_graphical>
+  <description>Iphone like switch button</description>
+  <test_pages>
+    <page>
+      <description>This test page contains 2 switches. When you drag the button from right to left or from left to right, the new place of the switch is displayed on the screen</description>
+      <url>test_toggle.html</url>
+    </page>
+  </test_pages>
+  <compatibility>Iphone OS2, Iphone OS3, Iphone OS4, Android 1.5, Android 2.1, Android 2.2, Android 2.3, BlackBerry 6, Bada 1.0</compatibility>
+  <instanciation>
+    <description>
+   		To instanciate the toggle button, you have to specify a className associated to your toggle button (representing its background), and the position on which the toggle button will be at startup.
+   		Use the getDomNode method to add the toggle button to your page.
+    </description>
+    <properties>
+      <property>
+        <name>cssClass</name>
+        <description>custom className to apply to the toggle button Node. this class has to be defined in a custom CSS file in order to define the switch background image (e.g on/off, etc...). the default value is none</description>
+        <type>string</type>
+        <is_optional>0</is_optional>
+      </property>
+      <property>
+        <name>position</name>
+        <description>"left" if you want the button to be on the left at initialisation. "right" if you want the button to be on the right at initialisation. The default value is "left"</description>
+        <type>integer</type>
+        <is_optional>0</is_optional>
+      </property>
+    </properties>
+    <code_sample>
+var toggleProperties = 
+{
+	cssClass: "jotv", 
+	position: "left"
+}
+  	
+var toggle = new wink.ui.xy.ToggleButton(toggleProperties);
+  	
+document.body.appendChild(toggle.getDomNode());
+    </code_sample>
+  </instanciation>
+  <components>
+    <component>
+      <name>wink.ui.xy.ToggleButton</name>
+      <description>create the toggle button and handle touch events</description>
+      <public_methods>
+        <method>
+          <name>getDomNode</name>
+          <description>return the main DOM node of the toggle button</description>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>uId</name>
+          <description>unique identifier of the component</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>cssClass</name>
+          <description>the custom className of the toggle button</description>
+          <type>string</type>
+        </property>
+        <property>
+          <name>position</name>
+          <description>the position of the toggle button</description>
+          <type>integer</type>
+        </property>
+       </public_properties>
+      <events>
+        <event>
+          <name>/switch/events/switch</name>
+          <description>raised when toggle button position is changed</description>
+          <return>
+            <property>
+              <name>uid</name>
+              <description>uId of the toggle button</description>
+              <type>integer</type>
+            </property>
+            <property>
+              <name>position</name>
+              <description>The current position of the toggle button ("left" or "right")</description>
+              <type>integer</type>
+            </property>
+          </return>
+        </event>
+      </events>
+    </component>
+  </components>
+  <styles>
+    <classes>
+      <class>
+        <name>to_toggle</name>
+        <description>the main class of the toggle button container</description>
+      </class>
+      <class>
+        <name>to_toggle_btn</name>
+        <description>the class of the toggle button (containing the button image)</description>
+      </class>
+    </classes>
+  </styles>
+</module>

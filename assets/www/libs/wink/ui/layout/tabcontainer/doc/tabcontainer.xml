@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "../../../../utils/doc/wink_doc.dtd" >
+<?xml-stylesheet type="text/xsl" href="../../../../utils/doc/wink_doc.xsl"?>
+<module>
+  <title>Tab Container</title>
+  <name>wink.ui.layout.TabContainer</name>
+  <is_graphical>1</is_graphical>
+  <description>Create a tab container. You can navigate through the tabs by clicking on the arrows on each side of the tabs or directly by sliding on the tabs</description>
+  <test_pages>
+    <page>
+      <description>The tab container contains 8 pages. Click on the button to add tags to the container. The title of the page is updated each time the user selects a new tab</description>
+      <url>test_tabcontainer.html</url>
+    </page>
+  </test_pages>
+  <compatibility>Iphone OS2, Iphone OS3, Iphone OS4, Android 1.5, Android 2.1, Android 2.2, Android 2.3, BlackBerry 6, Bada 1.0</compatibility>
+  <instanciation>
+    <description>To instantiate a tab container, the pages (dom nodes) MUST already be present in the page and each one MUST be defined by a unique id. Use the 'getDomNode' method to add the tab container into the page.Note that the tabs titles MUST be contained in a "a" elemnt which class name is "tc_title"</description>
+    <properties>
+      <property>
+        <name>firstSelectedTab</name>
+        <description>the index of the tab to display at the container's startup (default is item 0. 0 represents the first tab in the container)</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>displayArrows</name>
+        <description>if set to 0, the right and left arrows won't be displayed (default is 1)</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>tabs</name>
+        <description>An array containing the ids of the tabs to add into the tab container. The tabs dom nodes MUST be present in the page at instantiation time.</description>
+        <type>array</type>
+        <is_optional>0</is_optional>
+      </property>
+    </properties>
+    <code_sample>
+var properties = 
+{
+	'tabs': ['tab1', 'tab2', 'tab3', 'tab4', 'tab5', 'tab6', 'tab7', 'tab8'],
+	'firstSelectedTab': 5
+}
+
+tabContainer = new wink.ui.layout.TabContainer(properties);
+				
+document.body.appendChild(tabContainer.getDomNode());
+    </code_sample>
+  </instanciation>
+  <components>
+    <component>
+      <name>wink.ui.layout.TabContainer</name>
+      <description>Create the tab container, creates tabs and handle tabs bar</description>
+      <public_methods>
+        <method>
+          <name>addTab</name>
+          <description>add a new tab to the tab container</description>
+          <parameters>
+            <parameter>
+              <name>item</name>
+              <description>an object containing a contentNode (containing the tab content) and a title</description>
+              <type>object</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>removeTab</name>
+          <description>remove a tab</description>
+          <parameters>
+            <parameter>
+              <name>id</name>
+              <description>the id of the tab to remove</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>selectTab</name>
+          <description>Select a tab</description>
+          <parameters>
+            <parameter>
+              <name>id</name>
+              <description>the id of the tab to select</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>getDomNode</name>
+          <description>returns the DOM node containing the tab container</description>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>uId</name>
+          <description>unique identifier of the component</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>displayArrows</name>
+          <description>whether te left and right arrows are displayed</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>firstSelectedTab</name>
+          <description>the index of the tab to display at the container's startup</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>tabs</name>
+          <description>the initial list of tabs of the tab container</description>
+          <type>array</type>
+        </property>
+      </public_properties>
+      <events>
+        <event>
+          <name>/tabcontainer/events/tabselected</name>
+          <description>return the selected tabs</description>
+          <return>
+            <property>
+              <name>id</name>
+              <description>the id of the current tab</description>
+              <type>string</type>
+            </property>
+          </return>
+        </event>
+      </events>
+    </component>
+    <component>
+      <name>wink.ui.layout.TabContainer.Tab</name>
+      <description>Create a tab. Tabs should only be instantiated by the TabContainer object</description>
+      <public_methods>
+        <method>
+          <name>getContentNode</name>
+          <description>returns the DOM node containing the content of the tab</description>
+        </method>
+        <method>
+          <name>getTabNode</name>
+          <description>returns the DOM node containing the tab</description>
+        </method>
+        <method>
+          <name>activate</name>
+          <description>activate the tab</description>
+        </method>
+        <method>
+          <name>deactivate</name>
+          <description>deactivate the tab</description>
+        </method>
+        <method>
+          <name>updateMaxWidth</name>
+          <description>Update the maximum width of the tab</description>
+          <parameters>
+            <parameter>
+              <name>width</name>
+              <description>the maximum width in pixels</description>
+              <type>integer</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>uId</name>
+          <description>unique identifier of the component</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>id</name>
+          <description>the dom node id of the tab</description>
+          <type>string</type>
+        </property>
+        <property>
+          <name>index</name>
+          <description>the position of tab in the list of tabs</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>size</name>
+          <description>size in pixels of the tab</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>position</name>
+          <description>position in pixels of the tab inside the tabsNode</description>
+          <type>integer</type>
+        </property>
+      </public_properties>
+    </component>
+  </components>
+  <styles>
+    <classes>
+      <class>
+        <name>tc_tabs_items</name>
+        <description>The class of the itemsNode (containing the moveableNode)</description>
+      </class>
+      <class>
+        <name>tc_tabs_moveable</name>
+        <description>The class of the moveableNode (containing all the tabs)</description>
+      </class>
+      <class>
+        <name>tc_arrow</name>
+        <description>The class of the arrows (left and right)</description>
+      </class>
+      <class>
+        <name>tc_right</name>
+        <description>The class of the right arrow</description>
+      </class>
+      <class>
+        <name>tc_bloc</name>
+        <description>The class of a tab content</description>
+      </class>
+    </classes>
+  </styles>
+</module>

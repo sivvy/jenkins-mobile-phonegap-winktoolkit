@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "../../../../utils/doc/wink_doc.dtd" >
+<?xml-stylesheet type="text/xsl" href="../../../../utils/doc/wink_doc.xsl"?>
+<module>
+  <title>Opener</title>
+  <name>wink.ui.xyz.Opener</name>
+  <is_graphical>1</is_graphical>
+  <description>Creates an "image opener" with a 3D rendering</description>
+  <test_pages>
+    <page>
+      <description>This test page adds an opener into the page. Behind the image, a button shows that you can hide clickable elements behind the Opener</description>
+      <url>test_opener.html</url>
+    </page>
+    <page>
+      <description>Different options and angles for the opener</description>
+      <url>test_opener_2.html</url>
+    </page>
+  </test_pages>
+  <compatibility>Iphone OS2, Iphone OS3, Iphone OS4</compatibility>
+  <dependencies>
+    <dependency>
+      <module_name>wink.math._geometric</module_name>
+    </dependency>
+    <dependency>
+      <module_name>wink.math._matrix</module_name>
+    </dependency>
+    <dependency>
+      <module_name>wink.fx._xyz</module_name>
+    </dependency>
+  </dependencies>
+  <instanciation>
+    <description>Define the image you want to see as the opener's background. Use the "getDomNode" method to insert the opener into the page</description>
+    <properties>
+      <property>
+        <name>image</name>
+        <description>the URL of the image to display</description>
+        <type>sting</type>
+        <is_optional>0</is_optional>
+      </property>
+      <property>
+        <name>height</name>
+        <description>the height of the opener (should be the same as the image height)</description>
+        <type>integer</type>
+        <is_optional>0</is_optional>
+      </property>
+      <property>
+        <name>width</name>
+        <description>the width of the opener (should be the same as the image width)</description>
+        <type>integer</type>
+        <is_optional>0</is_optional>
+      </property>
+      <property>
+        <name>panelHeight</name>
+        <description>the height of each panel. The image is divided into X panels (DEFAULT: 20)</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>panelsAngle</name>
+        <description>the winding angle of the opener (DEFAULT: 140)</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>openerXAngle</name>
+        <description>the angle between the opener and the page on the X-axis (DEFAULT: 10)</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>openerYAngle</name>
+        <description>the angle between the opener and the page on the Y-axis (DEFAULT: 15)</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+      <property>
+        <name>duration</name>
+        <description>the opening duration in milliseconds (DEFAULT: 500)</description>
+        <type>integer</type>
+        <is_optional>1</is_optional>
+      </property>
+    </properties>
+    <code_sample>
+var properties = 
+{
+	'image': './img/wink.png',
+	'height': 185,
+	'width': 185,
+	'panelsAngle': 200,
+	'panelHeight': 5,
+	'openerXAngle': 5,
+	'openerYAngle': -50,
+	'duration': 300
+}
+
+opener = new wink.ui.xyz.Opener(properties);
+				
+$('content').appendChild(opener.getDomNode());
+    </code_sample>
+  </instanciation>
+  <components>
+    <component>
+      <name>wink.ui.xyz.Opener</name>
+      <description>Implements an image opener</description>
+      <public_methods>
+        <method>
+          <name>getDomNode</name>
+          <description>Returns the component main dom node</description>
+        </method>
+        <method>
+          <name>open</name>
+          <description>Opens the image</description>
+        </method>
+        <method>
+          <name>close</name>
+          <description>Closes the image</description>
+        </method>
+        <method>
+          <name>toggle</name>
+          <description>Toggles the image display</description>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>uId</name>
+          <description>The unique identifier of the component</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>opened</name>
+          <description>true if the image is "opened", false otherwise</description>
+          <type>boolean</type>
+        </property>
+        <property>
+          <name>image</name>
+          <description>the URL of the opener image</description>
+          <type>string</type>
+        </property>
+        <property>
+          <name>height</name>
+          <description>the height of the opener</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>width</name>
+          <description>the width of the opener</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>panelHeight</name>
+          <description>the height of each panel</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>panelsAngle</name>
+          <description>the winding angle of the opener</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>openerXAngle</name>
+          <description>the angle between the opener and the page on the X-axis</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>openerYAngle</name>
+          <description>the angle between the opener and the page on the Y-axis</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>duration</name>
+          <description>the opening duration in milliseconds</description>
+          <type>integer</type>
+        </property>
+      </public_properties>
+      <events>
+        <event>
+          <name>/opener/events/click</name>
+          <description>the event is fired when someone clicks on the image</description>
+          <return>
+            <property>
+              <name>openerId</name>
+              <description>uId of the opener</description>
+              <type>integer</type>
+            </property>
+          </return>
+        </event>
+      </events>
+    </component>
+    <component>
+      <name>wink.ui.xyz.Opener.Panel</name>
+      <description>Implements an image opener panel. Should only be instantiated by the Opener itself</description>
+      <public_methods>
+        <method>
+          <name>getDomNode</name>
+          <description>Returns the component main dom node</description>
+        </method>
+        <method>
+          <name>open</name>
+          <description>Opens the image</description>
+        </method>
+        <method>
+          <name>close</name>
+          <description>Closes the image</description>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>uId</name>
+          <description>The unique identifier of the component</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>index</name>
+          <description>the position of the panel</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>image</name>
+          <description>the URL of the image to display</description>
+          <type>string</type>
+        </property>
+        <property>
+          <name>height</name>
+          <description>the height of the panel</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>angle</name>
+          <description>the opening angle of the panel</description>
+          <type>integer</type>
+        </property>
+      </public_properties>
+      <events>
+        <event>
+          <name>/opener.panel/events/click</name>
+          <description>the event is fired when someone clicks on the panel</description>
+          <return>
+            <property>
+              <name>panelId</name>
+              <description>uId of the panel</description>
+              <type>integer</type>
+            </property>
+          </return>
+        </event>
+      </events>
+    </component>
+  </components>
+  <styles>
+    <classes>
+      <class>
+        <name>op_container</name>
+        <description>The class of the Opener main DOM node</description>
+      </class>
+      <class>
+        <name>op_panels</name>
+        <description>The class of opener panels node</description>
+      </class>
+      <class>
+        <name>op_panel</name>
+        <description>The class of a panel</description>
+      </class>
+    </classes>
+  </styles>
+</module>

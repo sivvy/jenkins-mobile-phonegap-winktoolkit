@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "../../../../utils/doc/wink_doc.dtd" >
+<?xml-stylesheet type="text/xsl" href="../../../../utils/doc/wink_doc.xsl"?>
+<module>
+  <title>News Ticker</title>
+  <name>wink.ui.xy.NewsTicker</name>
+  <is_graphical>1</is_graphical>
+  <description>Display a 'news ticker' on the screen. You can add or remove 'news' and associate colors to the 'news' categories</description>
+  <test_pages>
+    <page>
+      <description>Three news are displayed (one of type 'alert', one of type 'info' and one of type 'news'. You can add or remove news from the newsticker by clicking the corresponding buttons at the bottom of the page.</description>
+      <url>test_newsticker.html</url>
+    </page>
+  </test_pages>
+  <compatibility>Iphone OS2, Iphone OS3, Iphone OS4, Android 1.5, Android 2.1, Android 2.2, Android 2.3, BlackBerry 6, Bada 1.0</compatibility>
+  <instanciation>
+    <description>To instantiate a NewsTicker, you have to pass it the news that will be displayed at startup. Each news as a type (the category of the news) and a content. Note that the 'content' MUST be a string but it can contain HTML entities</description>
+    <properties>
+      <property>
+        <name>news</name>
+        <description>An array of items. Each item MUST be an object with a 'type' and a 'content'. Each are strings. For each 'type' you should also define the corresponding title style (e.g.: for a type 'alert', you should define the 'nt_title_alert' CSS class. See the test page for more details). To add the news ticker to the page, use the 'getDomNode' method.</description>
+        <type>array</type>
+        <is_optional>0</is_optional>
+      </property>
+    </properties>
+    <code_sample>
+var properties = 
+{
+	'news':
+	[
+		{'type': 'alert', 'content': '&lt;font color="#ff0000"&gt;&lt;b&gt;09H30:&lt;/b&gt;&lt;/font&gt; This is a very long alert that takes more space than the length of the screen !!!!'},
+		{'type': 'info', 'content': '&lt;font color="#ff5500"&gt;&lt;b&gt;09H40:&lt;/b&gt;&lt;/font&gt; This is an info !!!!'},
+		{'type': 'news', 'content': '&lt;font color="#ffffff"&gt;&lt;b&gt;09H50:&lt;/b&gt;&lt;/font&gt; This is a news !!!!'}
+	]
+}
+
+newsticker = new wink.ui.xy.NewsTicker(properties);
+
+$('output').appendChild(newsticker.getDomNode());
+    </code_sample>
+  </instanciation>
+  <components>
+    <component>
+      <name>wink.ui.xy.NewsTicker</name>
+      <description>Create the main dom node, instantiate the 'BreakingNews' and launch the animations</description>
+      <public_methods>
+        <method>
+          <name>addNews</name>
+          <description>add a news to the NewsTicker</description>
+          <parameters>
+            <parameter>
+              <name>type</name>
+              <description>The category of the news (user should implement a CSS class named nt_title_'type')</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+            <parameter>
+              <name>content</name>
+              <description>the content of the news</description>
+              <type>string</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>removeNews</name>
+          <description>removes a news from the NewsTicker</description>
+          <parameters>
+            <parameter>
+              <name>index</name>
+              <description>index of the news in the NewsTicker items list</description>
+              <type>integer</type>
+              <is_optional>0</is_optional>
+            </parameter>
+          </parameters>
+        </method>
+        <method>
+          <name>getNewsList</name>
+          <description>returns the list of items currently in the NewsTicker</description>
+        </method>
+        <method>
+          <name>getDomNode</name>
+          <description>returns the dom node containing the NewsTicker</description>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>uId</name>
+          <description>unique identifier of the component</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>news</name>
+          <description>The news parameter (a type and a content)</description>
+          <type>array</type>
+        </property>
+      </public_properties>
+    </component>
+    <component>
+      <name>wink.ui.xy.NewsTicker.BreakingNews</name>
+      <description>The representation of a news in the NewsTicker. 'breakingnews' should only be instantiated by the newsticker.</description>
+      <public_methods>
+        <method>
+          <name>getDomNode</name>
+          <description>returns the dom node containing the breakingnews</description>
+        </method>
+      </public_methods>
+      <public_properties>
+        <property>
+          <name>uId</name>
+          <description>unique identifier of the component</description>
+          <type>integer</type>
+        </property>
+        <property>
+          <name>type</name>
+          <description>the category of the news</description>
+          <type>string</type>
+        </property>
+        <property>
+          <name>content</name>
+          <description>the content of the news</description>
+          <type>string</type>
+        </property>
+      </public_properties>
+      <events>
+        <event>
+          <name>/breakingnews/events/animationend</name>
+          <description>The event is fired when a news finishes to slide</description>
+          <return>
+            <property>
+              <name>breakingNewsId</name>
+              <description>the uId of the currently moved news</description>
+              <type>integer</type>
+            </property>
+          </return>
+        </event>
+      </events>
+    </component>
+  </components>
+  <styles>
+    <classes>
+      <class>
+        <name>nt_container</name>
+        <description>The main container for the NewsTicker</description>
+      </class>
+      <class>
+        <name>nt_title</name>
+        <description>The container of the news categories</description>
+      </class>
+      <class>
+        <name>nt_news</name>
+        <description>The container of the news content</description>
+      </class>
+    </classes>
+  </styles>
+</module>
