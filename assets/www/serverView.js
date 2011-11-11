@@ -57,7 +57,7 @@ renderDetails = function( currentServer, url ) {
         ajax.open( "GET", url );
     var tmpfunction = function( xhr ) {
         if ( ajax.readyState == 4 && ajax.status == 200 ) {
-            //for ( var i=0; i<5; i++ )
+            for ( var i=0; i<5; i++ )
             jQuery( jQuery.parseXML( ajax.responseText ) ).find( "entry" ).each( function() {
                 var line = jQuery( this ).find( "title" ).text(),
                     buildNameEnd = line.indexOf(" #"),
@@ -66,7 +66,7 @@ renderDetails = function( currentServer, url ) {
                     number = line.slice(buildNameEnd, buildNumberEnd),
                     datetime = jQuery( this ).find( "updated" ).text().replace(/T|Z/g, " ");
                     
-                var statusIcon, serverStatus = title.substr( buildNumberEnd );
+                var statusIcon, serverStatus = line.substr( buildNumberEnd );
                 /* determine icon here */
                 if (serverStatus.indexOf("(stable)") >= 0 || serverStatus.indexOf("normal") >= 0) {
                     statusIcon = "images/icon-stable.png";
@@ -83,6 +83,7 @@ renderDetails = function( currentServer, url ) {
             } );
             
             scrollerHelper2.initializeScollerDetails();
+            jQuery( "div#wrapperDetails" ).hide().slideDown( 1000 );
         }  else if ( ajax.readyState == 4 && ajax.status != 200 ) {
             alert("Url seems to be invalid. Change your settings");
             jQuery( "div#details" ).hide();
@@ -197,6 +198,7 @@ var scrollerHelper =
         var headerHeight = 55;
 		var heightRemains = wink.ux.window.height - headerHeight;
 		$('wrapper').style.height = heightRemains + "px";
+		$('wrapperDetails').style.height = heightRemains + "px";
         var properties = 
         {
         target: "scrollContent",
@@ -212,12 +214,12 @@ var scrollerHelper =
         }
         };
         
-        var scroller = new wink.ui.layout.Scroller(properties);
-        console.log("main",scroller);
+        this.scroller = new wink.ui.layout.Scroller(properties);
+        console.log("main",this.scroller);
     }
     
 };
-var scrollerHelper2 = 
+scrollerHelper2 = 
 {
     nbItem: 140,
     items: [],
@@ -312,7 +314,9 @@ var scrollerHelper2 =
     	window.scrollTo(0,0);
         var headerHeight = 55;
         var heightRemains = wink.ux.window.height - headerHeight;
+        console.log('height details ->', heightRemains);
         $('wrapperDetails').style.height = heightRemains + "px";
+        console.log($('wrapperDetails').style.height);
         var propertiesDetails = 
         {
         target: "scrollDetails",
@@ -328,8 +332,8 @@ var scrollerHelper2 =
         }
         };
         
-        var scrollerDetails = new wink.ui.layout.Scroller(propertiesDetails);
-        console.log("details",scrollerDetails);
+        this.scrollerDetails = new wink.ui.layout.Scroller(propertiesDetails);
+        console.log("details",this.scrollerDetails);
     }
     
 };
@@ -337,23 +341,36 @@ jQuery( document ).ready( function() {
     wink.error.logLevel = 1;
     
     scrollerHelper.buildContent($('scrollContent'));
+//    jQuery( "div#wrapperDetails" ).hide();
 //    var headerHeight = 55;
 //    var heightRemains = window.innerHeight - headerHeight;
 //    $('wrapper').style.height = heightRemains + "px";
-    
+
+
+
+
+
     jQuery( "div#main div.row" ).live('click', function() {
         jQuery( "div#wrapper" ).hide();
+//        scrollerHelper.scroller.destroy();
         var url = jQuery(this).attr( "url" ),
             currentServer = jQuery(this).find( ".row-name" ).text();
         console.log(currentServer, "click");
         jenkins.current = {currentServer: currentServer, url: url};
         renderDetails( currentServer, url );
-        jQuery( "div#wrapperDetails" ).hide().show( 1000 );
+        
+        jQuery( "div#wrapperDetails" ).slideDown( 1000 );
+//        fadeOut('slow', function(){ $('.otherthing').fadeIn('slow'); });
     } );
+    
     jQuery( "input#homeButton" ).click(function() {
     	jQuery( "div#wrapperDetails" ).hide();
+    	console.log('scrollerDetails -> ', scrollerHelper2.scrollerDetails._target );
+    	if ( scrollerHelper2.scrollerDetails._target !== null ) {
+    	   scrollerHelper2.scrollerDetails.destroy();
+    	}
     	jQuery( "div#details" ).children().remove();
-    	jQuery( "div#wrapper" ).hide().show( 1000 );
+    	jQuery( "div#wrapper" ).slideDown( 1000 );
     });
 });
 
