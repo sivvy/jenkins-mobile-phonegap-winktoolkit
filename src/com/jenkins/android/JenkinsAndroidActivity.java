@@ -29,7 +29,7 @@ public class JenkinsAndroidActivity extends DroidGap {
         myWebView.getSettings().setJavaScriptEnabled(true);
         View html = (View)super.appView.getParent();
         myWebView.addView(html);*/
-        super.loadUrl("file:///android_asset/www/index-scroller.html");
+        super.loadUrl("file:///android_asset/www/index.html");
         /*
         title = (TextView) findViewById(R.id.app_title);
         rowDefault = (TableRow) findViewById(R.id.icon_row_default);
