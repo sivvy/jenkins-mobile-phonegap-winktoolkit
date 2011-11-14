@@ -189,9 +189,6 @@ var scrollerHelper =
     buildContent: function(scrollContent) 
     {
         loadURL( 0 );
-//        loadURL( 0 );
-//        loadURL( 0 );
-//        loadURL( 0 );
     },
     initializeScoller: function() {
     	window.scrollTo(0,0);
@@ -341,36 +338,26 @@ jQuery( document ).ready( function() {
     wink.error.logLevel = 1;
     
     scrollerHelper.buildContent($('scrollContent'));
-//    jQuery( "div#wrapperDetails" ).hide();
-//    var headerHeight = 55;
-//    var heightRemains = window.innerHeight - headerHeight;
-//    $('wrapper').style.height = heightRemains + "px";
-
-
-
-
 
     jQuery( "div#main div.row" ).live('click', function() {
         jQuery( "div#wrapper" ).hide();
-//        scrollerHelper.scroller.destroy();
+
         var url = jQuery(this).attr( "url" ),
             currentServer = jQuery(this).find( ".row-name" ).text();
-        console.log(currentServer, "click");
+        
         jenkins.current = {currentServer: currentServer, url: url};
         renderDetails( currentServer, url );
         
-        jQuery( "div#wrapperDetails" ).slideDown( 1000 );
-//        fadeOut('slow', function(){ $('.otherthing').fadeIn('slow'); });
+        jQuery( "div#wrapperDetails" ).slideDown();
     } );
     
     jQuery( "input#homeButton" ).click(function() {
     	jQuery( "div#wrapperDetails" ).hide();
-    	console.log('scrollerDetails -> ', scrollerHelper2.scrollerDetails._target );
     	if ( scrollerHelper2.scrollerDetails._target !== null ) {
     	   scrollerHelper2.scrollerDetails.destroy();
     	}
+    	jQuery( "div#wrapper" ).slideDown();
     	jQuery( "div#details" ).children().remove();
-    	jQuery( "div#wrapper" ).slideDown( 1000 );
     });
 });
 
