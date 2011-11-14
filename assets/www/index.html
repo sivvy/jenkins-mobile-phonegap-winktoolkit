@@ -26,9 +26,34 @@
 </head>
 <body onload="">
 <div id="header" class="w_bg_dark">
-    <span id="title">scroller</span>
+    <span id="title">Servers</span>
     <input id="homeButton" type="button" value="home" class="w_button w_radius w_bg_light w_right" >
 </div>
+<div id="menu" class="w_bg_dark">
+    <div id="default" class="w_layout_box">
+        <div id="homeButton" class="w_menu_item">
+            <img src="images/icon-home-active.png" style="height:50px;width:50px;padding:5px;" />
+        </div>
+        <div id="refreshButton" class="w_menu_item">
+            <img src="images/icon-refresh-active.png" style="height:50px;width:50px;padding:5px;" />
+        </div>
+        <div id="settingsButton" class="w_menu_item">
+            <img src="images/icon-settings-active.png" style="height:50px;width:50px;padding:5px;" />
+        </div>
+        <div id="quitButton" class="w_menu_item">
+            <img src="images/icon-quit-active.png" style="height:50px;width:50px;padding:5px;" />
+        </div>
+    </div>
+    <div id="settings" class="w_layout_box" style="display:none;">
+        <div id="doneButton" class="w_menu_item_settings">
+            <img src="images/icon-home-active.png" style="height:50px;width:50px;padding:5px;" />
+        </div>
+        <div id="addButton" class="w_menu_item_settings">
+            <img src="images/icon-add.png" style="height:50px;width:50px;padding:5px;" />
+        </div>
+    </div>
+</div>
+
 <div id="wrapper" class="wrapper">
     <div id="scrollContent" style="">
         <div id="main" style="">
@@ -39,6 +64,13 @@
 <div id="wrapperDetails" class="wrapper">
    <div id="scrollDetails" style="">
         <div id="details"></div>
+    </div>
+</div>
+
+<div id="settingsDetails" style="display:none;">
+    <div id="title">Servers</div>
+    <div id="description">Please choose which server you want to view</div>
+    <div id="server-list">
     </div>
 </div>
 

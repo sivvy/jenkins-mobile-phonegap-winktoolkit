@@ -86,14 +86,19 @@ renderDetails = function( currentServer, url ) {
             jQuery( "div#wrapperDetails" ).hide().slideDown( 1000 );
         }  else if ( ajax.readyState == 4 && ajax.status != 200 ) {
             alert("Url seems to be invalid. Change your settings");
-            jQuery( "div#details" ).hide();
-            jQuery( "div#main" ).show( 1000 );
+            jQuery( "div#wrapper" ).slideDown( 1000 );
+            return false;
             }
         };
         ajax.onreadystatechange = tmpfunction;
         ajax.send();
 };
-    
+
+var settingsTemplate = '<div class="server-row active" rid="%id%" url="%url%">' + 
+        '<div class="server-name">%name%</div>' +
+        '<input type="button" value="-" class="remove" />' +
+        '</div>';
+
 var scrollerHelper = 
 {
     nbItem: 140,
@@ -195,7 +200,8 @@ var scrollerHelper =
     },
     initializeScoller: function() {
     	window.scrollTo(0,0);
-        var headerHeight = 55;
+//        var headerHeight = 55;
+        var headerHeight = 115;
 		var heightRemains = wink.ux.window.height - headerHeight;
 		$('wrapper').style.height = heightRemains + "px";
 		$('wrapperDetails').style.height = heightRemains + "px";
@@ -312,7 +318,8 @@ scrollerHelper2 =
     },
     initializeScollerDetails: function() {
     	window.scrollTo(0,0);
-        var headerHeight = 55;
+//        var headerHeight = 55;
+        var headerHeight = 115;
         var heightRemains = wink.ux.window.height - headerHeight;
         console.log('height details ->', heightRemains);
         $('wrapperDetails').style.height = heightRemains + "px";
@@ -340,15 +347,8 @@ scrollerHelper2 =
 jQuery( document ).ready( function() {
     wink.error.logLevel = 1;
     
+    jQuery( "div#wrapperDetails" ).hide();
     scrollerHelper.buildContent($('scrollContent'));
-//    jQuery( "div#wrapperDetails" ).hide();
-//    var headerHeight = 55;
-//    var heightRemains = window.innerHeight - headerHeight;
-//    $('wrapper').style.height = heightRemains + "px";
-
-
-
-
 
     jQuery( "div#main div.row" ).live('click', function() {
         jQuery( "div#wrapper" ).hide();
@@ -360,18 +360,67 @@ jQuery( document ).ready( function() {
         renderDetails( currentServer, url );
         
         jQuery( "div#wrapperDetails" ).slideDown( 1000 );
-//        fadeOut('slow', function(){ $('.otherthing').fadeIn('slow'); });
     } );
     
-    jQuery( "input#homeButton" ).click(function() {
+    jQuery( "div#homeButton" ).click(function() {
     	jQuery( "div#wrapperDetails" ).hide();
-    	console.log('scrollerDetails -> ', scrollerHelper2.scrollerDetails._target );
-    	if ( scrollerHelper2.scrollerDetails._target !== null ) {
+    	if ( scrollerHelper2.scrollerDetails && scrollerHelper2.scrollerDetails._target !== null ) {
     	   scrollerHelper2.scrollerDetails.destroy();
     	}
     	jQuery( "div#details" ).children().remove();
     	jQuery( "div#wrapper" ).slideDown( 1000 );
     });
+    
+    jQuery( "div#refreshButton" ).click( function() {
+    	var serverList = jQuery( "div#main:visible" );
+         if ( serverList.length > 0 ) {
+            serverList.hide();
+            serverList.children().remove();
+            i = 0;
+            loadURL( i );
+            serverList.slideDown( 1000 );
+         } else {
+            jQuery( "div#details" ).hide();
+            jQuery( "div#details" ).children().remove();
+            renderDetails( jenkins.current.currentServer, jenkins.current.url );
+            jQuery( "div#details" ).slideDown( 1000 );
+         }
+    } );
+    
+    
+    jQuery( "div#settingsButton" ).click( function() {
+    	jQuery( "div#header #title" ).text( "Settings" );
+    	jQuery( "div#menu div#default" ).hide();
+    	jQuery( "div#wrapper" ).hide();
+    	jQuery( "div#wrapperDetails" ).hide();
+    	jQuery( "div#menu div#settings" ).show();
+    	jQuery( "div#settingsDetails" ).show();
+    	var config = jenkins.Config.config;
+        for ( var i in config ) {
+            var tmp = settingsTemplate.replace( "%name%", config[i].title )
+                                        .replace( "%url%", config[i].url )
+                                        .replace( "%id%", config[i].id );
+            if ( config[i].visible === false ) {
+                tmp = tmp.replace( "active", "" );
+            }
+            jQuery( "div#server-list" ).append( tmp );
+        }
+    	
+    } );
+    
+    jQuery( "div#doneButton" ).click( function() {
+    	jQuery( "div#header #title" ).text( "Servers" );
+    	jQuery( "div#menu div#settings" ).hide();
+        jQuery( "div#settingsDetails" ).hide();
+        jQuery( "div#server-list" ).children().remove();
+        jQuery( "div#menu div#default" ).show();
+        jQuery( "div#wrapper" ).show();
+        jQuery( "div#refreshButton" ).click();
+    } );
+    
+     jQuery( "div#quitButton" ).click( function() {
+        navigator.app.exitApp();
+    } );
 });
 
 })();

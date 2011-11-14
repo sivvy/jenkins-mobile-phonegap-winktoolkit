@@ -8,13 +8,27 @@ html, body {
     -moz-box-shadow: -5px 3px 5px rgba(0, 0, 0, 0.7);
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
-    margin-bottom: 10px;
+    /*margin-bottom: 10px;*/
     height: 45px;
     line-height: 45px;
     padding: 0 10px;
     font-size: 24px;
     text-align: center;
 }
+
+#menu {
+    -webkit-box-shadow: -5px 3px 5px rgba(0, 0, 0, 0.7);
+    -moz-box-shadow: -5px 3px 5px rgba(0, 0, 0, 0.7);
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    margin-bottom: 10px;
+    height: 60px;
+    line-height: 45px;
+    padding: 0 10px;
+    font-size: 24px;
+    text-align: center;
+}
+
 
 .w_bg_light:active {
     background-image: -webkit-gradient(linear, left top, left bottom, from(#a1a1a1), to(#f8f8f8));
@@ -111,3 +125,66 @@ color: #DEDEDE;
     width: 100%;
     overflow: hidden;
 }
+
+.w_layout_box {
+display: -webkit-box;
+display: -moz-box;
+width: 100%;
+}
+
+.w_menu_item {
+text-align: center;
+width: 25%;
+-webkit-box-flex: 0;
+}
+
+.w_menu_item_settings {
+text-align: center;
+width: 50%;
+-webkit-box-flex: 0;    
+}
+
+#server-list {
+    margin-top: 20px;
+}
+.server-row {
+    background-color: #fff;
+    clear: both;
+    height: 70px;
+    margin-top: 5px;
+    -webkit-box-shadow: -5px 3px 5px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: -5px 3px 5px rgba(0, 0, 0, 0.5);
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    padding: 0 10px;
+    font-size: 20px;
+}
+#server-list .active {
+    background-color: #0C67D1;
+}
+
+.server-name {
+    float: left;
+    font-size: 25px;
+    padding: 20px 10px;
+}
+
+input.remove {
+    float: right;
+    height: 30px;
+    margin: 20px 10px;
+    width: 30px;
+}
+
+#settingsDetails {
+    padding: 20px;
+}
+
+#title {
+    font-size: 20px;
+}
+
+#description {
+    font-size: 16px;
+}
+
