@@ -2,6 +2,7 @@ html, body {
     padding: 0;
     margin: 0;
     font-family: Helvetica, Arial, sans-serif;
+    background-color: #505050;
 }
 #header {
     -webkit-box-shadow: -5px 3px 5px rgba(0, 0, 0, 0.7);
@@ -13,6 +14,7 @@ html, body {
     line-height: 45px;
     padding: 0 10px;
     font-size: 24px;
+    font-weight: bold;
     text-align: center;
 }
 
@@ -34,8 +36,22 @@ html, body {
     background-image: -webkit-gradient(linear, left top, left bottom, from(#a1a1a1), to(#f8f8f8));
     background-image: -moz-linear-gradient(top, #a1a1a1, #f8f8f8);
 }
+
 .w_button {
-position: absolute;
+    position: absolute;
+    border-width: 1px;
+    border-style: solid;
+    overflow: hidden;
+    padding: 0 15px;
+    font-size: 14px;
+    font-weight: bold;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-align: center;
+    height: 40px;
+    line-height: 40px;
+    
+/*position: absolute;
 height: 33px;
 top: 6px;
 left: auto;
@@ -57,7 +73,12 @@ border-radius: 5px;
 -webkit-user-select: text;
 font: -webkit-small-control;
 -webkit-box-align: center;
--webkit-appearance: push-button;
+-webkit-appearance: push-button;*/
+}
+
+.w_right {
+    left: auto;
+    right: 10px;
 }
 
 .w_bg_light {
@@ -74,8 +95,22 @@ background-image: -moz-linear-gradient(top, #4d525a, #17191f, #151515 50%);
 color: #DEDEDE;
 }
 
+#main {
+    padding: 10px;
+}
+#main .row {
+background-color: #B0B0B0;
+}
 #main .row {
     height: 70px;
+    clear: both;
+    margin-top: 5px;
+    -webkit-box-shadow: -5px 3px 5px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: -5px 3px 5px rgba(0, 0, 0, 0.5);
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    padding: 0 10px;
+    font-size: 20px;
 }
 #main .row-image {
     float: left;
@@ -90,8 +125,22 @@ color: #DEDEDE;
     white-space: nowrap;
 }
 
+#details {
+    padding: 10px;
+}
+#details .row {
+    background-color: #B0B0B0;
+}
 #details .row {
     height: 70px;
+    clear: both;
+    margin-top: 5px;
+    -webkit-box-shadow: -5px 3px 5px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: -5px 3px 5px rgba(0, 0, 0, 0.5);
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    padding: 0 10px;
+    font-size: 20px;
 }
 #details .row-image {
     float: left;
@@ -145,10 +194,10 @@ width: 50%;
 }
 
 #server-list {
-    margin-top: 20px;
+    padding: 10px;
 }
 .server-row {
-    background-color: #fff;
+    background-color: #808080;
     clear: both;
     height: 70px;
     margin-top: 5px;
@@ -160,7 +209,7 @@ width: 50%;
     font-size: 20px;
 }
 #server-list .active {
-    background-color: #0C67D1;
+    background-color: #FEFEFE;
 }
 
 .server-name {
@@ -169,15 +218,13 @@ width: 50%;
     padding: 20px 10px;
 }
 
-input.remove {
+span.remove {
     float: right;
     height: 30px;
     margin: 20px 10px;
     width: 30px;
-}
-
-#settingsDetails {
-    padding: 20px;
+    -webkit-box-shadow: -2px 2px 2px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: -2px 2px 2px rgba(0, 0, 0, 0.3);
 }
 
 #title {
@@ -187,4 +234,67 @@ input.remove {
 #description {
     font-size: 16px;
 }
+
+
+.w_radius {
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+}
+
+input.input-box {
+    color: #336699;
+    height: 60px;
+    width: 90%;
+    margin: 5px 0;
+    padding: 5px;
+    font-size: 14px;
+}
+
+#settingDescription {
+    padding: 5px 0 5px 10px;
+    height : 60px;
+    margin-top: -10px;
+    -webkit-box-shadow: -5px 3px 5px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: -5px 3px 5px rgba(0, 0, 0, 0.5);
+}
+
+.pp_popup 
+{
+    position: absolute;
+    z-index: 999;   
+    left: 1%;
+    right:1%;
+    top: 1%;
+    height: auto;
+    
+    overflow: auto;
+    
+    padding: 0.4em;
+}
+
+.pp_popup .w_bloc
+{
+    font-size: 18px;
+}
+
+.pp_type_alert, .pp_type_confirm, .pp_type_alert .w_bloc, .pp_type_confirm .w_bloc
+{
+    font-weight: bold;
+    text-align: center;
+}
+
+.pp_hidden 
+{
+    visibility: hidden;
+}
+            
+.pp_popup .w_button 
+{
+    display: inline-block;
+    width: 5.7em;
+    margin: 0 0.69em;
+    position: relative;
+}
+
 

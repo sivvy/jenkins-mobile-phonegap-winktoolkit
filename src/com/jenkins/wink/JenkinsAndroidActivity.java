@@ -1,4 +1,4 @@
-package com.jenkins.android;
+package com.jenkins.wink;
 
 import android.os.Bundle;
 import android.view.View;
