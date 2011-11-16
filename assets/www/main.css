@@ -197,7 +197,7 @@ width: 50%;
     padding: 10px;
 }
 .server-row {
-    background-color: #808080;
+    background-color: #606060;
     clear: both;
     height: 70px;
     margin-top: 5px;
@@ -209,7 +209,7 @@ width: 50%;
     font-size: 20px;
 }
 #server-list .active {
-    background-color: #FEFEFE;
+    background-color: #C0C0C0;
 }
 
 .server-name {

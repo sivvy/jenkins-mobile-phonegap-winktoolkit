@@ -18,7 +18,6 @@
 <body onload="">
 <div id="header" class="w_bg_dark">
     <span id="title">Servers</span>
-    <input id="homeButton" type="button" value="home" class="w_button w_radius w_bg_light w_right" >
 </div>
 <div id="menu" class="w_bg_dark">
     <div id="default" class="w_layout_box">
@@ -44,6 +43,10 @@
         </div>
     </div>
 </div>
+<div id="settingDescription" style="display:none;" class="w_bg_light">
+    <div id="title">Servers</div>
+    <div id="description">Please choose which server you want to view</div>
+</div>
 
 <div id="wrapper" class="wrapper">
     <div id="scrollContent" style="">
@@ -52,16 +55,19 @@
     </div>
     
 </div>
-<div id="wrapperDetails" class="wrapper">
+<div id="wrapperDetails" class="wrapper" style="display:none;">
    <div id="scrollDetails" style="">
         <div id="details"></div>
     </div>
 </div>
 
-<div id="settingsDetails" style="display:none;">
-    <div id="title">Servers</div>
-    <div id="description">Please choose which server you want to view</div>
-    <div id="server-list">
+<div id="settingsDetails" class="wrapper" style="display:none;">
+        <!-- <div id="wrapperSettingTitle" style="display:none;height:40px">
+            <div id="title">Servers</div>
+            <div id="description">Please choose which server you want to view</div>
+        </div> -->
+    <div id="scrollSettings" style="">
+        <div id="server-list"></div>
     </div>
 </div>
 

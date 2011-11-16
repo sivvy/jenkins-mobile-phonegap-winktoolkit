@@ -566,7 +566,7 @@ jQuery( document ).ready( function() {
     	
     } );
     
-    jQuery( "div#server-list input.remove" ).live('click', function() {
+    jQuery( "div#server-list span.remove" ).live('click', function() {
         jQuery(this).parent().hide( 500 ).remove();
         jenkins.Config.remove( jQuery(this).parent().attr( "rid" ) );
         jenkins.Config.save();
