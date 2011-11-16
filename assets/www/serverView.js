@@ -553,6 +553,10 @@ jQuery( document ).ready( function() {
     	jQuery( "div#header div#default" ).hide();
     	jQuery( "div#wrapper" ).hide();
     	jQuery( "div#wrapperDetails" ).hide();
+    	if ( scrollerHelper2.scrollerDetails && scrollerHelper2.scrollerDetails._target !== null ) {
+                console.log('destroy helper 2');
+               scrollerHelper2.scrollerDetails.destroy();
+            }
     	jQuery( "div#header div#settings" ).show();
     	jQuery( "div#settingDescription" ).show();
     	jQuery( "div#settingsDetails" ).show();
