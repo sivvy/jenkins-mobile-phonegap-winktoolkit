@@ -1,0 +1,44 @@
+body {
+    background-color: #505050;
+}
+
+/*header & popup*/
+.w_bg_dark {
+    background-color: black;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#4d525a), to(#17191f), color-stop(25%, #151515));
+    background-image: -moz-linear-gradient(top, #4d525a, #17191f, #151515 50%);
+    color: #DEDEDE;
+}
+
+/*settingsDecription & popup buttons & settings remove button (bg)*/
+.w_bg_light {
+background-color: #F8F8F8;
+background-image: -webkit-gradient(linear, left top, left bottom, from(#f8f8f8), to(#a1a1a1));
+background-image: -moz-linear-gradient(top, #f8f8f8, #a1a1a1);
+color: #2F2F2F;
+}
+
+.w_bg_light:active {
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#a1a1a1), to(#f8f8f8));
+    background-image: -moz-linear-gradient(top, #a1a1a1, #f8f8f8);
+}
+
+#main .row {
+    background-color: #B0B0B0;
+    color: #000
+}
+
+#details .row {
+    background-color: #B0B0B0;
+    color: #000
+}
+
+.server-row {
+    background-color: #606060;
+    color: #999;
+}
+
+#server-list .active {
+    background-color: #B0B0B0;
+    color: #000;
+}

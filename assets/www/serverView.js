@@ -6,7 +6,7 @@ var serverTemplate = '<div class="row" url="%url%">' +
 var loadURL = function( i ) {
     config = jenkins.Config.configArray;
     if ( !config[i] ) {
-    	if ( !scrollerHelper.scroller )
+//    	if ( !scrollerHelper.scroller )
     	   scrollerHelper.initializeScoller();
         return false;
     }
@@ -83,7 +83,7 @@ renderDetails = function( currentServer, url ) {
                 jQuery( "div#details" ).append( tmp );
             } );
             
-            if ( !scrollerHelper2.scrollerDetails || scrollerHelper2.scrollerDetails._target === null )
+//            if ( !scrollerHelper2.scrollerDetails || scrollerHelper2.scrollerDetails._target === null )
                 scrollerHelper2.initializeScollerDetails();
 //            jQuery( "div#wrapperDetails" ).hide().slideDown();
         }  else if ( ajax.readyState == 4 && ajax.status != 200 ) {
@@ -200,7 +200,7 @@ var scrollerHelper =
     initializeScoller: function() {
     	window.scrollTo(0,0);
 //        var headerHeight = 55;
-        var headerHeight = 115;
+        var headerHeight = 70;
 		var heightRemains = wink.ux.window.height - headerHeight;
 		$('wrapper').style.height = heightRemains + "px";
 //		$('wrapperDetails').style.height = heightRemains + "px";
@@ -318,7 +318,7 @@ scrollerHelper2 =
     initializeScollerDetails: function() {
     	window.scrollTo(0,0);
 //        var headerHeight = 55;
-        var headerHeight = 115;
+        var headerHeight = 70;
         var heightRemains = wink.ux.window.height - headerHeight;
         console.log('height details ->', heightRemains);
         $('wrapperDetails').style.height = heightRemains + "px";
@@ -438,7 +438,7 @@ scrollerHelper3 =
     initializeScollerSettings: function() {
         window.scrollTo(0,0);
 //        var headerHeight = 55;
-        var headerHeight = 175;
+        var headerHeight = 140;
         var heightRemains = wink.ux.window.height - headerHeight;
         console.log('height details ->', heightRemains);
         $('settingsDetails').style.height = heightRemains + "px";
@@ -501,7 +501,8 @@ jQuery( document ).ready( function() {
 
     jQuery( "div#main div.row" ).live('click', function() {
         jQuery( "div#wrapper" ).hide();
-
+         jQuery( "div#details" ).children().remove();
+         jQuery( "div#wrapperDetails" ).show();
         var url = jQuery(this).attr( "url" ),
             currentServer = jQuery(this).find( ".row-name" ).text();
         
@@ -525,9 +526,13 @@ jQuery( document ).ready( function() {
     jQuery( "div#refreshButton" ).click( function() {
     	var serverList = jQuery( "div#main:visible" );
          if ( serverList.length > 0 ) {
-            serverList.hide();
+//            serverList.hide();
             serverList.children().remove();
             i = 0;
+            if ( scrollerHelper.scroller && scrollerHelper.scroller._target !== null ) {
+            	console.log('destroy helper 1');
+            	scrollerHelper.scroller.destroy();
+            }
             loadURL( i );
             serverList.slideDown( 1000 );
          } else {
@@ -545,10 +550,10 @@ jQuery( document ).ready( function() {
     
     jQuery( "div#settingsButton" ).click( function() {
     	jQuery( "div#header #title" ).text( "Settings" );
-    	jQuery( "div#menu div#default" ).hide();
+    	jQuery( "div#header div#default" ).hide();
     	jQuery( "div#wrapper" ).hide();
     	jQuery( "div#wrapperDetails" ).hide();
-    	jQuery( "div#menu div#settings" ).show();
+    	jQuery( "div#header div#settings" ).show();
     	jQuery( "div#settingDescription" ).show();
     	jQuery( "div#settingsDetails" ).show();
     	var config = jenkins.Config.config;
@@ -587,11 +592,15 @@ jQuery( document ).ready( function() {
     
     jQuery( "div#doneButton" ).click( function() {
     	jQuery( "div#header #title" ).text( "Servers" );
-    	jQuery( "div#menu div#settings" ).hide();
+    	jQuery( "div#header div#settings" ).hide();
         jQuery( "div#settingDescription" ).hide();
         jQuery( "div#settingsDetails" ).hide();
         jQuery( "div#server-list" ).children().remove();
-        jQuery( "div#menu div#default" ).show();
+        if ( scrollerHelper3.scrollerSettings && scrollerHelper3.scrollerSettings._target !== null ) {
+            console.log('destroy helper 3');
+           scrollerHelper3.scrollerSettings.destroy();
+        }
+        jQuery( "div#header div#default" ).show();
         jQuery( "div#wrapper" ).show();
         jQuery( "div#refreshButton" ).click();
     } );

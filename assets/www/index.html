@@ -2,6 +2,7 @@
 <head>
 <meta name="viewport" content="target-densitydpi=high-dpi, user-scalable=no">
 <link rel="stylesheet" href="main.css" type="text/css" >
+<link rel="stylesheet" href="themes/theme-dark.css" type="text/css" >
 
 <script type="text/javascript" src="js/wink-1.4.0-core-default.min.js"></script>
 <script type="text/javascript" src="js/wink-1.4.0-all-default.min.js"></script>
@@ -18,31 +19,30 @@
 <body onload="">
 <div id="header" class="w_bg_dark">
     <span id="title">Servers</span>
-</div>
-<div id="menu" class="w_bg_dark">
     <div id="default" class="w_layout_box">
         <div id="homeButton" class="w_menu_item">
-            <img src="images/icon-home-active.png" style="height:50px;width:50px;padding:5px;" />
+            <img src="images/icon-home-active.png" />
         </div>
         <div id="refreshButton" class="w_menu_item">
-            <img src="images/icon-refresh-active.png" style="height:50px;width:50px;padding:5px;" />
+            <img src="images/icon-refresh-active.png" />
         </div>
         <div id="settingsButton" class="w_menu_item">
-            <img src="images/icon-settings-active.png" style="height:50px;width:50px;padding:5px;" />
+            <img src="images/icon-settings-active.png" />
         </div>
         <div id="quitButton" class="w_menu_item">
-            <img src="images/icon-quit-active.png" style="height:50px;width:50px;padding:5px;" />
+            <img src="images/icon-quit-active.png" />
         </div>
     </div>
-    <div id="settings" class="w_layout_box" style="display:none;">
+    <div id="settings" class="w_layout_box_settings" style="display:none;">
         <div id="doneButton" class="w_menu_item_settings">
-            <img src="images/icon-home-active.png" style="height:50px;width:50px;padding:5px;" />
+            <img src="images/icon-home-active.png" />
         </div>
         <div id="addButton" class="w_menu_item_settings">
-            <img src="images/icon-add.png" style="height:50px;width:50px;padding:5px;" />
+            <img src="images/icon-add-big.png" />
         </div>
     </div>
 </div>
+
 <div id="settingDescription" style="display:none;" class="w_bg_light">
     <div id="title">Servers</div>
     <div id="description">Please choose which server you want to view</div>
@@ -62,10 +62,6 @@
 </div>
 
 <div id="settingsDetails" class="wrapper" style="display:none;">
-        <!-- <div id="wrapperSettingTitle" style="display:none;height:40px">
-            <div id="title">Servers</div>
-            <div id="description">Please choose which server you want to view</div>
-        </div> -->
     <div id="scrollSettings" style="">
         <div id="server-list"></div>
     </div>
