@@ -6,39 +6,29 @@ var jenkins = {};
 (function() {
 	//Default config
 	var Configuration = {
-		"Jenkins-Cot" : {
-			"title": "Jenkins-Cot",
-			"url" : "http://lcalink.dyndns.org/jenkins-cot/job/COT/rssAll",
+		"Offical Jenkins All" : {
+			"title": "jenkins-all",
+			"url" : "http://ci.jenkins-ci.org/rssAll",
 			"visible":true
 		},
-		"Jenkins-Dashboards" : {
-			"title": "Jenkins Dashboards",
-			"url" : "http://lcalink.dyndns.org/jenkins-cot/job/LUCIA_BI_dashboards/rssAll",
+		"Offical Jenkins Unstable" : {
+			"title": "jenkins-unstable",
+			"url" : "http://ci.jenkins-ci.org/view/All%20Unstable/rssAll",
 			"visible":true
 		},
-		"Melinda" : {
-			"title": "Melinda",
-			"url" : "http://melinda.lcalink.com:8080/rssLatest",
+		"Offical Jenkins Site" : {
+			"title": "jenkins-site",
+			"url" : "http://ci.jenkins-ci.org/view/All%20Site/rssAll",
 			"visible":true
 		},
-		"Lobster" : {
-			"title": "Lobster",
-			"url" : "http://lobster.lcalink.com:8080/rssLatest",
+		"Offical Jenkins Core" : {
+			"title": "jenkins-core",
+			"url" : "http://ci.jenkins-ci.org/view/Jenkins%20core/rssAll",
 			"visible":true
 		},
-		"error" : {
-			"title": "error",
-			"url" : "http://lcalink.dyndns.org/jenkins-cot/job/LUCIA_BI_dashboards/rssAll1111111111111111111111111111111",
-			"visible":true
-		},
-		"Emiko" : {
-			"title": "Emiko",
-			"url" : "http://emiko.lcalink.com:8080/rssLatest",
-			"visible":true
-		},
-		"Kaoru" : {
-			"title": "Kaoru",
-			"url" : "http://kaoru.lcalink.com:8080/rssLatest",
+		"Offical Jenkins Library" : {
+			"title": "jenkins-library",
+			"url" : "http://ci.jenkins-ci.org/view/Libraries/rssAll",
 			"visible":true
 		}
 	};
@@ -48,7 +38,6 @@ var jenkins = {};
         	this.configArray = [];
         	jQuery.extend( this.config, Configuration );
         	this.configArray = this.generateArray();
-        	console.log('this config:', this.config);
         };
         Config.prototype.generateArray = function() {
         	var local = jQuery.parseJSON( window.localStorage.getItem( "config" ) ),
@@ -83,4 +72,5 @@ var jenkins = {};
         
     c = new Config();
 	jenkins.Config = c;
+	jenkins.serverChanged = false;
 })();

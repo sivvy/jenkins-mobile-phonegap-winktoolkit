@@ -4,48 +4,38 @@
 <link rel="stylesheet" href="main.css" type="text/css" >
 <link rel="stylesheet" href="themes/theme-dark.css" type="text/css" >
 
-<script type="text/javascript" src="js/wink-1.4.0-core-default.min.js"></script>
-<script type="text/javascript" src="js/wink-1.4.0-all-default.min.js"></script>
+<script type="text/javascript" src="libs/js/wink-1.4.0-core-default.min.js"></script>
+<script type="text/javascript" src="libs/js/wink-1.4.0-all-default.min.js"></script>
 
-<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="libs/js/jquery.js"></script>
 <script type="text/javascript" src="config/config.js"></script>
 
-<script type="text/javascript" src="jquery-json.js"></script>
-<script type="text/javascript" src="jquery.mousehold.js"></script>
-<script type="text/javascript" src="phonegap.js"></script>
+<script type="text/javascript" src="libs/js/jquery-json.js"></script>
+<script type="text/javascript" src="libs/js/jquery.mousehold.js"></script>
+<script type="text/javascript" src="libs/js/phonegap.js"></script>
 
 <script type="text/javascript" src="serverView.js"></script>
+<script type="text/javascript" src="detailView.js"></script>
+<script type="text/javascript" src="settingView.js"></script>
+<script type="text/javascript" src="index.js"></script>
 </head>
-<body onload="">
+<body onload="init()">
 <div id="header" class="w_bg_dark">
-    <span id="title">Servers</span>
-    <div id="default" class="w_layout_box">
+    <div id="title" >
         <div id="homeButton" class="w_menu_item">
-            <img src="images/icon-home-active.png" />
+        </div>
+        <div class="text">Servers</div>
+    </div>
+    <div id="default" class="w_layout_box">
+        <div id="settingsButton" class="w_menu_item">
         </div>
         <div id="refreshButton" class="w_menu_item">
-            <img src="images/icon-refresh-active.png" />
-        </div>
-        <div id="settingsButton" class="w_menu_item">
-            <img src="images/icon-settings-active.png" />
-        </div>
-        <div id="quitButton" class="w_menu_item">
-            <img src="images/icon-quit-active.png" />
         </div>
     </div>
     <div id="settings" class="w_layout_box_settings" style="display:none;">
-        <div id="doneButton" class="w_menu_item_settings">
-            <img src="images/icon-home-active.png" />
-        </div>
         <div id="addButton" class="w_menu_item_settings">
-            <img src="images/icon-add-big.png" />
         </div>
     </div>
-</div>
-
-<div id="settingDescription" style="display:none;" class="w_bg_light">
-    <div id="title">Servers</div>
-    <div id="description">Please choose which server you want to view</div>
 </div>
 
 <div id="wrapper" class="wrapper">
@@ -53,8 +43,8 @@
         <div id="main" style="">
         </div>
     </div>
-    
 </div>
+
 <div id="wrapperDetails" class="wrapper" style="display:none;">
    <div id="scrollDetails" style="">
         <div id="details"></div>

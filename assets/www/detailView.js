@@ -1,53 +1,54 @@
 (function() {
-var serverTemplate = '<div class="row" url="%url%" id="%rowid%">' +
-        '<div class="row-image"><img src="%status%"/></div>' +
-        '<div class="row-name">%name%</div>' +
-    '</div>';
-var loadURL = function( i ) {
-    var config = jenkins.Config.configArray;
-    if ( !config[i] ) {
-    	serverHelper.initializeScoller();
-        return false;
-    }
-    if ( config[i].visible === false ) {
-        loadURL( ++i );
-        return false;
-    }
+var detailsTemplate = '<div class="row">' +
+	'<div class="row-image"><img src="%status%"/></div>' +
+	'<div class="row-name">%name%</div>' +
+	'<div class="row-number">%number%</div>' +
+	'<div class="row-datetime"><img src="images/icon-time.png"/><span>%datetime%</span></div>' +
+'</div>';
+
+renderDetails = function( currentServer, url ) {
     var ajax = new XMLHttpRequest(),
     	tmpfunction = function( xhr ) {
-	        var statusIcon = "images/icon-server-error.png";
-	        if ( ajax.readyState === 4 && ajax.status === 200 ) {
-	            statusIcon = "images/icon-server-stable.png";
-	            jQuery( jQuery.parseXML( ajax.responseText ) ).find( "entry" ).each( function() {
-	                var title = jQuery( this ).find( "title" ).text(),
-	                dateTime = jQuery( this ).find( "updated" ).text(),
-	                buildNumberEnd = title.indexOf( "(" );
-	                var serverStatus = title.substr( buildNumberEnd );
-	                if ( serverStatus.indexOf( "(stable)" ) < 0 && serverStatus.indexOf( "normal" ) < 0 && serverStatus.indexOf( "?" ) < 0 ) {
-	                    statusIcon = "images/icon-server-fail.png";
-	                }
-	            } );
-	            var tmp = serverTemplate.replace( "%status%", statusIcon );
-	            tmp = tmp.replace( "%rowid%", "row" + i );
-	            tmp = tmp.replace( "%url%", config[i].url );
-	            tmp = tmp.replace( "%name%", config[i].title );
-	            jQuery( "#main" ).append( tmp );
-	            loadURL( ++i );
-	        }  else if ( ajax.readyState == 4 && ajax.status != 200 ) {
-	            var tmp = serverTemplate.replace( "%status%", statusIcon );
-	            tmp = tmp.replace( "%rowid%", "row" + i );
-	            tmp = tmp.replace( "%url%", config[i].url );
-	            tmp = tmp.replace( "%name%", config[i].title + "~" + ajax.status + "~"  + ajax.readyState );
-	            jQuery( "#main" ).append( tmp );
-	            loadURL( ++i );
-	        }
-	    };
-    ajax.onreadystatechange = tmpfunction;
-    ajax.open( "GET", config[i].url );
-    ajax.send();
+        if ( ajax.readyState === 4 && ajax.status === 200 ) {
+            //for ( var i = 0; i < 5; i++ )
+            jQuery( jQuery.parseXML( ajax.responseText ) ).find( "entry" ).each( function() {
+                var line = jQuery( this ).find( "title" ).text(),
+                    buildNameEnd = line.indexOf(" #"),
+                    buildNumberEnd = line.indexOf( "(" ),
+                    title = line.slice(0, buildNameEnd),
+                    number = line.slice(buildNameEnd, buildNumberEnd),
+                    datetime = jQuery( this ).find( "updated" ).text().replace(/T|Z/g, " ");
+                    
+                var statusIcon, serverStatus = line.substr( buildNumberEnd );
+                /* determine icon here */
+                if (serverStatus.indexOf("(stable)") >= 0 || serverStatus.indexOf("normal") >= 0) {
+                    statusIcon = "images/icon-stable.png";
+                } else if (serverStatus.indexOf("?") >= 0) {
+                    statusIcon = "images/icon-building.png";
+                } else{
+                    statusIcon = "images/icon-fail.png";
+                };
+                var tmp = detailsTemplate.replace( "%status%", statusIcon )
+                                         .replace( "%name%", title )
+                                         .replace( "%number%", number )
+                                         .replace( "%datetime%", datetime );
+                jQuery( "div#details" ).append( tmp );
+            } );
+            
+            detailHelper.initializeScollerDetails();
+            jQuery( "div#wrapperDetails" ).hide().slideDown();
+        } else if ( ajax.readyState == 4 && ajax.status != 200 ) {
+            alert("Url seems to be invalid. Change your settings");
+            jQuery( "div#wrapper" ).slideDown();
+            return false;
+            }
+        };
+        ajax.onreadystatechange = tmpfunction;
+        ajax.open( "GET", url );
+        ajax.send();
 };
 
-var serverHelper = {
+var detailHelper = {
     nbItem: 140,
     items: [],
     scrolling: false,
@@ -56,8 +57,6 @@ var serverHelper = {
     selectTimer: null,
     nodePreselected: null,
     nodeSelected: null,
-    highlightFlag: false,
-    callback: null,
 
     preselect: function(node) {
         clearTimeout( this.selectTimer );
@@ -78,15 +77,6 @@ var serverHelper = {
         this.resetItemStatus();
         wink.addClass( node, "selected" );
         this.nodeSelected = node;
-        if ( this.callback ) {
-        	this.callback(node);
-        }
-    },
-    highlight: function( node ) {
-    	jQuery(node).parents( ".row" ).addClass( "active" );
-    },
-    unHighlight: function( node ) {
-    	jQuery(node).parents( ".row" ).removeClass( "active" );
     },
     resetItemStatus: function() {
         if ( this.nodePreselected != null ) {
@@ -101,16 +91,10 @@ var serverHelper = {
     },
     stageChanged: function( params, stage ) {
         this.currentStage = stage;
+
         if ( wink.isSet( params.uxEvent ) ) {
             var target = params.uxEvent.target;
             var target = ( target.nodeType == 3 ? target.parentNode : target );
-        }
-        if ( this.highlightFlag === false && this.scrolling === false && this.sliding === false ) {
-        	this.highlight( target );
-        	this.highlightFlag = true;
-        } else {
-        	this.unHighlight( target );
-        	this.highlightFlag = false;
         }
         
         if ( stage === "scrollerTouched" ) {
@@ -135,18 +119,18 @@ var serverHelper = {
             this.select( target );
         }
     },
-    initializeHeight: function() {
+    initializeHeight : function() {
     	window.scrollTo( 0, 0 );
         var headerHeight = 70;
-		var heightRemains = wink.ux.window.height - headerHeight;
-        jQuery( "div#wrapper" ).show().css( "height", heightRemains + "px");
+        var heightRemains = wink.ux.window.height - headerHeight;
+        jQuery( "div#wrapperDetails" ).show().css( "height", heightRemains + "px");
     },
-    initializeScoller: function() {
-    	if ( this.scroller && this.scroller._target !== null ) {
-        	this.scroller.destroy();
+    initializeScollerDetails: function() {
+    	if ( this.scrollerDetails && this.scrollerDetails._target !== null ) {
+           this.scrollerDetails.destroy();
         }
-        var properties = {
-	        target: "scrollContent",
+        var propertiesDetails = {
+	        target: "scrollDetails",
 	        direction: "y",
 	        callbacks: {
 	            scrollerTouched:    { context: this, method: "stageChanged", arguments: "scrollerTouched" },
@@ -159,13 +143,13 @@ var serverHelper = {
 	        }
         };
         
-        this.scroller = new wink.ui.layout.Scroller(properties);
+        this.scrollerDetails = new wink.ui.layout.Scroller(propertiesDetails);
     },
-    buildContent: function( scrollContent ) {
-        loadURL( 0 );
+    buildContent : function( current ) {
+    	renderDetails( current.currentServer, current.url );
     }
 };
 
-jenkins.serverHelper = serverHelper;
+jenkins.detailHelper = detailHelper;
 })();
         
