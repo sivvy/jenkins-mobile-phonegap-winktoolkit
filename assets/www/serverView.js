@@ -167,5 +167,6 @@ var serverHelper = {
 };
 
 jenkins.serverHelper = serverHelper;
+
 })();
         
